@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="inscription.css">
+    <link rel="stylesheet" type="text/css" href="v2.css">
+    <title>Tasty Country</title>
+</head>
+<body>
+    <div class="header">
+        <h1>Tasty Country ✈️</h1>
+
+        <ol>
+            <li><a href="Accueil.css">Accueil</a></li>
+            <li><a href="menu.html">Menu</a></li>
+            <li><a href="rejoindre.html">Nous rejoindre</a></li>
+            <li><a href="resto.html">Trouver un restaurant</a></li>
+            <li><a href="se connecter.html">Se connecter</a></li>
+        </ol>
+    </div>
+    <fieldset>
+        <legend>
+            Inscription
+        </legend>
+        <form action="page1.php" method="POST">
+            Nom : <input type="text" name="Nom" maxlength="50" required/>
+            <br />
+            Prénom : <input type="text" name="Prénom" maxlength="50" required/>
+            <br />
+            E-mail : <input type="email" name="Email" required/>
+            <br />
+            Adresse : <input type="text" name="Adresse" required/>
+            <br />
+            Numéro de téléphone : <input type="tel" name="Numéro" required/>
+            <br />
+            Date de naissance : <input type="date" required/>
+            <br />
+            Genre : <select name="genre" required>
+                        <option value="Homme">Homme</option>
+                        <option value="Femme">Femme</option>
+                        <option value="Je ne veux pas me positionner">Je ne veux pas me positionner</option>
+                    </select>
+            <br />
+            Mot de passe : <input type="password" required/>
+            <br />
+            <input type="submit" value="Envoyer"/>
+            <br />
+            <input type="reset" value="Réinitialiser"/>
+        </form>
+    </fieldset>
+</body>
+</html>

@@ -1,0 +1,50 @@
+fieldset{
+    background: #1D3557 0%;
+    color:white;
+}
+
+legend{
+    text-align:center
+}
+
+input[type="submit"]{
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px;
+    display: inline-block;
+    background-color: rgba(0, 255, 255, 0.2);
+    border: 1px solid #00FFFF;
+    border-radius: 5px;
+    backdrop-filter: blur(5px);
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+    transition: all 0.3s ease-in-out;
+}
+
+input[type="submit"]:hover {
+    transform: scale(1.1);
+    background-color: #FF1493;
+    border-color: #FF1493;
+    box-shadow: 0 0 15px #FF1493;
+}
+
+input[type="reset"]{
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px;
+    display: inline-block;
+    background-color: rgba(0, 255, 255, 0.2);
+    border: 1px solid #00FFFF;
+    border-radius: 5px;
+    backdrop-filter: blur(5px);
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+    transition: all 0.3s ease-in-out;
+}
+
+input[type="reset"]:hover {
+    transform: scale(1.1);
+    background-color: #FF1493;
+    border-color: #FF1493;
+    box-shadow: 0 0 15px #FF1493;
+}
