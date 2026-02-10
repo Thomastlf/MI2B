@@ -21,29 +21,80 @@
             Inscription
         </legend>
         <form action="page1.php" method="POST">
-            Nom : <input type="text" name="Nom" maxlength="50" required/>
+
+            <div class="div1">
+                Nom : 
+            </div>
+            <div class="div2">
+                <input type="text" name="Nom" maxlength="50" required/>
+            </div>
             <br />
-            Prénom : <input type="text" name="Prénom" maxlength="50" required/>
+
+            <div class="div1">
+                Prénom : 
+            </div>
+            <div class="div2">
+                <input type="text" name="Prénom" maxlength="50" required/>
+            </div>
             <br />
-            E-mail : <input type="email" name="Email" required/>
+            
+            <div class="div1">
+                E-mail : 
+            </div>
+            <div class="div2">
+                <input type="email" name="Email" required/>
+            </div>            
             <br />
-            Adresse : <input type="text" name="Adresse" required/>
+
+            <div class="div1">
+                Adresse : 
+            </div>
+            <div class="div2">
+                <input type="text" name="Adresse" required/>
+            </div>            
             <br />
-            Numéro de téléphone : <input type="tel" name="Numéro" required/>
+
+            <div class="div1">
+                Numéro de téléphone : 
+            </div>
+            <div class="div2">
+                <input type="tel" name="Numéro" required/>
+            </div>            
             <br />
-            Date de naissance : <input type="date" required/>
+
+            <div class="div1">
+                Date de naissance : 
+            </div>
+            <div class="div2">
+                <input type="date" required/>
+            </div>            
             <br />
-            Genre : <select name="genre" required>
+
+            <div class="div1">
+                Genre : 
+            </div>
+            <div class="div2">
+            <select name="genre" required>
                         <option value="Homme">Homme</option>
                         <option value="Femme">Femme</option>
                         <option value="Je ne veux pas me positionner">Je ne veux pas me positionner</option>
                     </select>
             <br />
-            Mot de passe : <input type="password" required/>
+            </div>
+            
+            <div class="div1">
+                Mot de passe : 
+            </div>
+            <div class="div2">
+                <input type="password" required/>
+            </div>            
             <br />
+            <br />
+
+
             <input type="submit" value="Envoyer"/>
-            <br />
             <input type="reset" value="Réinitialiser"/>
+            <br />
         </form>
     </fieldset>
 </body>
