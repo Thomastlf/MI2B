@@ -1,50 +1,64 @@
-fieldset{
-    background: #1D3557 0%;
-    color:white;
+fieldset {
+    border: 2px solid #C71585;
+    border-radius: 15px;
+    padding: 30px;
+    max-width: 600px; /* Évite que le formulaire soit trop large sur grand écran */
+    margin: 0px 50px;/* Centre le formulaire horizontalement */
+    background-color:#1D3557 ;
 }
 
 legend{
-    text-align:center
+    color: #ffffff;
+    padding: 10px;
+    background-color: rgba(0, 255, 255, 1);
+    border: 1px solid #00FFFF;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.div1{
+    display:inline-block;
+    width: 155px;
+    color:white;
+}
+.div2{
+    display:inline;
+}
+
+input[type="text"], 
+input[type="email"], 
+input[type="tel"], 
+input[type="password"], 
+input[type="date"],
+select{
+    width:250px;
+    box-sizing: border-box;
 }
 
 input[type="submit"]{
     color: #ffffff;
-    text-decoration: none;
     padding: 10px;
-    display: inline-block;
     background-color: rgba(0, 255, 255, 0.2);
     border: 1px solid #00FFFF;
     border-radius: 5px;
-    backdrop-filter: blur(5px);
     font-weight: bold;
-    font-family: 'Montserrat', sans-serif;
-    transition: all 0.3s ease-in-out;
 }
 
 input[type="submit"]:hover {
-    transform: scale(1.1);
     background-color: #FF1493;
     border-color: #FF1493;
-    box-shadow: 0 0 15px #FF1493;
 }
 
 input[type="reset"]{
     color: #ffffff;
-    text-decoration: none;
     padding: 10px;
-    display: inline-block;
     background-color: rgba(0, 255, 255, 0.2);
     border: 1px solid #00FFFF;
     border-radius: 5px;
-    backdrop-filter: blur(5px);
     font-weight: bold;
-    font-family: 'Montserrat', sans-serif;
-    transition: all 0.3s ease-in-out;
 }
 
 input[type="reset"]:hover {
-    transform: scale(1.1);
     background-color: #FF1493;
     border-color: #FF1493;
-    box-shadow: 0 0 15px #FF1493;
 }
