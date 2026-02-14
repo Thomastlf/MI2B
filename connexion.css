@@ -1,0 +1,71 @@
+fieldset {
+    border: 2px solid #C71585;
+    border-radius: 15px;
+    padding: 30px;
+    max-width: 600px;
+    margin: 0px 50px;
+    background-color:#1D3557 ;
+}
+
+legend{
+    color: #ffffff;
+    padding: 10px;
+    background-color: rgba(0, 255, 255, 1);
+    border: 1px solid #00FFFF;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.div1{
+    display:inline-block;
+    width: 155px;
+    color:white;
+}
+.div2{
+    display:inline;
+}
+
+input[type="email"], 
+input[type="password"], 
+select{
+    width:250px;
+    box-sizing: border-box;
+    color: #ffffff;
+    padding: 10px;
+    background-color: #213B61;
+    border: 1px solid #00FFFF;
+    border-radius: 5px;
+    font-weight: bold;
+    outline: none;/*pour forcer le css à utiliser la bonne bordure*/
+}
+
+input[type="email"]:focus, 
+input[type="password"]:focus, 
+select:focus{border-color: #ff00ff;
+}
+
+input[type="submit"]{
+    color: #ffffff;
+    padding: 10px;
+    background-color: rgba(0, 255, 255, 0.2);
+    border: 1px solid #00FFFF;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+input[type="submit"]:hover{
+    background-color: #FF1493;
+    border-color: #FF1493;
+}
+
+a:link {
+    color: #00ffff;
+}
+
+a:visited {
+    color: #00ffff;
+}
+
+a:hover {
+    color: #ff00ff;
+}
