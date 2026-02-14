@@ -1,0 +1,18 @@
+fieldset {
+    border: 2px solid #C71585;
+    border-radius: 15px;
+    padding: 30px;
+    max-width: 600px;
+    margin: 0px 50px;
+    background-color:#1D3557 ;
+    color: white;
+}
+
+legend{
+    color: #ffffff;
+    padding: 10px;
+    background-color: rgba(0, 255, 255, 1);
+    border: 1px solid #00FFFF;
+    border-radius: 5px;
+    font-weight: bold;
+}
