@@ -2,8 +2,8 @@ fieldset {
     border: 2px solid #C71585;
     border-radius: 15px;
     padding: 30px;
-    max-width: 600px; /* Évite que le formulaire soit trop large sur grand écran */
-    margin: 0px 50px;/* Centre le formulaire horizontalement */
+    max-width: 600px;
+    margin: 0px 50px;
     background-color:#1D3557 ;
 }
 
@@ -33,6 +33,22 @@ input[type="date"],
 select{
     width:250px;
     box-sizing: border-box;
+    color: #ffffff;
+    padding: 10px;
+    background-color: #213B61;
+    border: 1px solid #00FFFF;
+    border-radius: 5px;
+    font-weight: bold;
+    outline: none;/*pour forcer le css à utiliser la bonne bordure*/
+}
+
+input[type="text"]:focus, 
+input[type="email"]:focus, 
+input[type="tel"]:focus, 
+input[type="password"]:focus, 
+input[type="date"]:focus,
+select:focus{
+    border-color: #ff00ff;
 }
 
 input[type="submit"]{
@@ -61,4 +77,16 @@ input[type="reset"]{
 input[type="reset"]:hover {
     background-color: #FF1493;
     border-color: #FF1493;
+}
+
+a:link {
+    color: #00ffff;
+}
+
+a:visited {
+    color: #00ffff;
+}
+
+a:hover {
+    color: #ff00ff;
 }
