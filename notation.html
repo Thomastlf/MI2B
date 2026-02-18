@@ -1,61 +1,55 @@
 <!DOCTYPE html>
+<html lang="fr">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="notation.css">
-    <link rel="stylesheet" href="header.css">
     <title>Notation - Tasty Country</title>
 </head>
 <body>
-    <div class="header">
-        <h1>Tasty Country ✈️</h1>
+    <div class="site-container">
+        <header class="header">
+            <h1>Tasty Country ✈️</h1>
+            <ol>
+                <li><a href="Accueil.html">Accueil</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="rejoindre.html">Nous rejoindre</a></li>
+                <li><a href="resto.html">Trouver un restaurant</a></li>
+                <li><a href="se connecter.html">Se connecter</a></li>
+            </ol>
+        </header>
 
-        <ol>
-            <li><a href="Accueil.css">Accueil</a></li>
-            <li><a href="menu.html">Menu</a></li>
-            <li><a href="rejoindre.html">Nous rejoindre</a></li>
-            <li><a href="resto.html">Trouver un restaurant</a></li>
-            <li><a href="se connecter.html">Se connecter</a></li>
-        </ol>
-    </div>
-    <br/>
-    <fieldset>
-        <legend>
-            Notation
-        </legend>
-        <form action="notation.php" method="POST">
+        <main class="content-wrapper">
+            <fieldset>
+                <legend>Notation</legend>
+                <form action="notation.php" method="POST">
+                    <div class="div1">Notez la livraison :</div>
+                    <div class="div2">
+                        <select name="note-livraison" id="note-livraison">
+                            <option value="5">5 - Excellent</option>
+                            <option value="4">4 - Très bon</option>
+                            <option value="3">3 - Moyen</option>
+                            <option value="2">2 - Décevant</option>
+                            <option value="1">1 - Mauvais</option>
+                        </select>
+                    </div>
 
-        <div class="div1">
-            Notez la livraison : 
-            </div>
-        <div class="div2">
-        <select name="note-produit" id="note-produit">
-            <option value="5">5 - Excellent</option>
-            <option value="4">4 - Très bon</option>
-            <option value="3">3 - Moyen</option>
-            <option value="2">2 - Décevant</option>
-            <option value="1">1 - Mauvais</option>
-        </select>
-        </div>
-        <br />
+                    <div class="div1">Notez la qualité des produits reçus :</div>
+                    <div class="div2">
+                        <select name="note-produit" id="note-produit">
+                            <option value="5">5 - Excellent</option>
+                            <option value="4">4 - Très bon</option>
+                            <option value="3">3 - Moyen</option>
+                            <option value="2">2 - Décevant</option>
+                            <option value="1">1 - Mauvais</option>
+                        </select>
+                    </div>
+                    <input type="submit" value="Envoyer"/>
+                </form>
+            </fieldset>
+        </main>
 
-        <div class="div1">
-            Notez la qualité des produits reçus : 
-            </div>
-            <div class="div2">
-        <select name="note-produit" id="note-produit">
-            <option value="5">5 - Excellent</option>
-            <option value="4">4 - Très bon</option>
-            <option value="3">3 - Moyen</option>
-            <option value="2">2 - Décevant</option>
-            <option value="1">1 - Mauvais</option>
-        </select>
-        </div>
-    </br>
-        <input type="submit" value="Envoyer"/>
-
-    </form>
-
-    </fieldset>
-    <footer class="footer">
+        <footer class="footer">
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>Tasty Country 🌍</h3>
@@ -65,8 +59,8 @@
                 <div class="footer-section">
                     <h4>Embarquement</h4>
                     <ul>
-                        <li><a href="#">Nos Destinations (Menu)</a></li>
-                        <li><a href="#">Suivre mon vol (Commande)</a></li>
+                        <li><a href="menu.html">Nos Destinations (Menu)</a></li>
+                        <li><a href="commande.html">Suivre mon vol (Commande)</a></li>
                     </ul>
                 </div>
 
