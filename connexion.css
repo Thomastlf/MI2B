@@ -2,16 +2,16 @@ fieldset {
     border: 2px solid #C71585;
     border-radius: 15px;
     padding: 30px;
-    max-width: 600px;
-    margin: 0px 50px;
-    background-color:#1D3557 ;
+    width: 40%;
+    margin: 0px auto;
+    background-color:#1D3557;
 }
 
 legend{
     color: #ffffff;
     padding: 10px;
-    background-color: rgba(0, 255, 255, 1);
-    border: 1px solid #00FFFF;
+    background-color: #1D3557;
+    border: 2px solid #C71585;
     border-radius: 5px;
     font-weight: bold;
 }
@@ -20,6 +20,7 @@ legend{
     display:inline-block;
     width: 155px;
     color:white;
+    font-weight: bold;
 }
 .div2{
     display:inline;
@@ -44,28 +45,35 @@ input[type="password"]:focus,
 select:focus{border-color: #ff00ff;
 }
 
-input[type="submit"]{
+input[type="submit"],a{
     color: #ffffff;
     padding: 10px;
     background-color: rgba(0, 255, 255, 0.2);
     border: 1px solid #00FFFF;
     border-radius: 5px;
     font-weight: bold;
+    text-decoration: none;
+    color:white;
+    
+    text-decoration: none;
+
+    font-size: 13.3px; 
+
+ 
+    display: inline-block;
+    box-sizing: border-box;
+    vertical-align: middle;
+    cursor: pointer; 
+    line-height: normal;
 }
 
-input[type="submit"]:hover{
+input[type="submit"]:hover,a:hover{
     background-color: #FF1493;
     border-color: #FF1493;
+    color:white;
 }
 
-a:link {
-    color: #00ffff;
-}
+body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
-a:visited {
-    color: #00ffff;
-}
-
-a:hover {
-    color: #ff00ff;
 }
