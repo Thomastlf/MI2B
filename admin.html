@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="admin.css">
+    <title>Terminal Admin - Tasty Country</title>
+</head>
+<body>
+    <div class="site-container">
+        <header class="header">
+            <div class="header-top">
+                <h1>Tasty Country ✈️</h1>
+                <span class="badge-pro">TOUR DE CONTRÔLE</span>
+            </div>
+            <ol>
+                <li><a href="Accueil.html">Accueil</a></li>
+                <li><a href="commade.html">Commandes</a></li>
+                <li><a href="#" class="nav-active">Gestion Utilisateurs</a></li>
+                <li><a href="se connecter.html">Déconnexion</a></li>
+            </ol>
+        </header>
+
+        <main class="content">
+            <h2 class="page-title">Manifeste des Passagers 📋</h2>
+
+            <section class="admin-controls">
+                <div class="filter-group">
+                    <label for="user-filter">Afficher :</label>
+                    <select id="user-filter">
+                        <option value="all">Tous les utilisateurs</option>
+                        <option value="active">Clients actifs (avec commandes)</option>
+                        <option value="new">Nouveaux inscrits</option>
+                    </select>
+                </div>
+                <input type="text" placeholder="Rechercher un passager (Nom, Email...)" class="search-bar">
+            </section>
+
+            <div class="table-container">
+                <table class="user-table">
+                    <thead>
+                        <tr>
+                            <th>Statut</th>
+                            <th>Nom & Prénom</th>
+                            <th>E-mail</th>
+                            <th>Vols effectués</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="status-icon">✈️</span></td>
+                            <td>MARCHAND Maxence</td>
+                            <td>maxence.marchand@gmail.com</td>
+                            <td>2</td>
+                            <td><a href="profil.html" class="btn-view">Consulter Profil</a></td>
+                        </tr>
+                        <tr>
+                            <td><span class="status-icon">⏳</span></td>
+                            <td>DUPONT Jean</td>
+                            <td>j.dupont@email.fr</td>
+                            <td>0</td>
+                            <td><a href="#" class="btn-view">Consulter Profil</a></td>
+                        </tr>
+                        <tr>
+                            <td><span class="status-icon">✈️</span></td>
+                            <td>MARTIN Sophie</td>
+                            <td>sophie.mtn@cytech.fr</td>
+                            <td>5</td>
+                            <td><a href="#" class="btn-view">Consulter Profil</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-bottom">
+                <p>&copy; 2026 Tasty Country - Terminal Administrateur CyTech</p>
+                <a href="#top">Revenir en haut ✈️</a>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
