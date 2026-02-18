@@ -1,55 +1,86 @@
-fieldset {
-    border: 2px solid #C71585;
-    border-radius: 15px;
-    padding: 30px;
-    max-width: 600px;
-    margin: 0px 50px;
-    background-color:#1D3557 ;
-}
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="notation.css">
+    <link rel="stylesheet" href="header.css">
+    <title>Notation - Tasty Country</title>
+</head>
+<body>
+    <div class="header">
+        <h1>Tasty Country ✈️</h1>
 
-legend{
-    color: #ffffff;
-    padding: 10px;
-    background-color: rgba(0, 255, 255, 1);
-    border: 1px solid #00FFFF;
-    border-radius: 5px;
-    font-weight: bold;
-}
+        <ol>
+            <li><a href="Accueil.css">Accueil</a></li>
+            <li><a href="menu.html">Menu</a></li>
+            <li><a href="rejoindre.html">Nous rejoindre</a></li>
+            <li><a href="resto.html">Trouver un restaurant</a></li>
+            <li><a href="se connecter.html">Se connecter</a></li>
+        </ol>
+    </div>
+    <br/>
+    <fieldset>
+        <legend>
+            Notation
+        </legend>
+        <form action="notation.php" method="POST">
 
-.div1{
-    display:inline-block;
-    width: 155px;
-    color:white;
-}
-.div2{
-    display:inline;
-}
+        <div class="div1">
+            Notez la livraison : 
+            </div>
+        <div class="div2">
+        <select name="note-produit" id="note-produit">
+            <option value="5">5 - Excellent</option>
+            <option value="4">4 - Très bon</option>
+            <option value="3">3 - Moyen</option>
+            <option value="2">2 - Décevant</option>
+            <option value="1">1 - Mauvais</option>
+        </select>
+        </div>
+        <br />
 
-select{
-    width:250px;
-    box-sizing: border-box;
-    color: #ffffff;
-    padding: 10px;
-    background-color: #213B61;
-    border: 1px solid #00FFFF;
-    border-radius: 5px;
-    font-weight: bold;
-    outline: none;/*pour forcer le css à utiliser la bonne bordure*/
-}
+        <div class="div1">
+            Notez la qualité des produits reçus : 
+            </div>
+            <div class="div2">
+        <select name="note-produit" id="note-produit">
+            <option value="5">5 - Excellent</option>
+            <option value="4">4 - Très bon</option>
+            <option value="3">3 - Moyen</option>
+            <option value="2">2 - Décevant</option>
+            <option value="1">1 - Mauvais</option>
+        </select>
+        </div>
+    </br>
+        <input type="submit" value="Envoyer"/>
 
-select:focus{border-color: #ff00ff;
-}
+    </form>
 
-input[type="submit"]{
-    color: #ffffff;
-    padding: 10px;
-    background-color: rgba(0, 255, 255, 0.2);
-    border: 1px solid #00FFFF;
-    border-radius: 5px;
-    font-weight: bold;
-}
+    </fieldset>
+    <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Tasty Country 🌍</h3>
+                    <p>Le tour du monde dans votre assiette.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Embarquement</h4>
+                    <ul>
+                        <li><a href="#">Nos Destinations (Menu)</a></li>
+                        <li><a href="#">Suivre mon vol (Commande)</a></li>
+                    </ul>
+                </div>
 
-input[type="submit"]:hover {
-    background-color: #FF1493;
-    border-color: #FF1493;
-}
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>📍 CyTech, Cergy</p>
+                    <p>📞 01 23 45 67 89</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Tasty Country - Projet Informatique</p>
+                <a href="#top">Revenir en haut ✈️</a>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
