@@ -1,86 +1,132 @@
-<!DOCTYPE html>
-<head>
-    <link rel="stylesheet" href="notation.css">
-    <link rel="stylesheet" href="header.css">
-    <title>Notation - Tasty Country</title>
-</head>
-<body>
-    <div class="header">
-        <h1>Tasty Country ✈️</h1>
+body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-        <ol>
-            <li><a href="Accueil.css">Accueil</a></li>
-            <li><a href="menu.html">Menu</a></li>
-            <li><a href="rejoindre.html">Nous rejoindre</a></li>
-            <li><a href="resto.html">Trouver un restaurant</a></li>
-            <li><a href="se connecter.html">Se connecter</a></li>
-        </ol>
-    </div>
-    <br/>
-    <fieldset>
-        <legend>
-            Notation
-        </legend>
-        <form action="notation.php" method="POST">
+fieldset {
+    border: 2px solid #C71585;
+    border-radius: 15px;
+    padding: 30px;
+    width: 40%;
+    margin: 0px auto;
+    background-color:#1D3557;
+}
 
-        <div class="div1">
-            Notez la livraison : 
-            </div>
-        <div class="div2">
-        <select name="note-produit" id="note-produit">
-            <option value="5">5 - Excellent</option>
-            <option value="4">4 - Très bon</option>
-            <option value="3">3 - Moyen</option>
-            <option value="2">2 - Décevant</option>
-            <option value="1">1 - Mauvais</option>
-        </select>
-        </div>
-        <br />
+legend{
+    color: #ffffff;
+    padding: 10px;
+    background-color: #1D3557;
+    border: 2px solid #C71585;
+    border-radius: 5px;
+    font-weight: bold;
+}
 
-        <div class="div1">
-            Notez la qualité des produits reçus : 
-            </div>
-            <div class="div2">
-        <select name="note-produit" id="note-produit">
-            <option value="5">5 - Excellent</option>
-            <option value="4">4 - Très bon</option>
-            <option value="3">3 - Moyen</option>
-            <option value="2">2 - Décevant</option>
-            <option value="1">1 - Mauvais</option>
-        </select>
-        </div>
-    </br>
-        <input type="submit" value="Envoyer"/>
+.div1{
+    display:inline-block;
+    width: 160px;
+    color:white;
+}
+.div2{
+    display:inline;
+}
 
-    </form>
+select{
+    width:250px;
+    box-sizing: border-box;
+    color: #ffffff;
+    padding: 10px;
+    background-color: #213B61;
+    border: 1px solid #00FFFF;
+    border-radius: 5px;
+    font-weight: bold;
+    outline: none;/*pour forcer le css à utiliser la bonne bordure*/
+}
 
-    </fieldset>
-    <footer class="footer">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Tasty Country 🌍</h3>
-                    <p>Le tour du monde dans votre assiette.</p>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Embarquement</h4>
-                    <ul>
-                        <li><a href="#">Nos Destinations (Menu)</a></li>
-                        <li><a href="#">Suivre mon vol (Commande)</a></li>
-                    </ul>
-                </div>
+select:focus{border-color: #ff00ff;
+}
 
-                <div class="footer-section">
-                    <h4>Contact</h4>
-                    <p>📍 CyTech, Cergy</p>
-                    <p>📞 01 23 45 67 89</p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 Tasty Country - Projet Informatique</p>
-                <a href="#top">Revenir en haut ✈️</a>
-            </div>
-        </footer>
-    </div>
-</body>
-</html>
+input[type="submit"]{
+    color: #ffffff;
+    padding: 10px;
+    background-color: rgba(0, 255, 255, 0.2);
+    border: 1px solid #00FFFF;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+input[type="submit"]:hover {
+    background-color: #FF1493;
+    border-color: #FF1493;
+}
+
+
+/* Réutilisation de la base graphique */
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+}
+
+.site-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.header {
+    background: linear-gradient(135deg, #1D3557 0%, #C71585 100%);
+    padding: 20px;
+    border-radius: 0 0 25px 25px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.header h1 { color: #00FFFF; margin: 0; }
+
+.badge-pro {
+    background-color: #00FFFF;
+    color: #1D3557;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    box-shadow: 0 0 10px #00FFFF;
+}
+
+.header ol {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    list-style: none;
+    padding: 0;
+}
+
+.header li a {
+    color: white;
+    text-decoration: none;
+    padding: 12px 20px;
+    border: 1px solid #00FFFF;
+    border-radius: 5px;
+    background: rgba(0, 255, 255, 0.1);
+    transition: 0.3s;
+}
+
+.header li a:hover, .nav-active {
+    background-color: #FF1493 !important;
+    border-color: #FF1493 !important;
+    box-shadow: 0 0 15px #FF1493;
+}
+
+.footer {
+    background: linear-gradient(135deg, #C71585 0%, #1D3557 100%);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    border-radius: 25px 25px 0 0;
+    margin-top: 50px;
+}
+
+.footer-bottom a { color: #00FFFF; text-decoration: none; }
+
