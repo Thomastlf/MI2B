@@ -25,17 +25,22 @@ html, body {
     flex-direction: column;
     align-items: center;
     gap: 20px;
+    width: 100%;
 }
 
 .header h1 {
     color: #00FFFF;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
     margin: 0;
+    text-align: center;
 }
 
 .header ol {
     display: flex;
-    justify-content: space-around;
+    flex-direction: row;
+    flex-wrap: wrap;   
+    justify-content: center;
+    gap: 15px;
     width: 100%;
     list-style-type: none;
     padding: 0;
@@ -45,7 +50,7 @@ html, body {
 .header li a {
     color: #ffffff;
     text-decoration: none;
-    padding: 15px 25px;
+    padding: 12px 20px;
     display: inline-block;
     background-color: rgba(0, 255, 255, 0.2);
     border: 1px solid #00FFFF;
@@ -54,10 +59,11 @@ html, body {
     font-weight: bold;
     font-family: 'Montserrat', sans-serif;
     transition: all 0.3s ease-in-out;
+    white-space: nowrap;
 }
 
 .header li a:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
     background-color: #FF1493;
     border-color: #FF1493;
     box-shadow: 0 0 15px #FF1493;
@@ -128,4 +134,28 @@ html, body {
 .footer-bottom a:hover {
     color: #FF1493;
     transform: translateY(-3px);
+}
+
+@media (max-width: 600px) {
+    .header {
+        padding: 15px 10px;
+    }
+
+    .header h1 {
+        font-size: 1.6rem;
+    }
+
+    .header ol {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        max-width: 300px;
+        gap: 10px;
+    }
+
+    .header li a {
+        text-align: center;
+        padding: 15px;
+        font-size: 0.9rem;
+    }
 }
