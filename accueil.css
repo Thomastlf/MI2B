@@ -1,14 +1,21 @@
+* {
+    box-sizing: border-box;
+}
+
 html, body {
     height: 100%; 
     margin: 0;
+    padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f9f9f9;
+    overflow-x: hidden; 
 }
 
 .site-container {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    width: 100%;
 }
 
 .content {
@@ -35,6 +42,10 @@ html, body {
     text-align: center;
 }
 
+.header nav {
+    width: 100%;
+}
+
 .header ol {
     display: flex;
     flex-direction: row;
@@ -57,9 +68,8 @@ html, body {
     border-radius: 5px;
     backdrop-filter: blur(5px);
     font-weight: bold;
-    font-family: 'Montserrat', sans-serif;
     transition: all 0.3s ease-in-out;
-    white-space: nowrap;
+    white-space: nowrap; 
 }
 
 .header li a:hover {
@@ -75,7 +85,6 @@ html, body {
     padding: 40px 20px 20px 20px;
     margin-top: 50px; 
     border-radius: 25px 25px 0 0;
-    font-family: 'Montserrat', sans-serif;
 }
 
 .footer-content {
@@ -100,17 +109,12 @@ html, body {
     text-decoration: none;
     font-size: 14px;
     transition: color 0.3s;
-    background: none;
-    border: none;
     padding: 5px 0;
     display: block;
 }
 
 .footer-section ul li a:hover {
     color: #00FFFF;
-    transform: none;
-    background: none;
-    box-shadow: none;
 }
 
 .footer-bottom {
@@ -128,12 +132,6 @@ html, body {
     font-weight: bold;
     display: inline-block;
     margin-top: 10px;
-    transition: all 0.3s ease;
-}
-
-.footer-bottom a:hover {
-    color: #FF1493;
-    transform: translateY(-3px);
 }
 
 @media (max-width: 600px) {
@@ -148,8 +146,7 @@ html, body {
     .header ol {
         flex-direction: column;
         align-items: stretch;
-        width: 100%;
-        max-width: 300px;
+        max-width: 100%;
         gap: 10px;
     }
 
@@ -157,5 +154,6 @@ html, body {
         text-align: center;
         padding: 15px;
         font-size: 0.9rem;
+        white-space: normal; 
     }
 }
