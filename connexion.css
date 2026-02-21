@@ -1,3 +1,4 @@
+/* --- RESET ET BASE --- */
 * {
     box-sizing: border-box;
 }
@@ -16,6 +17,7 @@ html, body {
     min-height: 100vh;
 }
 
+/* --- HEADER --- */
 .header {
     background: linear-gradient(135deg, #1D3557 0%, #C71585 100%);
     padding: 25px 15px;
@@ -40,15 +42,13 @@ html, body {
     text-align: center;
 }
 
-.main-nav { 
-    width: 100%; 
-}
+.main-nav { width: 100%; }
 
 .main-nav ol {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 10px;
+    gap: 12px;
     list-style: none;
     padding: 0;
     margin: 0;
@@ -62,9 +62,17 @@ html, body {
     border-radius: 8px;
     background: rgba(0, 255, 255, 0.1);
     font-weight: bold;
-    transition: 0.3s;
+    transition: all 0.3s ease; /* Animation fluide */
     display: block;
     white-space: nowrap;
+}
+
+/* --- EFFET HOVER (RE-CORRIGÉ) --- */
+.main-nav li a:hover {
+    background-color: #FF1493;
+    border-color: #FF1493;
+    transform: scale(1.05); /* Agrandissement léger au survol */
+    box-shadow: 0 0 10px #FF1493;
 }
 
 .nav-active {
@@ -73,6 +81,7 @@ html, body {
     box-shadow: 0 0 10px #FF1493;
 }
 
+/* --- FORMULAIRE --- */
 .content {
     flex: 1;
     display: flex;
@@ -92,28 +101,13 @@ html, body {
 
 .login-card h2 {
     color: #1D3557;
-    margin: 0 0 30px 0;
     text-align: center;
+    margin-bottom: 30px;
 }
 
-.input-group {
-    margin-bottom: 20px;
-}
-
-.input-group label {
-    display: block;
-    margin-bottom: 8px;
-    color: #1D3557;
-    font-weight: bold;
-}
-
-.input-group input {
-    width: 100%;
-    padding: 12px;
-    border: 1.5px solid #ddd;
-    border-radius: 8px;
-    font-size: 1rem;
-}
+.input-group { margin-bottom: 20px; }
+.input-group label { display: block; margin-bottom: 8px; font-weight: bold; color: #1D3557; }
+.input-group input { width: 100%; padding: 12px; border: 1.5px solid #ddd; border-radius: 8px; }
 
 .btn-login {
     width: 100%;
@@ -123,13 +117,13 @@ html, body {
     border: none;
     border-radius: 8px;
     font-weight: bold;
-    font-size: 1.1rem;
     cursor: pointer;
-    transition: 0.2s;
+    transition: 0.3s;
 }
 
-.btn-login:hover { transform: scale(1.02); }
+.btn-login:hover { transform: translateY(-2px); opacity: 0.9; }
 
+/* --- FOOTER --- */
 .footer {
     background: linear-gradient(135deg, #C71585 0%, #1D3557 100%);
     color: white;
@@ -138,23 +132,11 @@ html, body {
     border-radius: 30px 30px 0 0;
 }
 
+/* --- MOBILE --- */
 @media (max-width: 600px) {
-    .header-content {
-        gap: 15px;
-    }
-
     .main-nav ol {
         flex-direction: column;
         align-items: stretch;
-        width: 100%;
     }
-
-    .main-nav li a {
-        text-align: center;
-        padding: 15px;
-    }
-
-    .login-card {
-        padding: 30px 20px;
-    }
+    .main-nav li a { text-align: center; }
 }
