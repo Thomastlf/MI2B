@@ -3,15 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="header.css">
     <link rel="stylesheet" href="livraison.css">
     <title>Livraison en cours - Tasty Country</title>
 </head>
 <body>
     <div class="site-container">
         <header class="header">
-            <h1>Tasty Country ✈️</h1>
-            <p style="color: white;">Espace Livreur 📦</p>
+            <div class="header-content">
+                <div class="brand">
+                    <h1>Tasty Country ✈️</h1>
+                    <span class="badge-pro">ESPACE LIVREUR 📦</span>
+                </div>
+                <nav class="main-nav">
+                    <ol>
+                        <li><a href="menu.html">Menu</a></li>
+                        <li><a href="livraison.html" class="nav-active">Livraison</a></li>
+                        <li><a href="se connecter.html">Déconnexion</a></li>
+                    </ol>
+                </nav>
+            </div>
         </header>
 
         <main class="delivery-container">
@@ -28,25 +38,16 @@
 
                 <div class="actions">
                     <a href="https://www.google.com/maps" class="map-btn" target="_blank">Ouvrir l'itinéraire 🗺️</a>
-                    
                     <button class="finish-btn">CONFIRMER LA LIVRAISON ✅</button>
                 </div>
             </div>
         </main>
-    </div>
-    <footer class="footer">
+
+        <footer class="footer">
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>Tasty Country 🌍</h3>
                     <p>Le tour du monde dans votre assiette.</p>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Embarquement</h4>
-                    <ul>
-                        <li><a href="menu.html">Nos Destinations (Menu)</a></li>
-                        <li><a href="#">Suivre mon vol (Commande)</a></li>
-                    </ul>
                 </div>
 
                 <div class="footer-section">
@@ -56,7 +57,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 Tasty Country - Projet Informatique</p>
+                <p>© 2026 Tasty Country - Projet Informatique</p>
                 <a href="#top">Revenir en haut ✈️</a>
             </div>
         </footer>
