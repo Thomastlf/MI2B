@@ -1,73 +1,58 @@
 <!DOCTYPE html>
+<html lang="fr">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="notation.css">
-    <link rel="stylesheet" href="header.css">
     <title>Notation - Tasty Country</title>
 </head>
 <body>
-    <div class="header">
-        <h1>Tasty Country ✈️</h1>
-
-        <ol>
-            <li><a href="Accueil.css">Accueil</a></li>
-            <li><a href="menu.html">Menu</a></li>
-            <li><a href="rejoindre.html">Nous rejoindre</a></li>
-            <li><a href="resto.html">Trouver un restaurant</a></li>
-            <li><a href="se connecter.html">Se connecter</a></li>
-        </ol>
-    </div>
-    <br/>
-    <fieldset>
-        <legend>
-            Notation
-        </legend>
-        <form action="notation.php" method="POST">
-
-        <div class="div1">
-            Notez la livraison : 
+    <div class="site-container">
+        <header class="header">
+            <div class="header-content">
+                <div class="brand">
+                    <h1>Tasty Country ✈️</h1>
+                </div>
+                <nav class="main-nav">
+                    <ol>
+                        <li><a href="accueil.html">Accueil</a></li>
+                        <li><a href="menu.html">Menu</a></li>
+                        <li><a href="rejoindre.html">Nous rejoindre</a></li>
+                        <li><a href="connexion.html">Se connecter</a></li>
+                    </ol>
+                </nav>
             </div>
-        <div class="div2">
-        <select name="note-produit" id="note-produit">
-            <option value="5">5 - Excellent</option>
-            <option value="4">4 - Très bon</option>
-            <option value="3">3 - Moyen</option>
-            <option value="2">2 - Décevant</option>
-            <option value="1">1 - Mauvais</option>
-        </select>
-        </div>
-        <br />
+        </header>
 
-        <div class="div1">
-            Notez la qualité des produits reçus : 
+        <main class="content">
+            <div class="rating-card">
+                <h2>Votre Avis sur le Vol ✈️</h2>
+                <p>Comment s'est passée votre escale culinaire ?</p>
+                
+                <form action="notation.php" method="POST">
+                    <div class="stars">
+                        <input type="radio" name="star" id="star5" value="5"><label for="star5">★</label>
+                        <input type="radio" name="star" id="star4" value="4"><label for="star4">★</label>
+                        <input type="radio" name="star" id="star3" value="3"><label for="star3">★</label>
+                        <input type="radio" name="star" id="star2" value="2"><label for="star2">★</label>
+                        <input type="radio" name="star" id="star1" value="1"><label for="star1">★</label>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Partagez votre expérience</label>
+                        <textarea name="commentaire" placeholder="Le voyage était magnifique..." rows="4"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-submit">Envoyer mon carnet de bord</button>
+                </form>
             </div>
-            <div class="div2">
-        <select name="note-produit" id="note-produit">
-            <option value="5">5 - Excellent</option>
-            <option value="4">4 - Très bon</option>
-            <option value="3">3 - Moyen</option>
-            <option value="2">2 - Décevant</option>
-            <option value="1">1 - Mauvais</option>
-        </select>
-        </div>
-    </br>
-        <input type="submit" value="Envoyer"/>
+        </main>
 
-    </form>
-
-    </fieldset>
-    <footer class="footer">
+        <footer class="footer">
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>Tasty Country 🌍</h3>
                     <p>Le tour du monde dans votre assiette.</p>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Embarquement</h4>
-                    <ul>
-                        <li><a href="#">Nos Destinations (Menu)</a></li>
-                        <li><a href="#">Suivre mon vol (Commande)</a></li>
-                    </ul>
                 </div>
 
                 <div class="footer-section">
