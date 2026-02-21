@@ -1,64 +1,160 @@
-fieldset {
-    border: 2px solid #C71585;
-    border-radius: 15px;
-    padding: 30px;
-    width: 600px;
-    margin: 0px auto;
-    background-color:#1D3557;
-}
-
-legend{
-    color: #ffffff;
-    padding: 10px;
-    background-color: #1D3557;
-    border: 2px solid #C71585;
-    border-radius: 5px;
-    font-weight: bold;
-}
-
-.div1{
-    display:inline-block;
-    width: 250px;
-    color:white;
-    font-weight: bold;
-}
-.div2{
-    display:inline;
-}
-
-input[type="email"], 
-input[type="password"]{
-    width:250px;
+* {
     box-sizing: border-box;
-    color: #ffffff;
-    padding: 10px;
-    background-color: #213B61;
-    border: 1px solid #00FFFF;
-    border-radius: 5px;
-    font-weight: bold;
-    outline: none;/*pour forcer le css à utiliser la bonne bordure*/
 }
 
-input[type="email"]:focus, 
-input[type="password"]:focus, 
-select:focus{border-color: #ff00ff;
-}
-
-input[type="submit"],a{
-    color: #ffffff;
-    padding: 10px;
-    background-color: rgba(0, 255, 255, 0.2);
-    border: 1px solid #00FFFF;
-    border-radius: 5px;
-    font-weight: bold;
-    text-decoration: none;
-    color:white;
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 13.3px; 
+    background-color: #f9f9f9;
 }
 
-input[type="submit"]:hover,a:hover{
-    background-color: #FF1493;
-    border-color: #FF1493;
-    color:white;
+.site-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.header {
+    background: linear-gradient(135deg, #1D3557 0%, #C71585 100%);
+    padding: 25px 15px;
+    border-radius: 0 0 30px 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    width: 100%;
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.header h1 { 
+    color: #00FFFF; 
+    margin: 0; 
+    font-size: clamp(1.5rem, 5vw, 2.2rem);
+    text-align: center;
+}
+
+.main-nav { 
+    width: 100%; 
+}
+
+.main-nav ol {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.main-nav li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 18px;
+    border: 1px solid #00FFFF;
+    border-radius: 8px;
+    background: rgba(0, 255, 255, 0.1);
+    font-weight: bold;
+    transition: 0.3s;
+    display: block;
+    white-space: nowrap;
+}
+
+.nav-active {
+    background-color: #FF1493 !important;
+    border-color: #FF1493 !important;
+    box-shadow: 0 0 10px #FF1493;
+}
+
+.content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+.login-card {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-card h2 {
+    color: #1D3557;
+    margin: 0 0 30px 0;
+    text-align: center;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #1D3557;
+    font-weight: bold;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1.5px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.btn-login {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #1D3557 0%, #C71585 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-login:hover { transform: scale(1.02); }
+
+.footer {
+    background: linear-gradient(135deg, #C71585 0%, #1D3557 100%);
+    color: white;
+    padding: 30px;
+    text-align: center;
+    border-radius: 30px 30px 0 0;
+}
+
+@media (max-width: 600px) {
+    .header-content {
+        gap: 15px;
+    }
+
+    .main-nav ol {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+    }
+
+    .main-nav li a {
+        text-align: center;
+        padding: 15px;
+    }
+
+    .login-card {
+        padding: 30px 20px;
+    }
 }
