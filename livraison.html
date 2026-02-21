@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="livraison.css">
-    <title>Livraison en cours - Tasty Country</title>
+    <link rel="stylesheet" href="inscription.css">
+    <title>Inscription - Tasty Country</title>
 </head>
 <body>
     <div class="site-container">
@@ -12,52 +12,79 @@
             <div class="header-content">
                 <div class="brand">
                     <h1>Tasty Country ✈️</h1>
-                    <span class="badge-pro">ESPACE LIVREUR 📦</span>
                 </div>
                 <nav class="main-nav">
                     <ol>
+                        <li><a href="accueil.html">Accueil</a></li>
                         <li><a href="menu.html">Menu</a></li>
-                        <li><a href="livraison.html" class="nav-active">Livraison</a></li>
-                        <li><a href="se connecter.html">Déconnexion</a></li>
+                        <li><a href="rejoindre.html">Nous rejoindre</a></li>
+                        <li><a href="connexion.html">Se connecter</a></li>
                     </ol>
                 </nav>
             </div>
         </header>
 
-        <main class="delivery-container">
-            <div class="delivery-card">
-                <h2>📍 Prochaine Escale</h2>
-                
-                <div class="info-block">
-                    <p><strong>Client :</strong> Maxence Marchand</p>
-                    <p><strong>Adresse :</strong> Cy Tech, Cergy</p>
-                    <p><strong>Détails :</strong> Bâtiment C, 3ème étage</p>
-                    <p><strong>Code Interphone :</strong> 1561</p>
-                    <p><strong>Instructions :</strong> Sonner à l'interphone et laisser devant la porte.</p>
-                </div>
+        <main class="content">
+            <div class="register-card">
+                <h2>Inscription Passager 📋</h2>
+                <form action="inscription.php" method="POST">
+                    
+                    <div class="input-group">
+                        <label>Nom</label>
+                        <input type="text" name="Nom" maxlength="50" required placeholder="Votre nom">
+                    </div>
 
-                <div class="actions">
-                    <a href="https://www.google.com/maps" class="map-btn" target="_blank">Ouvrir l'itinéraire 🗺️</a>
-                    <button class="finish-btn">CONFIRMER LA LIVRAISON ✅</button>
-                </div>
+                    <div class="input-group">
+                        <label>Prénom</label>
+                        <input type="text" name="Prénom" maxlength="50" required placeholder="Votre prénom">
+                    </div>
+
+                    <div class="input-group">
+                        <label>E-mail</label>
+                        <input type="email" name="Email" required placeholder="votre@email.com">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Adresse</label>
+                        <input type="text" name="Adresse" required placeholder="Votre adresse complète">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Numéro de téléphone</label>
+                        <input type="tel" name="Numéro" required placeholder="06 12 34 56 78">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Date de naissance</label>
+                        <input type="date" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Genre</label>
+                        <select name="genre" required>
+                            <option value="Homme">Homme</option>
+                            <option value="Femme">Femme</option>
+                            <option value="Je ne veux pas me positionner">Je ne veux pas me positionner</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Mot de passe</label>
+                        <input type="password" required placeholder="••••••••">
+                    </div>
+
+                    <div class="form-actions">
+                        <input type="submit" value="Envoyer" class="btn-submit">
+                        <input type="reset" value="Réinitialiser" class="btn-reset">
+                    </div>
+                </form>
+                <p class="form-footer">Déjà un billet ? <a href="connexion.html">Se connecter</a></p>
             </div>
         </main>
 
         <footer class="footer">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Tasty Country 🌍</h3>
-                    <p>Le tour du monde dans votre assiette.</p>
-                </div>
-
-                <div class="footer-section">
-                    <h4>Contact</h4>
-                    <p>📍 CyTech, Cergy</p>
-                    <p>📞 01 23 45 67 89</p>
-                </div>
-            </div>
             <div class="footer-bottom">
-                <p>© 2026 Tasty Country - Projet Informatique</p>
+                <p>&copy; 2026 Tasty Country - Projet Informatique CyTech</p>
                 <a href="#top">Revenir en haut ✈️</a>
             </div>
         </footer>
