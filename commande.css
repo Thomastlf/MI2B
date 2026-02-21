@@ -85,6 +85,12 @@ html, body {
     box-shadow: 0 0 20px #FF1493;
 }
 
+.header li a.nav-active {
+    background-color: #FF1493 !important;
+    border-color: #FF1493 !important;
+    box-shadow: 0 0 15px #FF1493;
+}
+
 .page-title {
     color: #1D3557;
     text-align: center;
