@@ -79,6 +79,12 @@ html, body {
     box-shadow: 0 0 15px #FF1493;
 }
 
+.header li a.nav-active {
+    background-color: #FF1493 !important;
+    border-color: #FF1493 !important;
+    box-shadow: 0 0 15px #FF1493;
+}
+
 .footer {
     background: linear-gradient(135deg, #C71585 0%, #1D3557 100%);
     color: white;
