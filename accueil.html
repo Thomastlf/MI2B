@@ -4,25 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="accueil.css">
-    <title>page d'accueil</title>
+    <title>Tasty Country - Accueil</title>
 </head>
 <body>
     <div class="site-container"> 
         <header class="header">
-            <h1>Tasty Country ✈️</h1>
-            <nav>
-                <ol>
-                    <li><a href="accueil.html" class="nav-active">Accueil</a></li>
-                    <li><a href="menu.html">Menu</a></li>
-                    <li><a href="rejoindre.html">Nous rejoindre</a></li>
-                    <li><a href="se connecter.html">Se connecter</a></li>
-                </ol>
-            </nav>
+            <div class="header-content">
+                <div class="brand">
+                    <h1>Tasty Country ✈️</h1>
+                </div>
+                <nav class="main-nav">
+                    <ol>
+                        <li><a href="accueil.html" class="nav-active">Accueil</a></li>
+                        <li><a href="menu.html">Menu</a></li>
+                        <li><a href="rejoindre.html">Nous rejoindre</a></li>
+                        <li><a href="connexion.html">Se connecter</a></li>
+                    </ol>
+                </nav>
+            </div>
         </header>
 
         <main class="content">
-            <h2>Plat</h2>
-            <p>Choisissez votre destination dans le menu.</p>
+            <h2 class="section-title">À l'affiche ce mois-ci 🌟</h2>
+            
+            <div class="featured-grid">
+                <div class="product-card">
+                    <img src="japon.png" alt="Ramen">
+                    <div class="product-info">
+                        <h3>Ramen Croustillant</h3>
+                        <span class="price">14.50€</span>
+                        <a href="menu.html" class="add-btn">Voir au menu</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="italie.jpg" alt="Pasta">
+                    <div class="product-info">
+                        <h3>Parmesan Pasta</h3>
+                        <span class="price">13.90€</span>
+                        <a href="menu.html" class="add-btn">Voir au menu</a>
+                    </div>
+                </div>
+            </div>
         </main>
 
         <footer class="footer">
@@ -31,7 +53,7 @@
                     <h3>Tasty Country 🌍</h3>
                     <p>Le tour du monde dans votre assiette.</p>
                 </div>
-
+                
                 <div class="footer-section">
                     <h4>Contact</h4>
                     <p>📍 CyTech, Cergy</p>
