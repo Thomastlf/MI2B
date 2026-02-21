@@ -9,16 +9,20 @@
 <body>
     <div class="site-container">
         <header class="header">
-            <div class="header-top">
-                <h1>Tasty Country ✈️</h1>
-                <span class="badge-pro">ACCÈS RESTAURATEUR</span>
+            <div class="header-content">
+                <div class="brand">
+                    <h1>Tasty Country ✈️</h1>
+                    <span class="badge-pro">ACCÈS RESTAURATEUR</span>
+                </div>
+                <nav class="main-nav">
+                    <ol>
+                        <li><a href="accueil.html">Accueil</a></li>
+                        <li><a href="commande.html" class="nav-active">Commandes</a></li>
+                        <li><a href="admin.html">Gestion Utilisateurs</a></li>
+                        <li><a href="se connecter.html">Déconnexion</a></li>
+                    </ol>
+                </nav>
             </div>
-            <ol>
-                <li><a href="accueil.html">Accueil</a></li>
-                <li><a href="Commandes.html" class="nav-active">Commandes</a></li>
-                <li><a href="admin.html">Gestions Utilisateurs</a></li>
-                <li><a href="se connecter.html">Déconnexion</a></li>
-            </ol>
         </header>
 
         <main class="content">
@@ -30,7 +34,7 @@
                     <div class="order-card">
                         <div class="order-header">
                             <span class="order-id">#V0L-102</span>
-                            <span style="font-size:0.8em; color:#666;">Il y a 5 min</span>
+                            <span class="order-time">Il y a 5 min</span>
                         </div>
                         <p><strong>1x</strong> Menu "Escale Tokyo"<br><strong>2x</strong> Gyoza Poulet</p>
                         <button class="btn-action">Prêt pour la livraison ✈️</button>
@@ -39,7 +43,7 @@
                     <div class="order-card">
                         <div class="order-header">
                             <span class="order-id">#V0L-103</span>
-                            <span style="font-size:0.8em; color:#666;">Il y a 12 min</span>
+                            <span class="order-time">Il y a 12 min</span>
                         </div>
                         <p><strong>2x</strong> Burger "Route 66"<br><strong>1x</strong> Grande Frites</p>
                         <button class="btn-action">Prêt pour la livraison ✈️</button>
@@ -48,15 +52,13 @@
 
                 <section class="order-column delivery-section">
                     <h3>🚚 En cours de livraison</h3>
-                    <div class="order-card" style="border-left-color: #00FFFF;">
+                    <div class="order-card in-flight">
                         <div class="order-header">
                             <span class="order-id">#V0L-100</span>
-                            <span style="color:#00FFFF; font-weight:bold;">En vol</span>
+                            <span class="status-tag">En vol</span>
                         </div>
                         <p>Livreur : <strong>Marc</strong><br>Dest : CY Tech, Cergy</p>
-                        <button style="width:100%; padding:10px; background:#eee; border:none; color:#999; border-radius:8px;" disabled>
-                            Livraison en cours...
-                        </button>
+                        <button class="btn-disabled" disabled>Livraison en cours...</button>
                     </div>
                 </section>
             </div>
@@ -75,10 +77,9 @@
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2026 Tasty Country - Projet Informatique CyTech</p>
-                <a href="#top" style="color:#00FFFF; text-decoration:none;">Revenir en haut ✈️</a>
+                <a href="#top">Revenir en haut ✈️</a>
             </div>
         </footer>
     </div>
 </body>
 </html>
-
