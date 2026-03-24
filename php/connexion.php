@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -10,6 +11,7 @@
 <body>
     <?php
 		$email_connexion  = $_POST['email']  ?? "";
+        $_SESSION['email'] = $email_connexion;
 		$motdepasse_connexion = $_POST['motdepasse'] ?? "";
         $data    = json_decode(file_get_contents("utilisateur.json"), true);
         foreach ($data as $utilisateur){
