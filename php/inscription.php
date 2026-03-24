@@ -1,18 +1,3 @@
-<?php
-if (!empty($_POST)) {
-    $data = [
-        "nom"  => $_POST['nom'],
-        "prenom"    => $_POST['prenom'],
-        "email"    => $_POST['email'],
-        "adresse" => $_POST['adresse'],
-        "numero" => $_POST['numero'],
-        "date"  => $_POST['date'],
-        "genre"    => $_POST['genre'],
-        "motdepasse"    => $_POST['motdepasse']
-    ];
-    file_put_contents("data.json", json_encode($data));
-}
-?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -23,6 +8,29 @@ if (!empty($_POST)) {
     <title>Inscription - Tasty Country</title>
 </head>
 <body>
+    <?php
+    if (!empty($_POST)) {
+        $fichier = 'utilisateur.json';
+        $data = [
+            "nom"  => $_POST['nom'],
+            "prenom"    => $_POST['prenom'],
+            "email"    => $_POST['email'],
+            "adresse" => $_POST['adresse'],
+            "numero" => $_POST['numero'],
+            "date"  => $_POST['date'],
+            "genre"    => $_POST['genre'],
+            "motdepasse"    => $_POST['motdepasse']
+        ];
+        if (file_exists($fichier)) {
+            $contenu = file_get_contents($fichier);
+            $utilisateurs = json_decode($contenu, true) ?? [];
+        } else {
+            $utilisateurs = [];
+        }
+        $utilisateurs[] = $data;
+        file_put_contents($fichier, json_encode($utilisateurs, JSON_PRETTY_PRINT));
+    }
+    ?>
     <div class="site-container">
         <header class="header">
             <div class="header-content">
