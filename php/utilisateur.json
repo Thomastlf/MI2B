@@ -1,0 +1,32 @@
+[
+    {
+        "nom": "a",
+        "prenom": "a",
+        "email": "a@gmail.com",
+        "adresse": "a",
+        "numero": "a",
+        "date": "2026-03-24",
+        "genre": "Homme",
+        "motdepasse": "a"
+    },
+    {
+        "nom": "b",
+        "prenom": "b",
+        "email": "b@gmail.com",
+        "adresse": "b",
+        "numero": "b",
+        "date": "2026-03-24",
+        "genre": "Homme",
+        "motdepasse": "b"
+    },
+    {
+        "nom": "c",
+        "prenom": "c",
+        "email": "c@gmail.com",
+        "adresse": "c",
+        "numero": "c",
+        "date": "2026-03-24",
+        "genre": "Homme",
+        "motdepasse": "c"
+    }
+]
