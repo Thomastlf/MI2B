@@ -16,6 +16,7 @@
             "prenom"    => $_POST['prenom'],
             "email"    => $_POST['email'],
             "adresse" => $_POST['adresse'],
+            "code_interphone" => $_POST['code_interphone'],
             "numero" => $_POST['numero'],
             "date"  => $_POST['date'],
             "genre"    => $_POST['genre'],
