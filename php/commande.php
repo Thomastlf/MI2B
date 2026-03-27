@@ -1,23 +1,34 @@
 <?php
-// 1. Lecture des données (Exigence Phase 2 : arborescence distincte)
-// Assure-toi que le fichier est bien dans un dossier 'data'
-$json_path = 'commande.json'; 
+$json_path = 'commande.json';
+$commandes = [];
 
-if (file_exists($json_path)) {
+try {
+    if (!file_exists($json_path)) {
+        throw new Exception("Le fichier de données est introuvable.");
+    }
     $json_data = file_get_contents($json_path);
     $commandes = json_decode($json_data, true);
-} else {
-    $commandes = []; 
+    
+    if ($commandes === null) {
+        throw new Exception("Erreur lors du décodage du fichier JSON.");
+    }
+} catch (Exception $e) {
+    $erreur = $e->getMessage();
 }
 
-// 2. Filtrage des commandes par statut
-$a_preparer = array_filter($commandes, function($c) { 
-    return isset($c['statut']) && $c['statut'] == 'a_preparer'; 
-});
+$a_preparer = [];
+$en_livraison = [];
+$livrees = [];
 
-$en_livraison = array_filter($commandes, function($c) { 
-    return isset($c['statut']) && $c['statut'] == 'en_livraison'; 
-});
+foreach ($commandes as $c) {
+    if ($c['statut'] == 'a_preparer') {
+        $a_preparer[] = $c;
+    } elseif ($c['statut'] == 'en_livraison') {
+        $en_livraison[] = $c;
+    } elseif ($c['statut'] == 'livree') {
+        $livrees[] = $c;
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -29,8 +40,8 @@ $en_livraison = array_filter($commandes, function($c) {
     <link rel="icon" type="image/png" href="Logo_Tasty_Country.png">
     <title>Espace Restaurateur - Tasty Country</title>
 </head>
-<body id="top"> <div class="site-container">
-        
+<body>
+    <div class="site-container">
         <header class="header">
             <div class="header-content">
                 <div class="brand">
@@ -42,7 +53,7 @@ $en_livraison = array_filter($commandes, function($c) {
                         <li><a href="accueil.html">Accueil</a></li>
                         <li><a href="commande.php" class="nav-active">Commandes</a></li>
                         <li><a href="admin.html">Gestion Utilisateurs</a></li>
-                        <li><a href="connexion.html">Déconnexion</a></li>
+                        <li><a href="se connecter.html">Déconnexion</a></li>
                     </ol>
                 </nav>
             </div>
@@ -50,45 +61,58 @@ $en_livraison = array_filter($commandes, function($c) {
 
         <main class="content">
             <h2 class="page-title">Tableau de Bord des Vols (Commandes) 👨‍🍳</h2>
-            
+
+            <?php if (isset($erreur)): ?>
+                <p style="color: red; text-align: center;"><?php echo $erreur; ?></p>
+            <?php endif; ?>
+
             <div class="orders-grid">
                 <section class="order-column">
                     <h3>📦 Commandes à préparer</h3>
-                    <?php if (!empty($a_preparer)): ?>
-                        <?php foreach ($a_preparer as $cmd): ?>
+                    <?php foreach ($a_preparer as $cmd): ?>
                         <div class="order-card">
                             <div class="order-header">
-                                <span class="order-id">#<?php echo ($cmd['id']); ?></span>
-                                <span class="order-time"><?php echo ($cmd['date_heure']); ?></span>
+                                <span class="order-id">#<?php echo $cmd['id']; ?></span>
+                                <span class="order-time"><?php echo $cmd['date_heure']; ?></span>
                             </div>
-                            <p><strong>Passager :</strong> <?php echo ($cmd['client']); ?></p>
-                            <p><?php echo implode('<br>', array_map('htmlspecialchars', $cmd['articles'])); ?></p>
-                            <p><strong>Paiement :</strong> <?php echo ($cmd['paiement'] ?? 'En attente'); ?></p>
+                            <p><strong>Passager :</strong> <?php echo $cmd['client']; ?></p>
+                            <p>
+                                <?php foreach ($cmd['articles'] as $article): ?>
+                                    • <?php echo $article; ?><br>
+                                <?php endforeach; ?>
+                            </p>
                             <button class="btn-action">Prêt pour la livraison ✈️</button>
                         </div>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <p style="color: white; text-align: center;">Aucun vol en attente au terminal.</p>
-                    <?php endif; ?>
+                    <?php endforeach; ?>
                 </section>
 
                 <section class="order-column delivery-section">
                     <h3>🚚 En cours de livraison</h3>
-                    <?php if (!empty($en_livraison)): ?>
-                        <?php foreach ($en_livraison as $cmd): ?>
-                        <div class="order-card">
+                    <?php foreach ($en_livraison as $cmd): ?>
+                        <div class="order-card in-flight">
                             <div class="order-header">
-                                <span class="order-id">#<?php echo ($cmd['id']); ?></span>
+                                <span class="order-id">#<?php echo $cmd['id']; ?></span>
                                 <span class="status-tag">En vol</span>
                             </div>
-                            <p>Livreur : <strong><?php echo ($cmd['livreur'] ?? 'Pilote automatique'); ?></strong></p>
-                            <p>Escale : <?php echo ($cmd['adresse']); ?></p>
+                            <p>Livreur : <strong><?php echo $cmd['livreur']; ?></strong></p>
+                            <p>Escale : <?php echo $cmd['adresse']; ?></p>
                             <button class="btn-disabled" disabled>Livraison en cours...</button>
                         </div>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <p style="color: white; text-align: center;">Aucun vol en cours actuellement.</p>
-                    <?php endif; ?>
+                    <?php endforeach; ?>
+                </section>
+
+                <section class="order-column history-section">
+                    <h3>✅ Historique</h3>
+                    <?php foreach ($livrees as $cmd): ?>
+                        <div class="order-card" style="opacity: 0.7;">
+                            <div class="order-header">
+                                <span class="order-id">#<?php echo $cmd['id']; ?></span>
+                                <span class="status-tag" style="background:#2ecc71;">Livré</span>
+                            </div>
+                            <p>Client : <?php echo $cmd['client']; ?></p>
+                            <button class="btn-disabled" disabled>Archivé</button>
+                        </div>
+                    <?php endforeach; ?>
                 </section>
             </div>
         </main>
@@ -99,14 +123,11 @@ $en_livraison = array_filter($commandes, function($c) {
                     <h3>Tasty Country 🌍</h3>
                     <p>Terminal de gestion interne.</p>
                 </div>
-                <div class="footer-section">
-                    <h4>Assistance Pro</h4>
-                    <p>📍 CyTech, Cergy</p>
-                    <p>📞 01 23 45 67 89 (Ligne Directe)</p> </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 Tasty Country - Projet Informatique CyTech</p>
-                <a href="#top">Revenir en haut ✈️</a> </div>
+                <p>&copy; 2026 Tasty Country - Projet CyTech</p>
+                <a href="#top">Revenir en haut ✈️</a>
+            </div>
         </footer>
     </div>
 </body>
