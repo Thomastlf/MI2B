@@ -10,6 +10,22 @@
 </head>
 <body>
     <?php $email_recupere = $_SESSION['email']; ?>
+    <?php
+        $data = json_decode(file_get_contents("utilisateur.json"), true);
+        foreach ($data as $ligne){
+            if ($email_recupere==$ligne['email']){
+                $nom  = $ligne['nom'];
+                $prenom    = $ligne['prenom'];
+                $email    = $ligne['email'];
+                $adresse = $ligne['adresse'];
+                $code_interphone = $ligne['code_interphone'];
+                $numero  = $ligne['numero'];
+                $date    = $ligne['date'];
+                $genre    = $ligne['genre'];
+                $motdepasse = $ligne['motdepasse'];
+            }
+        }
+    ?>
     <div class="site-container">
         <header class="header">
             <div class="header-content">
@@ -32,31 +48,35 @@
                 <legend>Vos informations 👤</legend>
                 <div class="info-row">
                     <div class="label">Nom :</div>
-                    <div class="value">Marchand</div>
+                    <div class="value"><?php echo $nom; ?></div>
                 </div>
                 <div class="info-row">
                     <div class="label">Prénom :</div>
-                    <div class="value">Maxence</div>
+                    <div class="value"><?php echo $prenom; ?></div>
                 </div>
                 <div class="info-row">
                     <div class="label">E-mail :</div>
-                    <div class="value"><?php echo $email_recupere; ?></div>
+                    <div class="value"><?php echo $email; ?></div>
+                </div>
+                <div class="info-row">
+                    <div class="label">Adresse :</div>
+                    <div class="value"><?php echo $adresse; ?></div>
                 </div>
                 <div class="info-row">
                     <div class="label">Code interphone :</div>
-                    <div class="value">1561</div>
+                    <div class="value"><?php echo $code_interphone; ?></div>
                 </div>
                 <div class="info-row">
                     <div class="label">Téléphone :</div>
-                    <div class="value">06 12 34 56 78</div>
+                    <div class="value"><?php echo $numero; ?></div>
                 </div>
                 <div class="info-row">
                     <div class="label">Date de naissance :</div>
-                    <div class="value">05/05/2006</div>
+                    <div class="value"><?php echo $date; ?></div>
                 </div>
                 <div class="info-row">
                     <div class="label">Genre :</div>
-                    <div class="value">Homme</div>
+                    <div class="value"><?php echo $genre; ?></div>
                 </div>
                 <button class="btn-edit" title="Modifier">Modifier les informations &#9998;</button>
             </fieldset>
