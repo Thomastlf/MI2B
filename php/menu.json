@@ -1,1 +1,114 @@
-
+[
+    {
+        "nom": "Gyoza Poulet",
+        "prix": 7.50,
+        "img": "japon-entree.png",
+        "categorie": "entree",
+        "ingredients": ["Poulet", "Chou", "Gingembre", "Pâte"],
+        "allergenes": ["Gluten", "Soja"]
+    },
+    {
+        "nom": "Ramen Croustillant",
+        "prix": 14.50,
+        "img": "japon.png",
+        "categorie": "plat",
+        "ingredients": ["Nouilles", "Bouillon", "Porc", "Oeuf"],
+        "allergenes": ["Gluten", "Oeuf"]
+    },
+    {
+        "nom": "Mochi Glacé",
+        "prix": 5.00,
+        "img": "japon-dessert.png",
+        "categorie": "dessert",
+        "ingredients": ["Riz gluant", "Glace Vanille", "Sucre"],
+        "allergenes": ["Lactose"]
+    },
+    {
+        "nom": "Toast à l'Italienne",
+        "prix": 8.00,
+        "img": "italie_entree.png",
+        "categorie": "entree",
+        "ingredients": ["Pain", "Tomate", "Mozzarella", "Basilic"],
+        "allergenes": ["Gluten", "Lactose"]
+    },
+    {
+        "nom": "Pasta Parmesan",
+        "prix": 13.90,
+        "img": "italie.jpg",
+        "categorie": "plat",
+        "ingredients": ["Pâtes", "Crème fraîche", "Parmesan"],
+        "allergenes": ["Gluten", "Lactose"]
+    },
+    {
+        "nom": "Tiramisu Maison",
+        "prix": 6.50,
+        "img": "italie_dessert.png",
+        "categorie": "dessert",
+        "ingredients": ["Mascarpone", "Biscuits", "Café", "Cacao"],
+        "allergenes": ["Gluten", "Lactose", "Oeuf"]
+    },
+    {
+        "nom": "Paella Valenciana",
+        "prix": 15.00,
+        "img": "espagne.png",
+        "categorie": "plat",
+        "ingredients": ["Riz", "Safran", "Crevettes", "Moules"],
+        "allergenes": ["Crustacés", "Mollusques"]
+    },
+    {
+        "nom": "Oeufs Mimosa à la Truffe",
+        "prix": 10.50,
+        "img": "france_entree.png",
+        "categorie": "entree",
+        "ingredients": ["Oeufs", "Mayonnaise", "Huile de truffe"],
+        "allergenes": ["Oeuf", "Moutarde"]
+    },
+    {
+        "nom": "Boeuf Bourguignon",
+        "prix": 18.00,
+        "img": "france.png",
+        "categorie": "plat",
+        "ingredients": ["Boeuf", "Vin rouge", "Carottes", "Oignons"],
+        "allergenes": ["Aucun"]
+    },
+    {
+        "nom": "Profiteroles",
+        "prix": 7.00,
+        "img": "france_dessert.png",
+        "categorie": "dessert",
+        "ingredients": ["Choux", "Glace vanille", "Chocolat chaud"],
+        "allergenes": ["Gluten", "Lactose", "Oeuf"]
+    },
+    {
+        "nom": "Nems Poulet",
+        "prix": 7.50,
+        "img": "vietnam_entree.png",
+        "categorie": "entree",
+        "ingredients": ["Poulet", "Galette de riz", "Vermicelles"],
+        "allergenes": ["Aucun"]
+    },
+    {
+        "nom": "Bo Bun Vietnamien",
+        "prix": 14.50,
+        "img": "vietnam.png",
+        "categorie": "plat",
+        "ingredients": ["Boeuf", "Vermicelles", "Nems", "Cacahuètes"],
+        "allergenes": ["Arachides", "Gluten"]
+    },
+    {
+        "nom": "Couscous Royal",
+        "prix": 15.50,
+        "img": "maroc.png",
+        "categorie": "plat",
+        "ingredients": ["Semoule", "Agneau", "Légumes", "Pois chiches"],
+        "allergenes": ["Gluten"]
+    },
+    {
+        "nom": "Raclette",
+        "prix": 19.00,
+        "img": "suisse.png",
+        "categorie": "plat",
+        "ingredients": ["Fromage à raclette", "Pommes de terre", "Charcuterie"],
+        "allergenes": ["Lactose"]
+    }
+]
