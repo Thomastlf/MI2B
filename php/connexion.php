@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="connexion.css">
-    <link rel="icon" type="image/png" href="Logo_Tasty_Country.png">
+    <link rel="stylesheet" href="../css/connexion.css">
+    <link rel="icon" type="image/png" href="../img/Logo_Tasty_Country.png">
     <title>Connexion - Tasty Country</title>
 </head>
 <body>
@@ -13,7 +13,7 @@
 		$email_connexion  = $_POST['email']  ?? "";
         $_SESSION['email'] = $email_connexion;
 		$motdepasse_connexion = $_POST['motdepasse'] ?? "";
-        $data    = json_decode(file_get_contents("utilisateur.json"), true);
+        $data    = json_decode(file_get_contents("../json/utilisateur.json"), true);
         foreach ($data as $utilisateur){
             $email_fichier  = $utilisateur['email'];
             $motdepasse_fichier    = $utilisateur['motdepasse'];
@@ -30,10 +30,10 @@
                 </div>
                 <nav class="main-nav">
                     <ol>
-                        <li><a href="accueil.html">Accueil</a></li>
-                        <li><a href="menu.html">Menu</a></li>
-                        <li><a href="inscription.html">Nous rejoindre</a></li>
-                        <li><a href="connexion.html" class="nav-active">Se connecter</a></li>
+                        <li><a href="accueil.php">Accueil</a></li>
+                        <li><a href="menu.php">Menu</a></li>
+                        <li><a href="inscription.php">Nous rejoindre</a></li>
+                        <li><a href="connexion.php" class="nav-active">Se connecter</a></li>
                     </ol>
                 </nav>
             </div>
