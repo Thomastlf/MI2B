@@ -11,7 +11,7 @@
 <body>
     <?php $email_recupere = $_SESSION['email']; ?>
     <?php
-        $data = json_decode(file_get_contents("utilisateur.json"), true);
+        $data = json_decode(file_get_contents("../json/utilisateur.json"), true);
         foreach ($data as $ligne){
             if ($email_recupere==$ligne['email']){
                 $nom  = $ligne['nom'];
