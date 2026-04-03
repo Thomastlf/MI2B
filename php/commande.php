@@ -1,5 +1,5 @@
 <?php
-$json_path = '../img/commande.json';
+$json_path = '../json/commande.json';
 $commandes = [];
 
 try {
