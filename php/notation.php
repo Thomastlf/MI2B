@@ -14,7 +14,7 @@ if (!empty($_POST)) {
     ];
 
     // Chargement des avis existants ou création d'un tableau vide
-    $fichier = 'avis_clients.json';
+    $fichier = '../json/avis_clients.json';
     $avisExistants = [];
     if (file_exists($fichier)) {
         $avisExistants = json_decode(file_get_contents($fichier), true);
@@ -34,8 +34,8 @@ if (!empty($_POST)) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="notation.css">
-    <link rel="icon" type="image/png" href="Logo_Tasty_Country.png">
+    <link rel="stylesheet" href="../css/notation.css">
+    <link rel="icon" type="image/png" href="../img/Logo_Tasty_Country.png">
     <title>Notation - Tasty Country</title>
 </head>
 <body>
@@ -47,10 +47,10 @@ if (!empty($_POST)) {
                 </div>
                 <nav class="main-nav">
                     <ol>
-                        <li><a href="accueil.html">Accueil</a></li>
-                        <li><a href="menu.html">Menu</a></li>
-                        <li><a href="inscription.html">Nous rejoindre</a></li>
-                        <li><a href="connexion.html">Se connecter</a></li>
+                        <li><a href="accueil.php">Accueil</a></li>
+                        <li><a href="menu.php">Menu</a></li>
+                        <li><a href="inscription.php">Nous rejoindre</a></li>
+                        <li><a href="connexion.php">Se connecter</a></li>
                     </ol>
                 </nav>
             </div>
