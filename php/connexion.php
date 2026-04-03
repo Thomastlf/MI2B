@@ -18,7 +18,7 @@
             $email_fichier  = $utilisateur['email'];
             $motdepasse_fichier    = $utilisateur['motdepasse'];
             if ($email_connexion==$email_fichier && $motdepasse_connexion==$motdepasse_fichier){
-                header("Location: http://localhost:8000/accueil.php");
+                header("Location: http://localhost:8000/php/accueil.php");
             }
         }
     ?>
@@ -57,7 +57,7 @@
                     <button type="submit" class="btn-login">Embarquement</button>
 
                 </form>
-                <p class="form-footer">Pas encore de billet ? <a href="inscription.html">Inscrivez-vous ici</a></p>
+                <p class="form-footer">Pas encore de billet ? <a href="inscription.php">Inscrivez-vous ici</a></p>
             </div>
         </main>
 
