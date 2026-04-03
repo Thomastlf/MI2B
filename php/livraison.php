@@ -1,5 +1,5 @@
 <?php
-$json_path = 'commande.json';
+$json_path = '../json/commande.json';
 $vols_a_livrer = [];
 
 try {
@@ -17,8 +17,8 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="commande.css">
-    <link rel="icon" type="image/png" href="Logo_Tasty_Country.png">
+    <link rel="stylesheet" type="text/css" href="../css/commande.css">
+    <link rel="icon" type="image/png" href="../img/Logo_Tasty_Country.png">
     <title>Espace Livreur - Marc</title>
 </head>
 <body>
@@ -27,9 +27,9 @@ try {
             <div class="header-content">
                 <div class="brand"><h1>Tasty Country ✈️</h1><span class="badge-pro">ESPACE LIVREUR</span></div>
                 <nav class="main-nav"><ol>
-                    <li><a href="accueil.html">Accueil</a></li>
+                    <li><a href="accueil.php">Accueil</a></li>
                     <li><a href="livraison.php" class="nav-active">Mes Vols</a></li>
-                    <li><a href="connexion.html">Déconnexion</a></li>
+                    <li><a href="connexion.php">Déconnexion</a></li>
                 </ol></nav>
             </div>
         </header>
