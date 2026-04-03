@@ -1,6 +1,6 @@
 <?php
 session_start(); 
-$json_path = 'menu.json'; 
+$json_path = '../json/menu.json'; 
 $plats_complets = [];
 
 if (file_exists($json_path)) {
@@ -28,8 +28,8 @@ foreach ($plats_complets as $p) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="menu.css">
-    <link rel="icon" type="image/png" href="Logo_Tasty_Country.png">
+    <link rel="stylesheet" href="../css/menu.css">
+    <link rel="icon" type="image/png" href="../img/Logo_Tasty_Country.png">
     <title>Menu - Tasty Country</title>
     <style>
         .info-container { position: relative; display: inline-block; cursor: help; margin-left: 10px; }
@@ -51,10 +51,10 @@ foreach ($plats_complets as $p) {
                 <div class="brand"><h1>Tasty Country ✈️</h1></div>
                 <nav class="main-nav">
                     <ol>
-                        <li><a href="accueil.html">Accueil</a></li>
+                        <li><a href="accueil.php">Accueil</a></li>
                         <li><a href="menu.php" class="nav-active">Menu</a></li>
                         <li><a href="profil.php">Mon Profil</a></li>
-                        <li><a href="connexion.html">Se connecter</a></li>
+                        <li><a href="connexion.php">Se connecter</a></li>
                     </ol>
                 </nav>
             </div>
