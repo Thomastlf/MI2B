@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="inscription.css">
-    <link rel="icon" type="image/png" href="Logo_Tasty_Country.png">
+    <link rel="stylesheet" href="../css/inscription.css">
+    <link rel="icon" type="image/png" href="../img/Logo_Tasty_Country.png">
     <title>Inscription - Tasty Country</title>
 </head>
 <body>
     <?php
     if (!empty($_POST)) {
-        $fichier = 'utilisateur.json';
+        $fichier = '../json/utilisateur.json';
         $data = [
             "nom"  => $_POST['nom'],
             "prenom"    => $_POST['prenom'],
@@ -40,10 +40,10 @@
                 </div>
                 <nav class="main-nav">
                     <ol>
-                        <li><a href="accueil.html">Accueil</a></li>
-                        <li><a href="menu.html">Menu</a></li>
-                        <li><a href="inscription.html" class="nav-active">Nous rejoindre</a></li>
-                        <li><a href="connexion.html">Se connecter</a></li>
+                        <li><a href="accueil.php">Accueil</a></li>
+                        <li><a href="menu.php">Menu</a></li>
+                        <li><a href="inscription.php" class="nav-active">Nous rejoindre</a></li>
+                        <li><a href="connexion.php">Se connecter</a></li>
                     </ol>
                 </nav>
             </div>
