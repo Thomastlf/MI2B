@@ -1,7 +1,7 @@
 <?php 
 session_start(); 
-$json_path = 'commande.json';
-$user_path = 'utilisateur.json';
+$json_path = '../json/commande.json';
+$user_path = '../json/utilisateur.json';
 $mes_vols = [];
 $nom = $prenom = $email = $adresse = "Non connecté";
 
@@ -26,8 +26,8 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="commande.css">
-    <link rel="icon" type="image/png" href="Logo_Tasty_Country.png">
+    <link rel="stylesheet" type="text/css" href="../css/commande.css">
+    <link rel="icon" type="image/png" href="../json/Logo_Tasty_Country.png">
     <title>Mon Profil - Tasty Country</title>
 </head>
 <body>
@@ -36,8 +36,8 @@ try {
             <div class="header-content">
                 <div class="brand"><h1>Tasty Country ✈️</h1></div>
                 <nav class="main-nav"><ol>
-                    <li><a href="accueil.html">Accueil</a></li>
-                    <li><a href="menu.html">Menu</a></li>
+                    <li><a href="accueil.php">Accueil</a></li>
+                    <li><a href="menu.php">Menu</a></li>
                     <li><a href="profil.php" class="nav-active">Mon Profil</a></li>
                 </ol></nav>
             </div>
