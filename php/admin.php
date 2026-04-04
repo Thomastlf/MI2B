@@ -13,11 +13,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email_target = $_POST['user_email'];
     foreach ($users as &$u) {
         if ($u['email'] === $email_target) {
+            // Action bloquer / débloquer
             if (isset($_POST['action']) && $_POST['action'] === 'toggle_block') {
                 $u['statut'] = ($u['statut'] === 'Bloqué') ? 'Actif' : 'Bloqué';
             }
+            // Action changer de rôle
             if (isset($_POST['new_role'])) {
                 $u['role'] = $_POST['new_role'];
+            }
+            // Action changer de niveau (Premium / VIP)
+            if (isset($_POST['new_level'])) {
+                $u['niveau'] = $_POST['new_level'];
+            }
+            // Action changer le niveau de remise (0 à 5)
+            if (isset($_POST['new_discount'])) {
+                $u['remise'] = $_POST['new_discount'];
             }
             break;
         }
@@ -79,6 +89,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <thead>
                         <tr>
                             <th>Statut</th>
+                            <th>Niveau</th>
+                            <th>Remise</th>
                             <th>Nom & Prénom</th>
                             <th>Email</th>
                             <th>Rôle</th>
@@ -95,6 +107,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <button type="submit" style="background:none; border:none; cursor:pointer; font-size:1.4rem;">
                                         <?php echo ($user['statut'] === 'Bloqué') ? '🚫' : '✅'; ?>
                                     </button>
+                                </form>
+                            </td>
+                            <td>
+                                <form method="POST">
+                                    <input type="hidden" name="user_email" value="<?php echo $user['email']; ?>">
+                                    <select name="new_level" onchange="this.form.submit()" class="role-selector">
+                                        <option value="Classique" <?php if(($user['niveau'] ?? '') == 'Classique') echo 'selected'; ?>>Classique</option>
+                                        <option value="Premium" <?php if(($user['niveau'] ?? '') == 'Premium') echo 'selected'; ?>>Premium 🥈</option>
+                                        <option value="VIP" <?php if(($user['niveau'] ?? '') == 'VIP') echo 'selected'; ?>>VIP 🥇</option>
+                                    </select>
+                                </form>
+                            </td>
+                            <td>
+                                <form method="POST">
+                                    <input type="hidden" name="user_email" value="<?php echo $user['email']; ?>">
+                                    <select name="new_discount" onchange="this.form.submit()" class="role-selector" style="width: 80px;">
+                                        <?php for ($i = 0; $i <= 5; $i++): ?>
+                                            <option value="<?php echo $i; ?>" <?php if(($user['remise'] ?? 0) == $i) echo 'selected'; ?>>
+                                                Niv. <?php echo $i; ?>
+                                            </option>
+                                        <?php endfor; ?>
+                                    </select>
                                 </form>
                             </td>
                             <td><?php echo htmlspecialchars($user['nom'] . " " . $user['prenom']); ?></td>
