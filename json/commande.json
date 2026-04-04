@@ -1,8 +1,9 @@
 [
     {
         "id": "69d14013dcf54",
-        "client": "d d",
+        "client": "d@gmail.com",
         "date_heure": "2026-04-04T16:45",
+
         "articles": [
             {
                 "nom": "Ramen Croustillant",
@@ -20,11 +21,12 @@
         "livreur": "caryl",
         "adresse": "d",
         "code_interphone": "d",
-        "statut": "en_livraison"
+        "statut": "en_livraison",
+        "total": 32.5
     },
     {
         "id": "69d14020d7f78",
-        "client": "d d",
+        "client": "d.@gmail.com",
         "date_heure": "2026-04-04T16:45",
         "articles": [
             {
@@ -49,6 +51,7 @@
         "livreur": null,
         "adresse": "d",
         "code_interphone": "d",
-        "statut": "a_preparer"
+        "statut": "a_preparer",
+        "total": 48.5
     }
 ]
