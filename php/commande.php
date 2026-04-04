@@ -1,4 +1,20 @@
 <?php
+session_start();
+
+// Protection de la page : il faut être connecté et avoir un rôle autorisé
+if (!isset($_SESSION['email']) || !isset($_SESSION['role'])) {
+    header("Location: connexion.php");
+    exit();
+}
+
+$role = strtolower($_SESSION['role']);
+
+// Vérification des permissions pour cette page
+if ($role !== 'admin' && $role !== 'restaurateur') {
+    header("Location: accueil.php");
+    exit();
+}
+
 $json_path = '../json/commande.json';
 $commandes = [];
 
@@ -46,14 +62,23 @@ foreach ($commandes as $c) {
             <div class="header-content">
                 <div class="brand">
                     <h1>Tasty Country ✈️</h1>
-                    <span class="badge-pro">ACCÈS RESTAURATEUR</span>
+                    <span class="badge-pro"><?php echo ($role === 'admin') ? 'ACCÈS ADMIN' : 'ACCÈS RESTAURATEUR'; ?></span>
                 </div>
                 <nav class="main-nav">
                     <ol>
-                        <li><a href="accueil.php">Accueil</a></li>
-                        <li><a href="commande.php" class="nav-active">Commandes</a></li>
-                        <li><a href="admin.php">Gestion Utilisateurs</a></li>
-                        <li><a href="se connecter.php">Déconnexion</a></li>
+                        <?php if ($role === 'admin'): ?>
+                            <li><a href="accueil.php">Accueil</a></li>
+                            <li><a href="menu.php">Menu</a></li>
+                            <li><a href="commande.php" class="nav-active">Commandes</a></li>
+                            <li><a href="admin.php">Gestion Admin</a></li>
+                            <li><a href="profil.php">Mon Profil</a></li>
+                            <li><a href="deconnexion.php">Déconnexion</a></li>
+
+                        <?php elseif ($role === 'restaurateur'): ?>
+                            <li><a href="commande.php" class="nav-active">Commandes</a></li>
+                            <li><a href="profil.php">Mon Profil</a></li>
+                            <li><a href="deconnexion.php">Déconnexion</a></li>
+                        <?php endif; ?>
                     </ol>
                 </nav>
             </div>
