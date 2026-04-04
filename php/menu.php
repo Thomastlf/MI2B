@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$json_path = 'menu.json';
+$json_path = '../json/menu.json';
 $plats_complets = [];
 
 try {
@@ -39,7 +39,7 @@ foreach ($plats_complets as $p) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="menu.css">
+    <link rel="stylesheet" href="../css/menu.css">
     <link rel="icon" type="image/png" href="../img/Logo_Tasty_Country.png">
     <title>Menu - Tasty Country</title>
 </head>
