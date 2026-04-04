@@ -13,8 +13,35 @@ $texte_message = "";
 if ($control_calcule == $control_recu) {
     if ($status == 'accepted') {
         $titre_message = "Merci pour votre commande ! 🎉";
-        $texte_message = "Votre paiement de " .$montant. " € a bien été accepté. Votre commande part en préparation !";       
-        //enregistrer la commande 
+        $texte_message = "Votre paiement de " .$montant. " € a bien été accepté. Votre commande part en préparation !";  
+        $email_recupere = $_SESSION['email'];
+        $data = json_decode(file_get_contents("../json/utilisateur.json"), true);
+        foreach ($data as $ligne){
+            if ($email_recupere==$ligne['email']){
+                $nom  = $ligne['nom'];
+                $prenom    = $ligne['prenom'];
+                $adresse = $ligne['adresse'];
+                $code_interphone = $ligne['code_interphone'];
+            }
+        }
+        $fichier = '../json/commande.json';
+        $tab = [
+            "id"  => $transaction,
+            "client"    => $prenom." ".$nom,
+            "date_heure"    => "",
+            "articles" => "",
+            "livreur" => "",
+            "adresse" => $adresse,
+            "code_interphone" => $code_interphone
+        ];
+        if (file_exists($fichier)) {
+            $contenu = file_get_contents($fichier);
+            $utilisateurs = json_decode($contenu, true) ?? [];
+        } else {
+            $utilisateurs = [];
+        }
+        $utilisateurs[] = $tab;
+        file_put_contents($fichier, json_encode($utilisateurs, JSON_PRETTY_PRINT));
     } else {
         $titre_message = "Paiement refusé ❌";
         $texte_message = "La transaction a échoué ou a été annulée. Veuillez réessayer.";
