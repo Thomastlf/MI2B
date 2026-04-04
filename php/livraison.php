@@ -27,7 +27,7 @@ try {
             <div class="header-content">
                 <div class="brand"><h1>Tasty Country ✈️</h1><span class="badge-pro">ESPACE LIVREUR</span></div>
                 <nav class="main-nav"><ol>
-                    <li><a href="accueil.php">Accueil</a></li>
+                    <li><a href="profil.php">Mon Profil</a></li>
                     <li><a href="livraison.php" class="nav-active">Mes Vols</a></li>
                     <li><a href="connexion.php">Déconnexion</a></li>
                 </ol></nav>
