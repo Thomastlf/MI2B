@@ -1,185 +1,373 @@
-<?php
-session_start();
-
-$json_path = '../json/menu.json';
-$plats_complets = [];
-
-try {
-    if (!file_exists($json_path)) {
-        throw new Exception("Erreur système : Catalogue introuvable.");
-    }
-    
-    $json_content = file_get_contents($json_path);
-    $plats_complets = json_decode($json_content, true);
-    
-    if ($plats_complets === null) {
-        throw new Exception("Erreur de lecture des données.");
-    }
-} 
-catch (Exception $e) {
-    $erreur_message = $e->getMessage();
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-$role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : '';
+html, body {
+    height: 100%; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #1D3557;
+    overflow-x: hidden; 
+    color: white;
+}
 
-$cat_choisie = $_GET['categorie'] ?? '';
-$pays_choisi = $_GET['pays'] ?? '';
+.site-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
 
-$plats = [];
-foreach ($plats_complets as $p) {
-    $match_cat = ($cat_choisie == '' || $p['categorie'] == $cat_choisie);
-    $match_pays = ($pays_choisi == '' || $p['pays'] == $pays_choisi);
+.header {
+    background: linear-gradient(135deg, #1D3557 0%, #C71585 100%);
+    padding: 25px 15px;
+    border-radius: 0 0 30px 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
 
-    if ($match_cat && $match_pays) {
-        $plats[] = $p;
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.header h1 {
+    color: #00FFFF;
+    font-size: clamp(1.5rem, 5vw, 2.2rem);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.main-nav ol {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    list-style: none;
+}
+
+.main-nav li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 18px;
+    border: 1px solid #00FFFF;
+    border-radius: 8px;
+    background: rgba(0, 255, 255, 0.1);
+    font-weight: bold;
+    transition: 0.3s;
+    white-space: nowrap;
+    display: block;
+}
+
+.main-nav li a:hover, 
+.nav-active {
+    background-color: #FF1493 !important;
+    border-color: #FF1493 !important;
+    box-shadow: 0 0 10px #FF1493;
+    transform: scale(1.05);
+}
+
+.menu-container {
+    flex: 1;
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.section-title {
+    color: #FF1493; 
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.filters {
+    background: #213B61;
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid #00FFFF;
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.search-bar, 
+select {
+    padding: 12px;
+    background: #1D3557;
+    border: 1px solid #00FFFF;
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+    flex: 1; 
+    min-width: 150px;
+}
+
+.reset-link {
+    color: #00bcd4;
+    text-decoration: none;
+    align-self: center;
+    font-size: 0.9rem;
+    margin-left: 10px;
+}
+
+.menu-promo-banner {
+    background: rgba(255, 20, 147, 0.15);
+    border: 2px dashed #FF1493;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.menu-promo-banner h3 {
+    color: #00FFFF;
+    margin-bottom: 10px;
+}
+
+.btn-pack {
+    background: #00FFFF;
+    color: #1D3557;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.3s;
+    text-transform: uppercase;
+}
+
+.btn-pack:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #00FFFF;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.product-card {
+    background: #213B61;
+    border: 1px solid #00FFFF;
+    border-radius: 20px;
+    overflow: visible; 
+    transition: 0.3s ease;
+    color: white;
+    position: relative;
+}
+
+.product-card:hover { 
+    transform: translateY(-10px); 
+    box-shadow: 0 0 15px #00FFFF;
+}
+
+.product-card img {
+    width: 100%;
+    height: 175px;
+    object-fit: cover; 
+    border-bottom: 1px solid #00FFFF;
+}
+
+.product-info {
+    padding: 20px; 
+    text-align: center; 
+}
+
+.country-label {
+    color: #00bcd4; 
+    font-size: 0.85rem; 
+    margin-top: 8px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.price { 
+    color: #FF1493; 
+    font-weight: bold; 
+    font-size: 1.4rem; 
+    display: block; 
+    margin-bottom: 15px; 
+}
+
+.quantity-selector label {
+    margin-right: 5px;
+}
+
+.quantity-selector input {
+    width: 50px;
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #00FFFF;
+    background: #1D3557;
+    color: white;
+}
+
+.info-container { 
+    position: relative; 
+    display: inline-block; 
+    cursor: help; 
+    margin-left: 8px; 
+    vertical-align: middle;
+}
+
+.info-icon { 
+    background: #00bcd4; 
+    color: white; 
+    border-radius: 50%; 
+    width: 18px; 
+    height: 18px; 
+    display: inline-flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-size: 11px; 
+    font-weight: bold; 
+}
+
+.info-tooltip { 
+    visibility: hidden; 
+    width: 220px; 
+    background-color: rgba(26, 26, 26, 0.98); 
+    color: #fff; 
+    text-align: left;
+    border-radius: 8px; 
+    padding: 12px; 
+    position: absolute; 
+    z-index: 9999; 
+    bottom: 130%; 
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0; 
+    transition: opacity 0.3s; 
+    border: 1px solid #00FFFF; 
+    font-size: 0.8rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    pointer-events: none;
+}
+
+.info-container:hover .info-tooltip { 
+    visibility: visible; 
+    opacity: 1; 
+}
+
+.allergenes-list { 
+    color: #ff6b6b; 
+    font-weight: bold; 
+    display: block; 
+    margin-top: 5px; 
+    border-top: 1px solid #444; 
+    padding-top: 5px; 
+}
+
+.order-options {
+    background: rgba(255,255,255,0.05);
+    padding: 25px;
+    border-radius: 12px;
+    margin-top: 40px;
+    color: white;
+}
+
+.order-options h3 {
+    margin-bottom: 15px;
+    color: #00FFFF;
+}
+
+.timing-choice {
+    margin-bottom: 15px;
+}
+
+.date-picker input {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #00FFFF;
+    background: #1D3557;
+    color: white;
+}
+
+.add-btn {
+    width: 100%;
+    margin-top: 20px;
+    background: linear-gradient(135deg, #00FFFF 0%, #1D3557 100%);
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: 0.3s;
+}
+
+.add-btn:hover {
+    filter: brightness(1.2);
+    transform: scale(1.02);
+}
+
+.footer {
+    background: linear-gradient(135deg, #C71585 0%, #1D3557 100%);
+    color: white;
+    padding: 40px 20px 20px;
+    margin-top: 50px; 
+    border-radius: 30px 30px 0 0;
+    border-top: 3px solid #00FFFF;
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-section h3, 
+.footer-section h4 { 
+    color: #00FFFF; 
+    margin-bottom: 15px; 
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-bottom a { 
+    color: #00FFFF; 
+    text-decoration: none; 
+    display: block; 
+    margin-top: 10px; 
+}
+
+@media (max-width: 650px) {
+    .main-nav ol {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+    
+    .main-nav li a { 
+        text-align: center; 
+    }
+    
+    .filters {
+        flex-direction: column;
     }
 }
-?>
+.date-picker {
+    display: none;
+}
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/menu.css">
-    <link rel="icon" type="image/png" href="../img/Logo_Tasty_Country.png">
-    <title>Menu - Tasty Country</title>
-</head>
-<body id="top">
-    <div class="site-container">
-        <header class="header">
-            <div class="header-content">
-                <div class="brand"><h1>Tasty Country ✈️</h1></div>
-                <nav class="main-nav">
-                    <ol>
-                        <?php if (!isset($_SESSION['email'])): ?>
-                            <li><a href="accueil.php">Accueil</a></li>
-                            <li><a href="menu.php" class="nav-active">Menu</a></li>
-                            <li><a href="inscription.php">Nous rejoindre</a></li>
-                            <li><a href="connexion.php">Se connecter</a></li>
-
-                        <?php elseif ($role === 'admin'): ?>
-                            <li><a href="accueil.php">Accueil</a></li>
-                            <li><a href="menu.php" class="nav-active">Menu</a></li>
-                            <li><a href="commande.php">Commandes</a></li>
-                            <li><a href="admin.php">Gestion Admin</a></li>
-                            <li><a href="profil.php">Mon Profil</a></li>
-                            <li><a href="deconnexion.php">Déconnexion</a></li>
-
-                        <?php else: ?>
-                            <li><a href="accueil.php">Accueil</a></li>
-                            <li><a href="menu.php" class="nav-active">Menu</a></li>
-                            <li><a href="profil.php">Mon Profil</a></li>
-                            <li><a href="deconnexion.php">Déconnexion</a></li>
-                        <?php endif; ?>
-                    </ol>
-                </nav>
-            </div>
-        </header>
-
-        <main class="menu-container">
-            <h2 class="section-title">Nos Destinations Culinaires</h2>
-            
-            <?php if (isset($erreur_message)): ?>
-                <p class="error-msg"><?= $erreur_message ?></p>
-            <?php endif; ?>
-
-            <section class="filters">
-                <form method="GET" action="menu.php">
-                    <select name="pays" onchange="this.form.submit()">
-                        <option value="">Tous les Menus 🌍</option>
-                        <option value="France" <?= ($pays_choisi == 'France') ? 'selected' : '' ?>>Menu Français 🇫🇷</option>
-                        <option value="Italie" <?= ($pays_choisi == 'Italie') ? 'selected' : '' ?>>Menu Italien 🇮🇹</option>
-                        <option value="Japon" <?= ($pays_choisi == 'Japon') ? 'selected' : '' ?>>Menu Japonais 🇯🇵</option>
-                    </select>
-
-                    <select name="categorie" onchange="this.form.submit()">
-                        <option value="">Toutes les catégories</option>
-                        <option value="entree" <?= ($cat_choisie == 'entree') ? 'selected' : '' ?>>Entrées</option>
-                        <option value="plat" <?= ($cat_choisie == 'plat') ? 'selected' : '' ?>>Plats</option>
-                        <option value="dessert" <?= ($cat_choisie == 'dessert') ? 'selected' : '' ?>>Desserts</option>
-                    </select>
-                    <a href="menu.php" class="reset-link">Reset</a>
-                </form> 
-            </section>
-
-            <form action="panier.php" method="POST">
-                
-                <?php if ($pays_choisi != ''): ?>
-                    <div class="menu-promo-banner">
-                        <h3>🎁 Pack Destination : <?= htmlspecialchars($pays_choisi) ?></h3>
-                        <p>Commandez le menu complet (Entrée + Plat + Dessert) et profitez de <strong>-10% de remise immédiate !</strong></p>
-                        <button type="submit" name="pack_menu" value="<?= htmlspecialchars($pays_choisi) ?>" class="btn-pack">
-                            Ajouter le Pack Menu (1 pers.)
-                        </button>
-                    </div>
-                <?php endif; ?>
-
-                <section class="product-grid">
-                    <?php foreach ($plats as $p): ?>
-                        <div class="product-card">
-                            <img src="<?= htmlspecialchars($p['img']) ?>" alt="<?= htmlspecialchars($p['nom']) ?>">
-                            <div class="product-info">
-                                <h3>
-                                    <?= htmlspecialchars($p['nom']) ?>
-                                    <div class="info-container">
-                                        <span class="info-icon">i</span>
-                                        <div class="info-tooltip">
-                                            <strong>Ingrédients :</strong><br>
-                                            <?= htmlspecialchars(implode(', ', $p['ingredients'])) ?><br>
-                                            <span class="allergenes-list">⚠️ Allergènes : <?= htmlspecialchars(implode(', ', $p['allergenes'])) ?></span>
-                                        </div>
-                                    </div>
-                                </h3>
-                                <p class="country-label"><?= htmlspecialchars($p['pays']) ?></p>
-                                <span class="price"><?= number_format($p['prix'], 2) ?>€</span>
-                                
-                                <div class="quantity-selector">
-                                    <label>Quantité :</label>
-                                    <input type="number" name="qte[<?= htmlspecialchars($p['nom']) ?>]" value="0" min="0">
-                                </div>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                </section>
-
-                <section class="order-options">
-    <h3>🕒 Planification de la commande</h3>
-    
-    <div class="timing-choice">
-        <input type="radio" name="timing" value="Maintenant" checked> 
-        <label for="imm">Maintenant 🚀</label>
-        
-        <input type="radio" name="timing" value="plus_tard" id="late"> 
-        <label for="late">Plus tard 📅</label>
-        
-        <div class="date-picker">
-            <input type="datetime-local" name="date_heure" value="<?= date('Y-m-d\TH:i') ?>">
-        </div>
-    </div>
-    
-    <button type="submit" class="add-btn">Valider mon Panier 💳</button>
-</section>
-            </form>
-        </main>
-
-        <footer class="footer">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Tasty Country 🌍</h3>
-                    <p>Le tour du monde dans votre assiette.</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Contact</h4>
-                    <p>📍 CyTech, Cergy</p>
-                    <p>📞 01 23 45 67 89</p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; <?= date('Y') ?> Tasty Country - Projet Informatique</p>
-                <a href="#top">Revenir en haut ✈️</a>
-            </div>
-        </footer>
-    </div>
-</body>
-</html>
+#late:checked ~ .date-picker {
+    display: block;
+}
