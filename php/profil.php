@@ -34,7 +34,7 @@ $role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'client';
         $tab = json_decode(file_get_contents("../json/commande.json"), true);
         $commande=[];
         foreach ($tab as $ligne){
-            if ($ligne['client'] === $email_recupere) {
+            if ($ligne['client'] == $email_recupere) {
             $commande[] = $ligne;
         }
         }
