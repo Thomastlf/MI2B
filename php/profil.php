@@ -3,6 +3,15 @@ if (!isset($_SESSION['email'])) {
     header("Location: http://localhost:8000/php/accueil.php"); 
     exit();
 }
+
+// MODIFICATION : Sélection de l'email à afficher
+// Si 'email' est dans l'URL (via admin), on prend celui-là, sinon on prend celui de la session
+if (isset($_GET['email']) && !empty($_GET['email'])) {
+    $email_a_afficher = $_GET['email'];
+} else {
+    $email_a_afficher = $_SESSION['email'];
+}
+
 $role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'client';
 ?>
 <!DOCTYPE html>
@@ -15,11 +24,13 @@ $role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'client';
     <title>Profil - Tasty Country</title>
 </head>
 <body>
-    <?php $email_recupere = $_SESSION['email']; ?>
     <?php
         $data = json_decode(file_get_contents("../json/utilisateur.json"), true);
+        $profil_trouve = false;
+        
         foreach ($data as $ligne){
-            if ($email_recupere==$ligne['email']){
+            // MODIFICATION : On cherche l'utilisateur correspondant à l'email sélectionné
+            if ($email_a_afficher == $ligne['email']){
                 $nom  = $ligne['nom'];
                 $prenom    = $ligne['prenom'];
                 $email    = $ligne['email'];
@@ -29,14 +40,23 @@ $role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'client';
                 $date    = $ligne['date'];
                 $genre    = $ligne['genre'];
                 $motdepasse = $ligne['motdepasse'];
+                $profil_trouve = true;
+                break;
             }
         }
+
+        if (!$profil_trouve) {
+            echo "<p style='color:white; text-align:center; margin-top:50px;'>Utilisateur introuvable.</p>";
+            exit();
+        }
+
+        // Récupération des commandes de l'utilisateur affiché
         $tab = json_decode(file_get_contents("../json/commande.json"), true);
         $commande=[];
         foreach ($tab as $ligne){
-            if ($ligne['client'] == $email_recupere) {
-            $commande[] = $ligne;
-        }
+            if ($ligne['client'] == $email_a_afficher) {
+                $commande[] = $ligne;
+            }
         }
     ?>
     <div class="site-container">
@@ -78,7 +98,7 @@ $role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'client';
 
         <main class="content">
             <fieldset class="profile-section">
-                <legend>Vos informations 👤</legend>
+                <legend>Informations du passager 👤</legend>
                 <div class="info-row">
                     <div class="label">Nom :</div>
                     <div class="value"><?php echo $nom; ?></div>
@@ -111,31 +131,34 @@ $role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'client';
                     <div class="label">Genre :</div>
                     <div class="value"><?php echo $genre; ?></div>
                 </div>
-                <button class="btn-edit" title="Modifier">Modifier les informations &#9998;</button>
+                
+                <?php if ($email_a_afficher === $_SESSION['email']): ?>
+                    <button class="btn-edit" title="Modifier">Modifier mes informations &#9998;</button>
+                <?php endif; ?>
             </fieldset>
 
             <fieldset class="profile-section">
-                <legend>Vos anciennes commandes 📦</legend>
-                    <ul class="order-list">
-                            <?php if (empty($commande)): ?>
-                                <li>Vous n'avez pas encore de commandes.</li>
-
-                            <?php else: ?>
-                                <?php foreach ($commande as $c): ?>
-                                    <li>
-                                    <span>Commande n°<?php echo $c['id']; ?></span> 
-                                            <span>Date :<?php echo $c['date_heure']; ?></span>
-                                            <div>
-                                            <?php 
-                                            foreach($c['articles'] as $article){
-                                                echo $article['quantite']."x" .$article["nom"]." - ".$article['prix']."€";} ?>
+                <legend>Historique des vols 📦</legend>
+                <ul class="order-list">
+                    <?php if (empty($commande)): ?>
+                        <li>Ce passager n'a pas encore de commandes.</li>
+                    <?php else: ?>
+                        <?php foreach ($commande as $c): ?>
+                            <li>
+                                <strong>Commande n°<?php echo $c['id']; ?></strong><br>
+                                <span>Date : <?php echo $c['date_heure']; ?></span><br>
+                                <div>
+                                    <?php 
+                                    foreach($c['articles'] as $article){
+                                        echo htmlspecialchars($article['quantite']."x " .$article["nom"]." - ".$article['prix']."€")."<br>";
+                                    } ?>
                                 </div>
-                                            <span>Total : <?php echo $c["total"]; ?>€</span> | 
-                                            <span>Statut : <?php echo $c['statut']; ?></span>
-                                    </li>
-                    <?php endforeach; ?>
-            <?php endif; ?>
-</ul>
+                                <span>Total : <?php echo $c["total"]; ?>€</span> | 
+                                <span>Statut : <?php echo ucfirst($c['statut']); ?></span>
+                            </li>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </ul>
             </fieldset>
 
             <fieldset class="profile-section">
@@ -160,7 +183,6 @@ $role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'client';
                     <h3>Tasty Country 🌍</h3>
                     <p>Le tour du monde dans votre assiette.</p>
                 </div>
-
                 <div class="footer-section">
                     <h4>Contact</h4>
                     <p>📍 CyTech, Cergy</p>
