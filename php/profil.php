@@ -3,13 +3,6 @@ if (!isset($_SESSION['email'])) {
     header("Location: http://localhost:8000/php/accueil.php"); 
     exit();
 }
-
-if (isset($_GET['email']) && !empty($_GET['email'])) {
-    $email_a_afficher = $_GET['email'];
-} else {
-    $email_a_afficher = $_SESSION['email'];
-}
-
 $role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'client';
 ?>
 <!DOCTYPE html>
@@ -22,12 +15,11 @@ $role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'client';
     <title>Profil - Tasty Country</title>
 </head>
 <body>
+    <?php $email_recupere = $_SESSION['email']; ?>
     <?php
         $data = json_decode(file_get_contents("../json/utilisateur.json"), true);
-        $profil_trouve = false;
-
         foreach ($data as $ligne){
-            if ($email_a_afficher == $ligne['email']){
+            if ($email_recupere==$ligne['email']){
                 $nom  = $ligne['nom'];
                 $prenom    = $ligne['prenom'];
                 $email    = $ligne['email'];
@@ -37,14 +29,14 @@ $role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'client';
                 $date    = $ligne['date'];
                 $genre    = $ligne['genre'];
                 $motdepasse = $ligne['motdepasse'];
-                $profil_trouve = true;
-                break;
             }
         }
-
-        if (!$profil_trouve) {
-            echo "<p style='color:white; text-align:center; margin-top:50px;'>Utilisateur introuvable.</p>";
-            exit();
+        $tab = json_decode(file_get_contents("../json/commande.json"), true);
+        $commande=[];
+        foreach ($tab as $ligne){
+            if ($ligne['client'] === $email_recupere) {
+            $commande[] = $ligne;
+        }
         }
     ?>
     <div class="site-container">
@@ -86,7 +78,7 @@ $role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'client';
 
         <main class="content">
             <fieldset class="profile-section">
-                <legend>Informations du passager 👤</legend>
+                <legend>Vos informations 👤</legend>
                 <div class="info-row">
                     <div class="label">Nom :</div>
                     <div class="value"><?php echo $nom; ?></div>
@@ -119,26 +111,31 @@ $role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'client';
                     <div class="label">Genre :</div>
                     <div class="value"><?php echo $genre; ?></div>
                 </div>
-                
-                <?php if ($email_a_afficher === $_SESSION['email']): ?>
-                    <button class="btn-edit" title="Modifier">Modifier mes informations &#9998;</button>
-                <?php endif; ?>
+                <button class="btn-edit" title="Modifier">Modifier les informations &#9998;</button>
             </fieldset>
 
             <fieldset class="profile-section">
-                <legend>Anciennes commandes 📦</legend>
-                <ul class="order-list">
-                    <li>
-                        <span class="order-dest">Indien</span>
-                        <span class="order-price">15.95€</span>
-                        <span class="order-date">15/05/2025</span>
-                    </li>
-                    <li>
-                        <span class="order-dest">Chinois</span>
-                        <span class="order-price">14.00€</span>
-                        <span class="order-date">20/04/2023</span>
-                    </li>
-                </ul> 
+                <legend>Vos anciennes commandes 📦</legend>
+                    <ul class="order-list">
+                            <?php if (empty($commande)): ?>
+                                <li>Vous n'avez pas encore de commandes.</li>
+
+                            <?php else: ?>
+                                <?php foreach ($commande as $c): ?>
+                                    <li>
+                                    <span>Commande n°<?php echo $c['id']; ?></span> 
+                                            <span>Date :<?php echo $c['date_heure']; ?></span>
+                                            <div>
+                                            <?php 
+                                            foreach($c['articles'] as $article){
+                                                echo $article['quantite']."x" .$article["nom"]." - ".$article['prix']."€";} ?>
+                                </div>
+                                            <span>Total : <?php echo $c["total"]; ?>€</span> | 
+                                            <span>Statut : <?php echo $c['statut']; ?></span>
+                                    </li>
+                    <?php endforeach; ?>
+            <?php endif; ?>
+</ul>
             </fieldset>
 
             <fieldset class="profile-section">
