@@ -1,10 +1,14 @@
 <?php
 session_start();
-// Chemin vers ton fichier JSON (ajuste si nécessaire : '../json/utilisateur.json' ou 'utilisateur.json')
+
+if (!isset($_SESSION['role']) || strtolower($_SESSION['role']) !== 'admin') {
+    header("Location: accueil.php");
+    exit();
+}
+
 $json_path = '../json/utilisateur.json'; 
 $users = json_decode(file_get_contents($json_path), true);
 
-// Traitement PHP pour les actions (Changement de rôle ou Blocage)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email_target = $_POST['user_email'];
     foreach ($users as &$u) {
@@ -43,8 +47,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <nav class="main-nav">
                     <ol>
                         <li><a href="accueil.php">Accueil</a></li>
+                        <li><a href="menu.php">Menu</a></li>
                         <li><a href="commande.php">Commandes</a></li>
-                        <li><a href="admin.php" class="nav-active">Utilisateurs</a></li>
+                        <li><a href="admin.php" class="nav-active">Gestion admin</a></li>
+                        <li><a href="profil.php">Mon Profil</a></li>
                         <li><a href="deconnexion.php">Déconnexion</a></li>
                     </ol>
                 </nav>
@@ -97,10 +103,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <form method="POST">
                                     <input type="hidden" name="user_email" value="<?php echo $user['email']; ?>">
                                     <select name="new_role" onchange="this.form.submit()" class="role-selector">
-                                        <option value="Client" <?php if($user['role'] == 'Client') echo 'selected'; ?>>Client</option>
-                                        <option value="Restaurateur" <?php if($user['role'] == 'Restaurateur') echo 'selected'; ?>>Restaurateur</option>
-                                        <option value="Livreur" <?php if($user['role'] == 'Livreur') echo 'selected'; ?>>Livreur</option>
-                                        <option value="Admin" <?php if($user['role'] == 'Admin') echo 'selected'; ?>>Admin</option>
+                                        <option value="Client" <?php if(strtolower($user['role']) == 'client') echo 'selected'; ?>>Client</option>
+                                        <option value="Restaurateur" <?php if(strtolower($user['role']) == 'restaurateur') echo 'selected'; ?>>Restaurateur</option>
+                                        <option value="Livreur" <?php if(strtolower($user['role']) == 'livreur') echo 'selected'; ?>>Livreur</option>
+                                        <option value="Admin" <?php if(strtolower($user['role']) == 'admin') echo 'selected'; ?>>Admin</option>
                                     </select>
                                 </form>
                             </td>
