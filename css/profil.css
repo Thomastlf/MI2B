@@ -59,9 +59,9 @@ html, body {
     white-space: nowrap;
 }
 
-.main-nav li a:hover {
-    background-color: #FF1493;
-    border-color: #FF1493;
+.main-nav li a:hover, .nav-active {
+    background-color: #FF1493 !important;
+    border-color: #FF1493 !important;
     box-shadow: 0 0 10px #FF1493;
     transform: scale(1.05);
 }
