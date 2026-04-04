@@ -4,8 +4,6 @@ $data = json_decode(file_get_contents("../json/menu.json"), true);
 $panier = [];
 $total = 0;
 if (isset($_POST['qte'])) {
-    $timing = $_POST['timing'];
-    $date_heure = $_POST['date_heure'];
     foreach ($_POST['qte'] as $nom_plat => $quantite) {
         if ($quantite > 0) {
             foreach ($data as $plat) {
@@ -21,7 +19,16 @@ if (isset($_POST['qte'])) {
             ];
             $total = $total + ($prix * $quantite);
     }}
-    $_SESSION['date_heure'] = $date_heure;
+    if($panier==[]){
+        header("Location: http://localhost:8000/php/menu.php"); 
+        exit();
+    }
+    if($_POST['timing']=="plus_tard"){
+        $_SESSION['date_heure'] = $_POST['date_heure'];
+    }
+    else{
+        $_SESSION['date_heure'] =date('Y-m-d H:i:s');
+    }
     $_SESSION['panier']=$panier;
 }
 ?>
@@ -30,7 +37,7 @@ if (isset($_POST['qte'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/profil.css">// a modifieer
+    <link rel="stylesheet" href="../css/profil.css">
     <link rel="icon" type="image/png" href="../img/Logo_Tasty_Country.png">
     <title>Profil - Tasty Country</title>
 </head>
