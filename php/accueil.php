@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 // Simulation de récupération du prénom si l'utilisateur est connecté
 $prenom_utilisateur = "";
 if (isset($_SESSION['email'])) {
