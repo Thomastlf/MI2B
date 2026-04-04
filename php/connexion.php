@@ -1,16 +1,5 @@
-<?php session_start(); ?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/connexion.css">
-    <link rel="icon" type="image/png" href="../img/Logo_Tasty_Country.png">
-    <title>Connexion - Tasty Country</title>
-</head>
-<body>
-    <?php
-		$email_connexion  = $_POST['email']  ?? "";
+<?php session_start();
+$email_connexion  = $_POST['email']  ?? "";
         $_SESSION['email'] = $email_connexion;
 		$motdepasse_connexion = $_POST['motdepasse'] ?? "";
         $data    = json_decode(file_get_contents("../json/utilisateur.json"), true);
@@ -21,7 +10,17 @@
                 header("Location: http://localhost:8000/php/accueil.php");
             }
         }
-    ?>
+?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/connexion.css">
+    <link rel="icon" type="image/png" href="../img/Logo_Tasty_Country.png">
+    <title>Connexion - Tasty Country</title>
+</head>
+<body>
     <div class="site-container">
         <header class="header">
             <div class="header-content">
