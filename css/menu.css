@@ -364,3 +364,10 @@ select {
         flex-direction: column;
     }
 }
+.date-picker {
+    display: none;
+}
+
+#late:checked ~ .date-picker {
+    display: block;
+}
