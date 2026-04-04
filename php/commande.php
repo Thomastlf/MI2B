@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-// Protection de la page : il faut être connecté et avoir un rôle autorisé
 if (!isset($_SESSION['email']) || !isset($_SESSION['role'])) {
     header("Location: connexion.php");
     exit();
@@ -9,7 +8,6 @@ if (!isset($_SESSION['email']) || !isset($_SESSION['role'])) {
 
 $role = strtolower($_SESSION['role']);
 
-// Vérification des permissions pour cette page
 if ($role !== 'admin' && $role !== 'restaurateur') {
     header("Location: accueil.php");
     exit();
