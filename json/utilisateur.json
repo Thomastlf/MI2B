@@ -8,7 +8,8 @@
         "numero": "a",
         "date": "2026-03-24",
         "genre": "Homme",
-        "motdepasse": "a"
+        "motdepasse": "a",
+        "role": "client"
     },
     {
         "nom": "b",
@@ -19,7 +20,8 @@
         "numero": "b",
         "date": "2026-03-24",
         "genre": "Homme",
-        "motdepasse": "b"
+        "motdepasse": "b",
+        "role": "admin"
     },
     {
         "nom": "c",
@@ -30,6 +32,19 @@
         "numero": "c",
         "date": "2026-03-24",
         "genre": "Homme",
-        "motdepasse": "c"
+        "motdepasse": "c",
+        "role": "livreur"
+    },
+    {
+        "nom": "e",
+        "prenom": "e",
+        "email": "e@gmail.com",
+        "adresse": "e",
+        "code_interphone": null,
+        "numero": "e",
+        "date": "2026-04-08",
+        "genre": "Homme",
+        "motdepasse": "e",
+        "role": "client"
     }
 ]
