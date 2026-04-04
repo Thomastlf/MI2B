@@ -20,7 +20,8 @@
             "numero" => $_POST['numero'],
             "date"  => $_POST['date'],
             "genre"    => $_POST['genre'],
-            "motdepasse"    => $_POST['motdepasse']
+            "motdepasse"    => $_POST['motdepasse'],
+            "role" => "client"
         ];
         if (file_exists($fichier)) {
             $contenu = file_get_contents($fichier);
