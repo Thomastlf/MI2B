@@ -3,6 +3,13 @@ if (!isset($_SESSION['email'])) {
     header("Location: http://localhost:8000/php/accueil.php"); 
     exit();
 }
+
+if (isset($_GET['email']) && !empty($_GET['email'])) {
+    $email_a_afficher = $_GET['email'];
+} else {
+    $email_a_afficher = $_SESSION['email'];
+}
+
 $role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'client';
 ?>
 <!DOCTYPE html>
@@ -15,11 +22,12 @@ $role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'client';
     <title>Profil - Tasty Country</title>
 </head>
 <body>
-    <?php $email_recupere = $_SESSION['email']; ?>
     <?php
         $data = json_decode(file_get_contents("../json/utilisateur.json"), true);
+        $profil_trouve = false;
+
         foreach ($data as $ligne){
-            if ($email_recupere==$ligne['email']){
+            if ($email_a_afficher == $ligne['email']){
                 $nom  = $ligne['nom'];
                 $prenom    = $ligne['prenom'];
                 $email    = $ligne['email'];
@@ -29,7 +37,14 @@ $role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'client';
                 $date    = $ligne['date'];
                 $genre    = $ligne['genre'];
                 $motdepasse = $ligne['motdepasse'];
+                $profil_trouve = true;
+                break;
             }
+        }
+
+        if (!$profil_trouve) {
+            echo "<p style='color:white; text-align:center; margin-top:50px;'>Utilisateur introuvable.</p>";
+            exit();
         }
     ?>
     <div class="site-container">
@@ -71,7 +86,7 @@ $role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'client';
 
         <main class="content">
             <fieldset class="profile-section">
-                <legend>Vos informations 👤</legend>
+                <legend>Informations du passager 👤</legend>
                 <div class="info-row">
                     <div class="label">Nom :</div>
                     <div class="value"><?php echo $nom; ?></div>
@@ -104,11 +119,14 @@ $role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'client';
                     <div class="label">Genre :</div>
                     <div class="value"><?php echo $genre; ?></div>
                 </div>
-                <button class="btn-edit" title="Modifier">Modifier les informations &#9998;</button>
+                
+                <?php if ($email_a_afficher === $_SESSION['email']): ?>
+                    <button class="btn-edit" title="Modifier">Modifier mes informations &#9998;</button>
+                <?php endif; ?>
             </fieldset>
 
             <fieldset class="profile-section">
-                <legend>Vos anciennes commandes 📦</legend>
+                <legend>Anciennes commandes 📦</legend>
                 <ul class="order-list">
                     <li>
                         <span class="order-dest">Indien</span>
