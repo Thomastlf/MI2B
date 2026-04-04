@@ -3,8 +3,6 @@ require('../php/getapikey.php');
 $data = json_decode(file_get_contents("../json/menu.json"), true);
 $panier = [];
 $total = 0;
-$timing = 'immediat';
-$date_heure = '';
 if (isset($_POST['qte'])) {
     $timing = $_POST['timing'];
     $date_heure = $_POST['date_heure'];
@@ -22,8 +20,9 @@ if (isset($_POST['qte'])) {
                 'sous_total' => $prix * $quantite
             ];
             $total = $total + ($prix * $quantite);
-        }
-    }
+    }}
+    $_SESSION['date_heure'] = $date_heure;
+    $_SESSION['panier']=$panier;
 }
 ?>
 <!DOCTYPE html>
@@ -69,8 +68,12 @@ if (isset($_POST['qte'])) {
                     </div>
 
                     <div class="info-row">
-                        <div class="label">Départ du vol :</div>
-                        <div class="value"><?php echo $timing; ?> - <?php echo $date_heure; ?></div>
+                        <div class="label">Pour :</div>
+                        <div class="value"><?php if ($timing=="Maintenant"){
+                            echo "Maintenant";
+                        }else{
+                            echo $date_heure;
+                        } ?></div>
                     </div>
 
                     <form action='https://www.plateforme-smc.fr/cybank/index.php' method='POST'>
