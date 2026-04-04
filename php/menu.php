@@ -20,6 +20,8 @@ catch (Exception $e) {
     $erreur_message = $e->getMessage();
 }
 
+$role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : '';
+
 $cat_choisie = $_GET['categorie'] ?? '';
 $pays_choisi = $_GET['pays'] ?? '';
 
@@ -50,14 +52,25 @@ foreach ($plats_complets as $p) {
                 <div class="brand"><h1>Tasty Country ✈️</h1></div>
                 <nav class="main-nav">
                     <ol>
-                        <li><a href="accueil.php">Accueil</a></li>
-                        <li><a href="menu.php" class="nav-active">Menu</a></li>
-                        <?php if (isset($_SESSION['email'])): ?>
-                            <li><a href="profil.php">Mon Profil</a></li>
-                            <li><a href="deconnexion.php">Déconnexion</a></li>
-                        <?php else: ?>
+                        <?php if (!isset($_SESSION['email'])): ?>
+                            <li><a href="accueil.php">Accueil</a></li>
+                            <li><a href="menu.php" class="nav-active">Menu</a></li>
                             <li><a href="inscription.php">Nous rejoindre</a></li>
                             <li><a href="connexion.php">Se connecter</a></li>
+
+                        <?php elseif ($role === 'admin'): ?>
+                            <li><a href="accueil.php">Accueil</a></li>
+                            <li><a href="menu.php" class="nav-active">Menu</a></li>
+                            <li><a href="commande.php">Commandes</a></li>
+                            <li><a href="admin.php">Gestion Admin</a></li>
+                            <li><a href="profil.php">Mon Profil</a></li>
+                            <li><a href="deconnexion.php">Déconnexion</a></li>
+
+                        <?php else: ?>
+                            <li><a href="accueil.php">Accueil</a></li>
+                            <li><a href="menu.php" class="nav-active">Menu</a></li>
+                            <li><a href="profil.php">Mon Profil</a></li>
+                            <li><a href="deconnexion.php">Déconnexion</a></li>
                         <?php endif; ?>
                     </ol>
                 </nav>
