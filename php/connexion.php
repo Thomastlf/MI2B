@@ -1,12 +1,12 @@
 <?php session_start();
 $email_connexion  = $_POST['email']  ?? "";
-        $_SESSION['email'] = $email_connexion;
 		$motdepasse_connexion = $_POST['motdepasse'] ?? "";
         $data    = json_decode(file_get_contents("../json/utilisateur.json"), true);
         foreach ($data as $utilisateur){
             $email_fichier  = $utilisateur['email'];
             $motdepasse_fichier    = $utilisateur['motdepasse'];
             if ($email_connexion==$email_fichier && $motdepasse_connexion==$motdepasse_fichier){
+                $_SESSION['email'] = $email_connexion;
                 header("Location: http://localhost:8000/php/accueil.php");
             }
         }
