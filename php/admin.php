@@ -13,19 +13,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email_target = $_POST['user_email'];
     foreach ($users as &$u) {
         if ($u['email'] === $email_target) {
-            // Action bloquer / débloquer
+
             if (isset($_POST['action']) && $_POST['action'] === 'toggle_block') {
                 $u['statut'] = ($u['statut'] === 'Bloqué') ? 'Actif' : 'Bloqué';
             }
-            // Action changer de rôle
+
             if (isset($_POST['new_role'])) {
                 $u['role'] = $_POST['new_role'];
             }
-            // Action changer de niveau (Premium / VIP)
+
             if (isset($_POST['new_level'])) {
                 $u['niveau'] = $_POST['new_level'];
             }
-            // Action changer le niveau de remise (0 à 5)
+
             if (isset($_POST['new_discount'])) {
                 $u['remise'] = $_POST['new_discount'];
             }
