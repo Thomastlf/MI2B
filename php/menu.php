@@ -1,6 +1,6 @@
 <?php
 session_start(); 
-$json_path = '../json/menu.json'; 
+$json_path = 'menu.json'; 
 $plats_complets = [];
 
 if (file_exists($json_path)) {
@@ -28,7 +28,7 @@ foreach ($plats_complets as $p) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/menu.css">
+    <link rel="stylesheet" href="menu.css">
     <link rel="icon" type="image/png" href="../img/Logo_Tasty_Country.png">
     <title>Menu - Tasty Country</title>
     <style>
@@ -122,6 +122,24 @@ foreach ($plats_complets as $p) {
                 </section>
             </form>
         </main>
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Tasty Country 🌍</h3>
+                    <p>Le tour du monde dans votre assiette.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>📍 CyTech, Cergy</p>
+                    <p>📞 01 23 45 67 89</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Tasty Country - Projet Informatique</p>
+                <a href="#top">Revenir en haut ✈️</a>
+            </div>
+        </footer>
     </div>
 </body>
 </html>
