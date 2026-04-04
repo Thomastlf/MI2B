@@ -10,6 +10,9 @@ $api_key = getAPIKey($vendeur);
 $control_calcule = md5($api_key . "#" . $transaction . "#" . $montant . "#" . $vendeur . "#" . $status . "#");
 $titre_message = "";
 $texte_message = "";
+
+
+
 if ($control_calcule == $control_recu) {
     if ($status == 'accepted') {
         $titre_message = "Merci pour votre commande ! 🎉";
@@ -28,11 +31,12 @@ if ($control_calcule == $control_recu) {
         $tab = [
             "id"  => $transaction,
             "client"    => $prenom." ".$nom,
-            "date_heure"    => "",
-            "articles" => "",
-            "livreur" => "",
+            "date_heure"    => $_SESSION["date_heure"],
+            "articles" => $_SESSION["panier"],
+            "livreur" => null,
             "adresse" => $adresse,
-            "code_interphone" => $code_interphone
+            "code_interphone" => $code_interphone,
+            "statut" => "a_preparer"
         ];
         if (file_exists($fichier)) {
             $contenu = file_get_contents($fichier);
@@ -42,6 +46,11 @@ if ($control_calcule == $control_recu) {
         }
         $utilisateurs[] = $tab;
         file_put_contents($fichier, json_encode($utilisateurs, JSON_PRETTY_PRINT));
+
+
+
+
+
     } else {
         $titre_message = "Paiement refusé ❌";
         $texte_message = "La transaction a échoué ou a été annulée. Veuillez réessayer.";
@@ -57,7 +66,7 @@ if ($control_calcule == $control_recu) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/profil.css">
+    <link rel="stylesheet" href="../css/profil.css">// a modifier
     <link rel="icon" type="image/png" href="../img/Logo_Tasty_Country.png">
     <title>Résultat du paiement - Tasty Country</title>
 </head>
