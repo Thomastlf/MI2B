@@ -1,6 +1,6 @@
 <?php
 session_start(); 
-$json_path = 'menu.json'; 
+$json_path = '../json/menu.json'; 
 $plats_complets = [];
 
 if (file_exists($json_path)) {
@@ -53,8 +53,13 @@ foreach ($plats_complets as $p) {
                     <ol>
                         <li><a href="accueil.php">Accueil</a></li>
                         <li><a href="menu.php" class="nav-active">Menu</a></li>
-                        <li><a href="profil.php">Mon Profil</a></li>
-                        <li><a href="connexion.php">Se connecter</a></li>
+                        <?php if (isset($_SESSION['email'])): ?>
+                            <li><a href="profil.php">Mon Profil</a></li>
+                            <li><a href="deconnexion.php">Déconnexion</a></li>
+                        <?php else: ?>
+                            <li><a href="inscription.php">Nous rejoindre</a></li>
+                            <li><a href="connexion.php">Se connecter</a></li>
+                        <?php endif; ?>
                     </ol>
                 </nav>
             </div>
