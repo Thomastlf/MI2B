@@ -10,7 +10,9 @@
         "genre": "Homme",
         "motdepasse": "a",
         "role": "admin",
-        "statut": "Actif"
+        "statut": "Actif",
+        "niveau": "Classique",
+        "remise": "0"
     },
     {
         "nom": "b",
@@ -23,7 +25,9 @@
         "genre": "Homme",
         "motdepasse": "b",
         "role": "client",
-        "statut": "actif"
+        "statut": "actif",
+        "niveau": "Classique",
+        "remise": "0"
     },
     {
         "nom": "c",
@@ -36,7 +40,9 @@
         "genre": "Homme",
         "motdepasse": "c",
         "role": "livreur",
-        "statut": "actif"
+        "statut": "actif",
+        "niveau": "Classique",
+        "remise": "0"
     },
     {
         "nom": "d",
@@ -49,6 +55,8 @@
         "genre": "Homme",
         "motdepasse": "d",
         "role": "restaurateur",
-        "statut": "actif"
+        "statut": "actif",
+        "niveau": "Classique",
+        "remise": "0"
     }
 ]
