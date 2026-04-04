@@ -6,10 +6,11 @@
         "adresse": "a",
         "code_interphone": "a",
         "numero": "a",
-        "date": "2026-03-24",
+        "date": "2026-04-21",
         "genre": "Homme",
         "motdepasse": "a",
-        "role": "client"
+        "role": "admin",
+        "statut": "Actif"
     },
     {
         "nom": "b",
@@ -18,10 +19,11 @@
         "adresse": "b",
         "code_interphone": "b",
         "numero": "b",
-        "date": "2026-03-24",
+        "date": "2026-04-21",
         "genre": "Homme",
         "motdepasse": "b",
-        "role": "admin"
+        "role": "client",
+        "statut": "actif"
     },
     {
         "nom": "c",
@@ -30,21 +32,23 @@
         "adresse": "c",
         "code_interphone": "c",
         "numero": "c",
-        "date": "2026-03-24",
+        "date": "2026-04-21",
         "genre": "Homme",
         "motdepasse": "c",
-        "role": "livreur"
+        "role": "livreur",
+        "statut": "actif"
     },
     {
-        "nom": "e",
-        "prenom": "e",
-        "email": "e@gmail.com",
-        "adresse": "e",
-        "code_interphone": null,
-        "numero": "e",
-        "date": "2026-04-08",
+        "nom": "d",
+        "prenom": "d",
+        "email": "d@gmail.com",
+        "adresse": "d",
+        "code_interphone": "d",
+        "numero": "d",
+        "date": "2026-04-21",
         "genre": "Homme",
-        "motdepasse": "e",
-        "role": "client"
+        "motdepasse": "d",
+        "role": "restaurateur",
+        "statut": "actif"
     }
 ]
