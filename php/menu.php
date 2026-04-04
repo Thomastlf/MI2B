@@ -1,13 +1,24 @@
 <?php
-session_start(); 
-$json_path = '../json/menu.json'; 
+session_start();
+
+$json_path = 'menu.json';
 $plats_complets = [];
 
-if (file_exists($json_path)) {
-    $json_content = file_get_contents($json_path); 
-    $plats_complets = json_decode($json_content, true); 
+try {
+    if (!file_exists($json_path)) {
+        throw new Exception("Erreur système : Catalogue introuvable.");
+    }
+    
+    $json_content = file_get_contents($json_path);
+    $plats_complets = json_decode($json_content, true);
+    
+    if ($plats_complets === null) {
+        throw new Exception("Erreur de lecture des données.");
+    }
+} 
+catch (Exception $e) {
+    $erreur_message = $e->getMessage();
 }
-if (!is_array($plats_complets)) { $plats_complets = []; }
 
 $cat_choisie = $_GET['categorie'] ?? '';
 $pays_choisi = $_GET['pays'] ?? '';
@@ -28,23 +39,11 @@ foreach ($plats_complets as $p) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/menu.css">
+    <link rel="stylesheet" href="menu.css">
     <link rel="icon" type="image/png" href="../img/Logo_Tasty_Country.png">
     <title>Menu - Tasty Country</title>
-    <style>
-        .info-container { position: relative; display: inline-block; cursor: help; margin-left: 10px; }
-        .info-icon { background: #00bcd4; color: white; border-radius: 50%; width: 18px; height: 18px; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; }
-        .info-tooltip { 
-            visibility: hidden; width: 220px; background-color: #1a1a1a; color: #fff; text-align: left;
-            border-radius: 8px; padding: 12px; position: absolute; z-index: 100; bottom: 125%; left: 50%;
-            margin-left: -110px; opacity: 0; transition: opacity 0.3s; border: 1px solid #00bcd4; font-size: 0.85rem;
-        }
-        .info-container:hover .info-tooltip { visibility: visible; opacity: 1; }
-        .allergenes-list { color: #ff6b6b; font-weight: bold; display: block; margin-top: 8px; border-top: 1px solid #444; padding-top: 5px; }
-        .filters form { display: flex; gap: 15px; justify-content: center; margin-bottom: 30px; }
-    </style>
 </head>
-<body>
+<body id="top">
     <div class="site-container">
         <header class="header">
             <div class="header-content">
@@ -66,74 +65,91 @@ foreach ($plats_complets as $p) {
         </header>
 
         <main class="menu-container">
-            <h2 style="text-align:center; color:white;">Nos Destinations Culinaires</h2>
+            <h2 class="section-title">Nos Destinations Culinaires</h2>
             
+            <?php if (isset($erreur_message)): ?>
+                <p class="error-msg"><?= $erreur_message ?></p>
+            <?php endif; ?>
+
             <section class="filters">
                 <form method="GET" action="menu.php">
                     <select name="pays" onchange="this.form.submit()">
                         <option value="">Tous les Menus 🌍</option>
-                        <option value="France" <?php if($pays_choisi == 'France') echo 'selected'; ?>>Menu Français 🇫🇷</option>
-                        <option value="Italie" <?php if($pays_choisi == 'Italie') echo 'selected'; ?>>Menu Italien 🇮🇹</option>
-                        <option value="Japon" <?php if($pays_choisi == 'Japon') echo 'selected'; ?>>Menu Japonais 🇯🇵</option>
+                        <option value="France" <?= ($pays_choisi == 'France') ? 'selected' : '' ?>>Menu Français 🇫🇷</option>
+                        <option value="Italie" <?= ($pays_choisi == 'Italie') ? 'selected' : '' ?>>Menu Italien 🇮🇹</option>
+                        <option value="Japon" <?= ($pays_choisi == 'Japon') ? 'selected' : '' ?>>Menu Japonais 🇯🇵</option>
                     </select>
 
                     <select name="categorie" onchange="this.form.submit()">
                         <option value="">Toutes les catégories</option>
-                        <option value="entree" <?php if($cat_choisie == 'entree') echo 'selected'; ?>>Entrées</option>
-                        <option value="plat" <?php if($cat_choisie == 'plat') echo 'selected'; ?>>Plats</option>
-                        <option value="dessert" <?php if($cat_choisie == 'dessert') echo 'selected'; ?>>Desserts</option>
+                        <option value="entree" <?= ($cat_choisie == 'entree') ? 'selected' : '' ?>>Entrées</option>
+                        <option value="plat" <?= ($cat_choisie == 'plat') ? 'selected' : '' ?>>Plats</option>
+                        <option value="dessert" <?= ($cat_choisie == 'dessert') ? 'selected' : '' ?>>Desserts</option>
                     </select>
-                    <a href="menu.php" style="color:#00bcd4; text-decoration:none; align-self:center; font-size:0.9rem;">Reset</a>
+                    <a href="menu.php" class="reset-link">Reset</a>
                 </form> 
             </section>
 
             <form action="panier.php" method="POST">
+                
+                <?php if ($pays_choisi != ''): ?>
+                    <div class="menu-promo-banner">
+                        <h3>🎁 Pack Destination : <?= htmlspecialchars($pays_choisi) ?></h3>
+                        <p>Commandez le menu complet (Entrée + Plat + Dessert) et profitez de <strong>-10% de remise immédiate !</strong></p>
+                        <button type="submit" name="pack_menu" value="<?= htmlspecialchars($pays_choisi) ?>" class="btn-pack">
+                            Ajouter le Pack Menu (1 pers.)
+                        </button>
+                    </div>
+                <?php endif; ?>
+
                 <section class="product-grid">
                     <?php foreach ($plats as $p): ?>
-                    <div class="product-card">
-                        <img src="<?php echo htmlspecialchars($p['img']); ?>" alt="<?php echo htmlspecialchars($p['nom']); ?>">
-                        <div class="product-info">
-                            <h3>
-                                <?php echo htmlspecialchars($p['nom']); ?>
-                                <div class="info-container">
-                                    <span class="info-icon">i</span>
-                                    <div class="info-tooltip">
-                                        <strong>Ingrédients :</strong><br>
-                                        <?php echo htmlspecialchars(implode(', ', $p['ingredients'])); ?>
-                                        <span class="allergenes-list">⚠️ Allergènes : <?php echo htmlspecialchars(implode(', ', $p['allergenes'])); ?></span>
+                        <div class="product-card">
+                            <img src="<?= htmlspecialchars($p['img']) ?>" alt="<?= htmlspecialchars($p['nom']) ?>">
+                            <div class="product-info">
+                                <h3>
+                                    <?= htmlspecialchars($p['nom']) ?>
+                                    <div class="info-container">
+                                        <span class="info-icon">i</span>
+                                        <div class="info-tooltip">
+                                            <strong>Ingrédients :</strong><br>
+                                            <?= htmlspecialchars(implode(', ', $p['ingredients'])) ?><br>
+                                            <span class="allergenes-list">⚠️ Allergènes : <?= htmlspecialchars(implode(', ', $p['allergenes'])) ?></span>
+                                        </div>
                                     </div>
+                                </h3>
+                                <p class="country-label"><?= htmlspecialchars($p['pays']) ?></p>
+                                <span class="price"><?= number_format($p['prix'], 2) ?>€</span>
+                                
+                                <div class="quantity-selector">
+                                    <label>Quantité :</label>
+                                    <input type="number" name="qte[<?= htmlspecialchars($p['nom']) ?>]" value="0" min="0">
                                 </div>
-                            </h3>
-                            <p style="color: #00bcd4; font-size: 0.8rem; margin-top:-10px;"><?php echo $p['pays']; ?></p>
-                            <span class="price"><?php echo number_format($p['prix'], 2); ?>€</span>
-                            
-                            <div style="margin: 15px 0;">
-                                <label>Quantité :</label>
-                                <input type="number" name="qte[<?php echo htmlspecialchars($p['nom']); ?>]" value="0" min="0" style="width: 50px;">
                             </div>
                         </div>
-                    </div>
                     <?php endforeach; ?>
                 </section>
 
-                <section class="order-options" style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 10px; margin-top: 40px; color: white;">
+                <section class="order-options">
                     <h3>🕒 Planification du vol</h3>
-                    <input type="radio" name="timing" value="immediat" checked id="imm"> Immédiat 🚀
-                    <input type="radio" name="timing" value="plus_tard" id="late" style="margin-left:15px;"> Plus tard 📅
-                    <div style="margin-top:10px;">
-                        <input type="datetime-local" name="date_heure" value="<?php echo date('Y-m-d\TH:i'); ?>">
+                    <div class="timing-choice">
+                        <input type="radio" name="timing" value="immediat" checked id="imm"> <label for="imm">Immédiat 🚀</label>
+                        <input type="radio" name="timing" value="plus_tard" id="late"> <label for="late">Plus tard 📅</label>
                     </div>
-                    <button type="submit" class="add-btn" style="width: 100%; margin-top: 20px;">Valider mon Panier 💳</button>
+                    <div class="date-picker">
+                        <input type="datetime-local" name="date_heure" value="<?= date('Y-m-d\TH:i') ?>">
+                    </div>
+                    <button type="submit" class="add-btn">Valider mon Panier 💳</button>
                 </section>
             </form>
         </main>
+
         <footer class="footer">
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>Tasty Country 🌍</h3>
                     <p>Le tour du monde dans votre assiette.</p>
                 </div>
-
                 <div class="footer-section">
                     <h4>Contact</h4>
                     <p>📍 CyTech, Cergy</p>
@@ -141,7 +157,7 @@ foreach ($plats_complets as $p) {
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 Tasty Country - Projet Informatique</p>
+                <p>&copy; <?= date('Y') ?> Tasty Country - Projet Informatique</p>
                 <a href="#top">Revenir en haut ✈️</a>
             </div>
         </footer>
