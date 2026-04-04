@@ -1,7 +1,9 @@
 <?php session_start(); 
 if (!isset($_SESSION['email'])) {
     header("Location: http://localhost:8000/php/accueil.php"); 
+    exit();
 }
+$role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'client';
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -38,10 +40,30 @@ if (!isset($_SESSION['email'])) {
                 </div>
                 <nav class="main-nav">
                     <ol>
-                        <li><a href="accueil.php">Accueil</a></li>
-                        <li><a href="menu.php">Menu</a></li>
-                        <li><a href="profil.php" class="nav-active">Mon Profil</a></li>
-                        <li><a href="deconnexion.php">Déconnexion</a></li>
+                        <?php if ($role === 'client'): ?>
+                            <li><a href="accueil.php">Accueil</a></li>
+                            <li><a href="menu.php">Menu</a></li>
+                            <li><a href="profil.php" class="nav-active">Mon Profil</a></li>
+                            <li><a href="deconnexion.php">Déconnexion</a></li>
+
+                        <?php elseif ($role === 'admin'): ?>
+                            <li><a href="accueil.php">Accueil</a></li>
+                            <li><a href="menu.php">Menu</a></li>
+                            <li><a href="commande.php">Commandes</a></li>
+                            <li><a href="admin.php">Gestion Admin</a></li>
+                            <li><a href="profil.php" class="nav-active">Mon Profil</a></li>
+                            <li><a href="deconnexion.php">Déconnexion</a></li>
+
+                        <?php elseif ($role === 'restaurateur'): ?>
+                            <li><a href="commande.php">Commandes en cours</a></li>
+                            <li><a href="profil.php" class="nav-active">Mon Profil</a></li>
+                            <li><a href="deconnexion.php">Déconnexion</a></li>
+
+                        <?php elseif ($role === 'livreur'): ?>
+                            <li><a href="livraison.php">Livraisons</a></li>
+                            <li><a href="profil.php" class="nav-active">Mon Profil</a></li>
+                            <li><a href="deconnexion.php">Déconnexion</a></li>
+                        <?php endif; ?>
                     </ol>
                 </nav>
             </div>
