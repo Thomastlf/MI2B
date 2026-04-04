@@ -23,6 +23,7 @@ if ($control_calcule == $control_recu) {
             if ($email_recupere==$ligne['email']){
                 $nom  = $ligne['nom'];
                 $prenom    = $ligne['prenom'];
+                $email    = $ligne['email'];
                 $adresse = $ligne['adresse'];
                 $code_interphone = $ligne['code_interphone'];
             }
@@ -30,13 +31,14 @@ if ($control_calcule == $control_recu) {
         $fichier = '../json/commande.json';
         $tab = [
             "id"  => $transaction,
-            "client"    => $prenom." ".$nom,
+            "client"    => $email,
             "date_heure"    => $_SESSION["date_heure"],
             "articles" => $_SESSION["panier"],
             "livreur" => null,
             "adresse" => $adresse,
             "code_interphone" => $code_interphone,
-            "statut" => "a_preparer"
+            "statut" => "a_preparer",
+            "total" => $montant
         ];
         if (file_exists($fichier)) {
             $contenu = file_get_contents($fichier);
