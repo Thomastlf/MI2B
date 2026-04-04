@@ -21,7 +21,8 @@
             "date"  => $_POST['date'],
             "genre"    => $_POST['genre'],
             "motdepasse"    => $_POST['motdepasse'],
-            "role" => "client"
+            "role" => "client",
+            "status" => ""
         ];
         if (file_exists($fichier)) {
             $contenu = file_get_contents($fichier);
@@ -73,6 +74,11 @@
                     <div class="input-group">
                         <label>Adresse</label>
                         <input type="text" name="adresse" required placeholder="Votre adresse complète">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Code d'interphone (facultatif)</label>
+                        <input type="text" name="code_interphone" placeholder="Votre code interphone">
                     </div>
 
                     <div class="input-group">
