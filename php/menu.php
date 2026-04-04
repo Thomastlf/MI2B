@@ -144,16 +144,22 @@ foreach ($plats_complets as $p) {
                 </section>
 
                 <section class="order-options">
-                    <h3>🕒 Planification de la commande</h3>
-                    <div class="timing-choice">
-                        <input type="radio" name="timing" value="Maintenant" checked id="imm"> <label for="imm">Maintenant 🚀</label>
-                        <input type="radio" name="timing" value="plus_tard" id="late"> <label for="late">Plus tard 📅</label>
-                    </div>
-                    <div class="date-picker">
-                        <input type="datetime-local" name="date_heure" value="<?= date('Y-m-d\TH:i') ?>">
-                    </div>
-                    <button type="submit" class="add-btn">Valider mon Panier 💳</button>
-                </section>
+    <h3>🕒 Planification de la commande</h3>
+    
+    <div class="timing-choice">
+        <input type="radio" name="timing" value="Maintenant" checked> 
+        <label for="imm">Maintenant 🚀</label>
+        
+        <input type="radio" name="timing" value="plus_tard" id="late"> 
+        <label for="late">Plus tard 📅</label>
+        
+        <div class="date-picker">
+            <input type="datetime-local" name="date_heure" value="<?= date('Y-m-d\TH:i') ?>">
+        </div>
+    </div>
+    
+    <button type="submit" class="add-btn">Valider mon Panier 💳</button>
+</section>
             </form>
         </main>
 
