@@ -1,32 +1,55 @@
-<?php session_start();
-$email_connexion  = $_POST['email']  ?? "";
-		$motdepasse_connexion = $_POST['motdepasse'] ?? "";
-        $data    = json_decode(file_get_contents("../json/utilisateur.json"), true);
-        foreach ($data as $utilisateur){
-            $email_fichier  = $utilisateur['email'];
-            $motdepasse_fichier    = $utilisateur['motdepasse'];
-            if ($email_connexion==$email_fichier && $motdepasse_connexion==$motdepasse_fichier){
+<?php 
+session_start();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email_connexion  = $_POST['email']  ?? "";
+    $motdepasse_connexion = $_POST['motdepasse'] ?? "";
+    
+    $json_path = "../json/utilisateur.json";
+    if (file_exists($json_path)) {
+        $data = json_decode(file_get_contents($json_path), true);
+        
+        foreach ($data as $utilisateur) {
+            if ($email_connexion == $utilisateur['email'] && $motdepasse_connexion == $utilisateur['motdepasse']) {
+
                 $_SESSION['email'] = $email_connexion;
-                header("Location: http://localhost:8000/php/accueil.php");
+                $_SESSION['role'] = $utilisateur['role'];
+
+                switch (strtolower($utilisateur['role'])) {
+                    case 'admin':
+                        header("Location: admin.php");
+                        break;
+                    case 'livreur':
+                        header("Location: livraison.php");
+                        break;
+                    case 'restaurateur':
+                        header("Location: commande.php");
+                        break;
+                    case 'client':
+                    default:
+                        header("Location: accueil.php");
+                        break;
+                }
+                exit();
             }
         }
+        $error = "Identifiants incorrects";
+    }
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/connexion.css">
-    <link rel="icon" type="image/png" href="../img/Logo_Tasty_Country.png">
     <title>Connexion - Tasty Country</title>
+    <link rel="stylesheet" href="../css/connexion.css">
 </head>
 <body>
     <div class="site-container">
         <header class="header">
             <div class="header-content">
-                <div class="brand">
-                    <h1>Tasty Country ✈️</h1>
-                </div>
+                <h1>Tasty Country ✈️</h1>
                 <nav class="main-nav">
                     <ol>
                         <li><a href="accueil.php">Accueil</a></li>
@@ -41,31 +64,21 @@ $email_connexion  = $_POST['email']  ?? "";
         <main class="content">
             <div class="login-card">
                 <h2>Connexion Passager</h2>
+                <?php if(isset($error)) echo "<p style='color:red; text-align:center;'>$error</p>"; ?>
                 <form action="connexion.php" method="POST">
-
                     <div class="input-group">
                         <label>Email</label>
                         <input type="email" name="email" placeholder="votre@email.com" required>
                     </div>
-
                     <div class="input-group">
                         <label>Mot de passe</label>
                         <input type="password" name="motdepasse" placeholder="••••••••" required>
                     </div>
-
                     <button type="submit" class="btn-login">Embarquement</button>
-
                 </form>
                 <p class="form-footer">Pas encore de billet ? <a href="inscription.php">Inscrivez-vous ici</a></p>
             </div>
         </main>
-
-        <footer class="footer">
-            <div class="footer-bottom">
-                <p>&copy; 2026 Tasty Country - Projet Informatique CyTech</p>
-                <a href="#top">Revenir en haut ✈️</a>
-            </div>
-        </footer>
     </div>
 </body>
 </html>
