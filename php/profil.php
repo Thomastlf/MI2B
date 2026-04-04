@@ -1,4 +1,8 @@
-<?php session_start(); ?>
+<?php session_start(); 
+if (!isset($_SESSION['email'])) {
+    header("Location: http://localhost:8000/php/accueil.php"); 
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -36,8 +40,8 @@
                     <ol>
                         <li><a href="accueil.php">Accueil</a></li>
                         <li><a href="menu.php">Menu</a></li>
-                        <li><a href="inscription.php">Nous rejoindre</a></li>
-                        <li><a href="connexion.php">Se connecter</a></li>
+                        <li><a href="profil.php" class="nav-active">Mon Profil</a></li>
+                        <li><a href="deconnexion.php">Déconnexion</a></li>
                     </ol>
                 </nav>
             </div>
