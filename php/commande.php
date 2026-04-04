@@ -83,7 +83,7 @@ foreach ($commandes as $c) {
         </header>
 
         <main class="content">
-            <h2 class="page-title">Tableau de Bord des Vols (Commandes) 👨‍🍳</h2>
+            <h2 class="page-title">Tableau de Bord des Commandes 👨‍🍳</h2>
 
             <?php if (isset($erreur)): ?>
                 <p style="color: red; text-align: center;"><?php echo $erreur; ?></p>
@@ -101,7 +101,7 @@ foreach ($commandes as $c) {
                             <p><strong>Passager :</strong> <?php echo $cmd['client']; ?></p>
                             <p>
                                 <?php foreach ($cmd['articles'] as $article): ?>
-                                    • <?php echo $article; ?><br>
+                                    • <?php echo $article['quantite']; ?>x <?php echo $article['nom']; ?><br>
                                 <?php endforeach; ?>
                             </p>
                             <button class="btn-action">Prêt pour la livraison ✈️</button>
