@@ -22,7 +22,7 @@
             "genre"    => $_POST['genre'],
             "motdepasse"    => $_POST['motdepasse'],
             "role" => "client",
-            "status" => "actif"
+            "statut" => "actif"
         ];
         if (file_exists($fichier)) {
             $contenu = file_get_contents($fichier);
