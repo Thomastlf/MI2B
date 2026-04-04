@@ -50,10 +50,10 @@ foreach ($commandes as $c) {
                 </div>
                 <nav class="main-nav">
                     <ol>
-                        <li><a href="accueil.html">Accueil</a></li>
+                        <li><a href="accueil.php">Accueil</a></li>
                         <li><a href="commande.php" class="nav-active">Commandes</a></li>
-                        <li><a href="admin.html">Gestion Utilisateurs</a></li>
-                        <li><a href="se connecter.html">Déconnexion</a></li>
+                        <li><a href="admin.php">Gestion Utilisateurs</a></li>
+                        <li><a href="se connecter.php">Déconnexion</a></li>
                     </ol>
                 </nav>
             </div>
