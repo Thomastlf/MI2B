@@ -144,7 +144,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     </select>
                                 </form>
                             </td>
-                            <td><a href="profil_admin.php?email=<?php echo $user['email']; ?>" class="btn-view">Voir</a></td>
+                            <td><a href="profil.php?email=<?php echo $user['email']; ?>" class="btn-view">Voir</a></td>
                         </tr>
                         <?php endforeach; ?>
                     </tbody>
