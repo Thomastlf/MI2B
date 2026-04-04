@@ -1,10 +1,10 @@
 <?php session_start();
+require('../php/getapikey.php');
 $data = json_decode(file_get_contents("../json/menu.json"), true);
 $panier = [];
 $total = 0;
 $timing = 'immediat';
 $date_heure = '';
-
 if (isset($_POST['qte'])) {
     $timing = $_POST['timing'];
     $date_heure = $_POST['date_heure'];
@@ -73,14 +73,31 @@ if (isset($_POST['qte'])) {
                         <div class="value"><?php echo $timing; ?> - <?php echo $date_heure; ?></div>
                     </div>
 
-                    <form action="traitement_commande.php" method="POST">
-                        <button type="submit" class="btn-edit">Confirmer la commande ✅</button>
-                    </form>
+                    <form action='https://www.plateforme-smc.fr/cybank/index.php' method='POST'>
+                        <?php
+                        $transaction = uniqid();
+                        $montant = $total;
+                        $vendeur = 'MI-3_B';
+                        $retour = 'http://localhost:8000/php/retour_paiement.php';
+                        $api_key = getAPIKey($vendeur); 
+                        $control = md5($api_key . "#" . $transaction . "#" . $montant . "#" . $vendeur . "#" . $retour . "#");?>
+                        <input type='hidden' name='transaction' value='<?php echo $transaction; ?>'>
+                        <input type='hidden' name='montant' value='<?php echo $montant; ?>'>
+                        <input type='hidden' name='vendeur' value='<?php echo $vendeur; ?>'>
+                        <input type='hidden' name='retour' value='<?php echo $retour; ?>'>
+                        <input type='hidden' name='control' value='<?php echo $control; ?>'>
+                        <input type='submit' class="btn-edit" value="Valider et payer">
+</form>
 
                     <form action="menu.php">
                         <button type="submit" class="btn-edit">Retour au menu</button>
                     </form>
-            </fieldset></main>
+                    <div>
+</div> 
+            </fieldset>
+        
+        
+        </main>
 
 
         <footer class="footer">
