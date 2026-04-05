@@ -138,7 +138,7 @@ $role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'client';
                 <?php endif; ?>
             </fieldset>
             
-            <?php if ($role == 'client'): ?>
+            <?php if ($role == 'client'||$role == 'admin'): ?>
             <fieldset class="profile-section">
                 <legend>Historique des vols 📦</legend>
                 <ul class="order-list">
@@ -164,7 +164,7 @@ $role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'client';
             </fieldset>
             <?php endif; ?>
 
-            <?php if ($role == 'client'): ?>
+            <?php if ($role == 'client'||$role == 'admin'): ?>
             <fieldset class="profile-section">
                 <legend>Compte fidélité 🎖️</legend>
                 <div class="info-row">
