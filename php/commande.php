@@ -1,79 +1,78 @@
 <?php
 session_start();
+require_once 'getapikey.php';
 
-$json_path = '../json/commande.json';
-if (!isset($_SESSION['email']) || !isset($_SESSION['role'])) {
+if (!isset($_SESSION['email'])) {
     header("Location: connexion.php");
     exit();
 }
 
-if (isset($_POST['action'])&& isset($_POST['id_commande'])) {
-    $id_a_modifier = $_POST['id_commande'];
-    $toutes_commandes = json_decode(file_get_contents($json_path), true);
-    foreach ($toutes_commandes as $index => $cmd) {
-    if ($cmd['id'] == $id_a_modifier) {
-        if ($toutes_commandes[$index]['statut'] == 'a_preparer') {
-            $toutes_commandes[$index]['statut'] = 'sans_livreur';
+$json_path = "../json/menu.json";
+$catalogue = [];
+if (file_exists($json_path)) {
+    $catalogue = json_decode(file_get_contents($json_path), true);
+}
+
+$panier_affichage = [];
+$total = 0;
+
+if (isset($_SESSION['panier'])) {
+    foreach ($_SESSION['panier'] as $nom => $qte) {
+        foreach ($catalogue as $p) {
+            if ($p['nom'] === $nom) {
+                $sous_total = $p['prix'] * $qte;
+                $panier_affichage[] = [
+                    'nom' => $qte . "x " . $nom,
+                    'prix' => $sous_total
+                ];
+                $total += $sous_total;
+            }
         }
     }
 }
-    file_put_contents($json_path, json_encode($toutes_commandes, JSON_PRETTY_PRINT));
-    header("Location: http://localhost:8000/php/commande.php"); 
+
+if (isset($_SESSION['packs'])) {
+    foreach ($_SESSION['packs'] as $pays => $qte_pack) {
+        $prix_pack_brut = 0;
+        
+        foreach ($catalogue as $p) {
+            if ($p['pays'] === $pays) {
+                $prix_pack_brut += $p['prix'];
+            }
+        }
+        
+
+        $prix_pack_net = $prix_pack_brut * 0.90;
+        $sous_total_pack = $prix_pack_net * $qte_pack;
+
+        $panier_affichage[] = [
+            'nom' => $qte_pack . "x Pack Menu " . $pays . " (-10%)",
+            'prix' => $sous_total_pack
+        ];
+        $total += $sous_total_pack;
+    }
+}
+
+if (empty($panier_affichage)) {
+    header("Location: menu.php?erreur=panier_vide");
     exit();
 }
 
-
-$role = strtolower($_SESSION['role']);
-
-if ($role !== 'admin' && $role !== 'restaurateur') {
-    header("Location: accueil.php");
-    exit();
-}
-
-$json_path = '../json/commande.json';
-$commandes = [];
-
-try {
-    if (!file_exists($json_path)) {
-        throw new Exception("Le fichier de données est introuvable.");
-    }
-    $json_data = file_get_contents($json_path);
-    $commandes = json_decode($json_data, true);
-    
-    if ($commandes === null) {
-        throw new Exception("Erreur lors du décodage du fichier JSON.");
-    }
-} catch (Exception $e) {
-    $erreur = $e->getMessage();
-}
-
-$a_preparer = [];
-$sans_livreur=[];
-$en_livraison = [];
-$livrees = [];
-
-foreach ($commandes as $c) {
-    if ($c['statut'] == 'a_preparer') {
-        $a_preparer[] = $c;
-    }
-    elseif ($c['statut'] == 'sans_livreur') {
-        $sans_livreur[] = $c;
-    } elseif ($c['statut'] == 'en_livraison') {
-        $en_livraison[] = $c;
-    } elseif ($c['statut'] == 'livree') {
-        $livrees[] = $c;
-    }
-}
+$transaction = uniqid();
+$montant = number_format($total, 2, '.', '');
+$vendeur = 'MI-2_B';
+$retour = 'http://localhost:8000/php/retour_paiement.php';
+$api_key = getAPIKey($vendeur); 
+$control = md5($api_key . "#" . $transaction . "#" . $montant . "#" . $vendeur . "#" . $retour . "#");
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../css/commande.css">
+    <link rel="stylesheet" href="../css/profil.css">
     <link rel="icon" type="image/png" href="../img/Logo_Tasty_Country.png">
-    <title>Espace Restaurateur - Tasty Country</title>
+    <title>Mon Panier - Tasty Country</title>
 </head>
 <body>
     <div class="site-container">
@@ -81,116 +80,69 @@ foreach ($commandes as $c) {
             <div class="header-content">
                 <div class="brand">
                     <h1>Tasty Country ✈️</h1>
-                    <span class="badge-pro"><?php echo ($role === 'admin') ? 'ACCÈS ADMIN' : 'ACCÈS RESTAURATEUR'; ?></span>
                 </div>
                 <nav class="main-nav">
                     <ol>
-                        <?php if ($role === 'admin'): ?>
-                            <li><a href="accueil.php">Accueil</a></li>
-                            <li><a href="menu.php">Menu</a></li>
-                            <li><a href="commande.php" class="nav-active">Commandes</a></li>
-                            <li><a href="admin.php">Gestion Admin</a></li>
-                            <li><a href="profil.php">Mon Profil</a></li>
-                            <li><a href="deconnexion.php">Déconnexion</a></li>
-
-                        <?php elseif ($role === 'restaurateur'): ?>
-                            <li><a href="commande.php" class="nav-active">Commandes</a></li>
-                            <li><a href="profil.php">Mon Profil</a></li>
-                            <li><a href="deconnexion.php">Déconnexion</a></li>
-                        <?php endif; ?>
+                        <li><a href="accueil.php">Accueil</a></li>
+                        <li><a href="menu.php">Menu</a></li>
+                        <li><a href="profil.php">Mon Profil</a></li>
+                        <li><a href="deconnexion.php">Déconnexion</a></li>
                     </ol>
                 </nav>
             </div>
         </header>
 
         <main class="content">
-            <h2 class="page-title">Tableau de Bord des Commandes 👨‍🍳</h2>
-
-            <?php if (isset($erreur)): ?>
-                <p style="color: red; text-align: center;"><?php echo $erreur; ?></p>
-            <?php endif; ?>
-
-            <div class="orders-grid">
-                <section class="order-column">
-                    <h3>📦 Commandes à préparer</h3>
-                    <?php foreach ($a_preparer as $cmd): ?>
-                        <div class="order-card">
-                            <div class="order-header">
-                                <span class="order-id">#<?php echo $cmd['id']; ?></span>
-                                <span class="order-time"><?php echo $cmd['date_heure']; ?></span>
-                            </div>
-                            <p><strong>Passager :</strong> <?php echo $cmd['client']; ?></p>
-                            <p>
-                                <?php foreach ($cmd['articles'] as $article): ?>
-                                    • <?php echo $article['quantite']; ?>x <?php echo $article['nom']; ?><br>
-                                <?php endforeach; ?>
-                            </p>
-                            <form method="POST" action="commande.php" style="flex:1;">
-                                    <input type="hidden" name="id_commande" value="<?php echo $cmd['id']; ?>">
-                                    <input type="hidden" name="action" value="sans_livreur">
-                                    <button class="btn-action">Prêt pour la livraison ✈️</button>
-                            </form>
-                        </div>
-                    <?php endforeach; ?>
-                </section>
-
-                <section class="order-column delivery-section">
-                    <h3>🚚 En attente d'un livreur</h3>
-                    <?php foreach ($sans_livreur as $cmd): ?>
-                        <div class="order-card in-flight">
-                            <div class="order-header">
-                                <span class="order-id">#<?php echo $cmd['id']; ?></span>
-                                <span class="status-tag">En vol</span>
-                            </div>
-                            <p>Livreur : <strong><?php echo $cmd['livreur']; ?></strong></p>
-                            <p>Escale : <?php echo $cmd['adresse']; ?></p>
-                            <button class="btn-disabled" disabled>Livraison en cours...</button>
-                        </div>
-                    <?php endforeach; ?>
-                </section>
+            <fieldset class="profile-section">
+                <legend>Votre commande 🛒</legend>
                 
-                <section class="order-column">
-                    <h3>🚚 En cours de livraison</h3>
-                    <?php foreach ($en_livraison as $cmd): ?>
-                        <div class="order-card">
-                            <div class="order-header">
-                                <span class="order-id">#<?php echo $cmd['id']; ?></span>
-                                <span class="status-tag">En vol</span>
-                            </div>
-                            <p>Livreur : <strong><?php echo $cmd['livreur']; ?></strong></p>
-                            <p>Escale : <?php echo $cmd['adresse']; ?></p>
-                            <button class="btn-disabled" disabled>Livraison en cours...</button>
-                        </div>
-                    <?php endforeach; ?>
-                </section>
+                <?php foreach ($panier_affichage as $article): ?>
+                    <div class="info-row">
+                        <div class="label"><?php echo $article['nom']; ?></div>
+                        <div class="value"><?php echo number_format($article['prix'], 2); ?> €</div>
+                    </div>
+                <?php endforeach; ?>
 
-                <section class="order-column history-section">
-                    <h3>✅ Historique</h3>
-                    <?php foreach ($livrees as $cmd): ?>
-                        <div class="order-card" style="opacity: 0.7;">
-                            <div class="order-header">
-                                <span class="order-id">#<?php echo $cmd['id']; ?></span>
-                                <span class="status-tag" style="background:#2ecc71;">Livré</span>
-                            </div>
-                            <p>Client : <?php echo $cmd['client']; ?></p>
-                            <button class="btn-disabled" disabled>Archivé</button>
-                        </div>
-                    <?php endforeach; ?>
-                </section>
+                <div class="info-row" style="border-top: 2px solid #00FFFF; margin-top: 10px; padding-top: 10px;">
+                    <div class="label"><strong>TOTAL TTC :</strong></div>
+                    <div class="value"><strong><?php echo number_format($total, 2); ?> €</strong></div>
+                </div>
 
-               
-            </div>
+                <div class="info-row">
+                    <div class="label">Pour :</div>
+                    <div class="value"><?php echo htmlspecialchars($_SESSION['date_heure'] ?? 'Maintenant'); ?></div>
+                </div>
+
+                <form action='https://www.plateforme-smc.fr/cybank/index.php' method='POST' style="margin-top: 20px;">
+                    <input type='hidden' name='transaction' value='<?php echo $transaction; ?>'>
+                    <input type='hidden' name='montant' value='<?php echo $montant; ?>'>
+                    <input type='hidden' name='vendeur' value='<?php echo $vendeur; ?>'>
+                    <input type='hidden' name='retour' value='<?php echo $retour; ?>'>
+                    <input type='hidden' name='control' value='<?php echo $control; ?>'>
+                    <input type='submit' class="btn-edit" value="Valider et payer">
+                </form>
+
+                <div style="display:flex; gap:10px; margin-top:15px;">
+                    <form action="menu.php" style="flex:1;">
+                        <button type="submit" class="btn-edit" style="width:100%; background-color: #555;">Retour au menu</button>
+                    </form>
+                    <form action="panier.php" method="GET" style="flex:1;">
+                        <input type="hidden" name="action" value="vider">
+                        <button type="submit" class="btn-edit" style="width:100%; background-color: #d32f2f;">Vider le panier</button>
+                    </form>
+                </div>
+            </fieldset>
         </main>
 
         <footer class="footer">
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>Tasty Country 🌍</h3>
-                    <p>Terminal de gestion interne.</p>
+                    <p>Le tour du monde dans votre assiette.</p>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 Tasty Country - Projet CyTech</p>
+                <p>&copy; 2026 Tasty Country - Projet Informatique</p>
                 <a href="#top">Revenir en haut ✈️</a>
             </div>
         </footer>
