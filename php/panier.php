@@ -129,7 +129,7 @@ exit();
                         }
                     }
                     
-                    $montant = number_format($total, 2, '.', ''); // Sécurité format Cybank
+                    $montant = number_format($total, 2, '.', ''); 
                     $vendeur = 'MI-2_B';
                     $retour = 'http://localhost:8000/php/retour_paiement.php';
                     $api_key = getAPIKey($vendeur); 
