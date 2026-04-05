@@ -3,6 +3,10 @@ require('../php/getapikey.php');
 $data = json_decode(file_get_contents("../json/menu.json"), true);
 $panier = [];
 $total = 0;
+if (!isset($_SESSION['email'])) {
+    header("Location: http://localhost:8000/php/connexion.php");
+    exit();
+}
 if (isset($_POST['qte'])) {
     foreach ($_POST['qte'] as $nom_plat => $quantite) {
         if ($quantite > 0) {
