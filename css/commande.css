@@ -107,12 +107,12 @@ html, body {
     gap: 30px;
     justify-content: center;
     flex-wrap: wrap;
-    align-items: flex-start; /* Aligne le haut des colonnes */
+    align-items: flex-start; 
 }
 
 .order-column {
     flex: 1;
-    min-width: 300px; /* Largeur mini pour rester lisible */
+    min-width: 300px;
     max-width: 500px;
     background: rgba(255, 255, 255, 0.05);
     padding: 20px;
@@ -136,7 +136,6 @@ html, body {
     color: #1D3557;
     border-left: 6px solid #1D3557;
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    /* MODIFICATION : On retire le min-width: 400px qui causait le décalage */
     width: 100%; 
 }
 
