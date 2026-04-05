@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-// Protection : Seul l'admin peut voir cette page
 if (!isset($_SESSION['role']) || strtolower($_SESSION['role']) !== 'admin') {
     header("Location: accueil.php");
     exit();
@@ -12,7 +11,6 @@ $avis = [];
 
 if (file_exists($json_path)) {
     $avis = json_decode(file_get_contents($json_path), true);
-    // On trie pour avoir les plus récents en premier
     if (!empty($avis)) {
         $avis = array_reverse($avis);
     }
