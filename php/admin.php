@@ -82,6 +82,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </select>
                 </div>
                 <input type="text" placeholder="Rechercher un passager..." class="search-bar">
+                
+                <a href="admin_avis.php" class="btn-view" style="text-decoration: none; background-color: #00FFFF; color: #1D3557; padding: 10px 20px; border-radius: 8px; font-weight: bold; margin-left: 20px;">
+                    Consulter les Avis Clients 📝
+                </a>
             </section>
 
             <div class="table-container">
