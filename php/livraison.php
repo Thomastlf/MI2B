@@ -2,7 +2,6 @@
 session_start(); 
 $json_path = '../json/commande.json';
 
-// Vérification de sécurité (optionnel mais conseillé)
 if (!isset($_SESSION['email']) || $_SESSION['role'] !== 'livreur') {
     header("Location: connexion.php");
     exit();
@@ -144,7 +143,7 @@ foreach ($tab as $ligne){
                 <div class="footer-section">
                     <h4>Support</h4>
                     <p>📍 CyTech, Cergy</p>
-                    <p>📞 Ligne interne : 01 23</p>
+                    <p>📞 Ligne interne : 01 23 45 67 89</p>
                 </div>
             </div>
             <div class="footer-bottom">
