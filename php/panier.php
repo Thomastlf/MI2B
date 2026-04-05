@@ -1,50 +1,55 @@
-<?php session_start();
-require('../php/getapikey.php');
-$data = json_decode(file_get_contents("../json/menu.json"), true);
-$panier = [];
-$total = 0;
-if (!isset($_SESSION['email'])) {
-    header("Location: http://localhost:8000/php/connexion.php");
+<?php
+session_start();
+
+if (!isset($_SESSION['panier'])) $_SESSION['panier'] = [];
+if (!isset($_SESSION['packs'])) $_SESSION['packs'] = [];
+
+if (isset($_POST['pack_menu'])) {
+    $pays = $_POST['pack_menu'];
+    
+    if (isset($_SESSION['packs'][$pays])) {
+        $_SESSION['packs'][$pays]++;
+    } else {
+        $_SESSION['packs'][$pays] = 1;
+    }
+    
+    header("Location: menu.php?success=pack_ajoute");
     exit();
 }
-if (isset($_POST['qte'])) {
-    foreach ($_POST['qte'] as $nom_plat => $quantite) {
-        if ($quantite > 0) {
-            foreach ($data as $plat) {
-                if ($nom_plat == $plat['nom']) {
-                    $prix = $plat['prix'];
-                }
-            }
-            $panier[] = [
-                'nom' => $nom_plat,
-                'quantite' => $quantite,
-                'prix' => $prix,
-                'sous_total' => $prix * $quantite
-            ];
-            $total = $total + ($prix * $quantite);
-    }}
-    if($panier==[]){
-        header("Location: http://localhost:8000/php/menu.php"); 
-        exit();
-    }
-    if($_POST['timing']=="plus_tard"){
-        $_SESSION['date_heure'] = $_POST['date_heure'];
-    }
-    else{
-        $_SESSION['date_heure'] =date('Y-m-d H:i:s');
-    }
-    $_SESSION['panier']=$panier;
-    $remise=0;
-    $data = json_decode(file_get_contents("../json/utilisateur.json"), true);
-    foreach ($data as $ligne){
-        if ($_SESSION['email'] == $ligne['email']){
-                $niveau=$ligne["niveau"];
-                $remise=$ligne["remise"];
+
+if (isset($_POST['qte']) && is_array($_POST['qte'])) {
+    foreach ($_POST['qte'] as $nom => $qte) {
+        $qte_int = (int)$qte;
+        if ($qte_int > 0) {
+            if (isset($_SESSION['panier'][$nom])) {
+                $_SESSION['panier'][$nom] += $qte_int;
+            } else {
+                $_SESSION['panier'][$nom] = $qte_int;
             }
         }
-    $reduction = $total * ($remise * 5) / 100;
-    $total =$total-$reduction;
+    }
+
+    if (isset($_POST['timing'])) {
+        if ($_POST['timing'] === "plus_tard") {
+            $_SESSION['date_heure'] = $_POST['date_heure'] ?? date('Y-m-d H:i:s');
+        } else {
+            $_SESSION['date_heure'] = "Maintenant";
+        }
+    }
+
+    header("Location: commande.php");
+    exit();
 }
+
+if (isset($_GET['action']) && $_GET['action'] === 'vider') {
+    $_SESSION['panier'] = [];
+    $_SESSION['packs'] = [];
+    header("Location: menu.php");
+    exit();
+}
+
+header("Location: menu.php");
+exit();
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -53,7 +58,7 @@ if (isset($_POST['qte'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/profil.css">
     <link rel="icon" type="image/png" href="../img/Logo_Tasty_Country.png">
-    <title>Profil - Tasty Country</title>
+    <title>Mon Panier - Tasty Country</title>
 </head>
 <body>
     <div class="site-container">
@@ -76,69 +81,73 @@ if (isset($_POST['qte'])) {
         <main class="content">
             <fieldset class="profile-section">
                 <legend>Votre panier 🛒</legend>
+                
                 <?php foreach ($panier as $article) { ?>
                     <div class="info-row">
                         <div class="label"><?php echo $article['quantite']; ?>x <?php echo $article['nom']; ?></div>
-                        <div class="value"><?php echo $article['sous_total']; ?> €</div>
-                        </div>
-                    <?php } ?>
-
-                    <div class="info-row">
-                        <div class="label">TOTAL :</div>
-                        <div class="value"><?php echo $total."€ (-".$reduction."€)"; ?></div>
-                        <div class="value"><?php echo "Grade :".$niveau; ?></div>
-                        <div class="value"><?php echo "Niveau remise :".$remise; ?></div>
+                        <div class="value"><?php echo number_format($article['sous_total'], 2); ?> €</div>
                     </div>
+                <?php } ?>
 
-                    <div class="info-row">
-                        <div class="label">Pour :</div>
-                        <div class="value"><?php if (isset($_POST['timing']) && $_POST['timing'] == "Maintenant"){
+                <div class="info-row">
+                    <div class="label">TOTAL :</div>
+                    <div class="value"><?php echo number_format($total, 2)."€ (-".number_format($reduction, 2)."€)"; ?></div>
+                    <div class="value"><?php echo "Grade : " . htmlspecialchars($niveau); ?></div>
+                    <div class="value"><?php echo "Niveau remise : " . htmlspecialchars($remise); ?></div>
+                </div>
+
+                <div class="info-row">
+                    <div class="label">Pour :</div>
+                    <div class="value">
+                        <?php 
+                        if (isset($_POST['timing']) && $_POST['timing'] == "Maintenant") {
                             echo "Maintenant";
-                        }else{
-                            echo $_SESSION['date_heure'];
-                        } ?></div>
+                        } else {
+                            echo htmlspecialchars($_SESSION['date_heure'] ?? 'Non défini');
+                        } 
+                        ?>
                     </div>
+                </div>
 
-                    <form action='https://www.plateforme-smc.fr/cybank/index.php' method='POST'>
-                        <?php
-                        $trouve=True;
-                        $fichier = "../json/commande.json";
-                        if (file_exists($fichier)) {
-                                $contenu = file_get_contents($fichier);
-                                $commande = json_decode($contenu, true) ?? [];
-                                }
-                        while($trouve){
-                            $transaction = uniqid();
-                            $trouve=False;
-                            foreach ($commande as $c) {
-                                if ($c['id'] == $transaction) {
-                                    $trouve=True;
-                                }                       
-                            }
+                <form action='https://www.plateforme-smc.fr/cybank/index.php' method='POST'>
+                    <?php
+                    $trouve = true;
+                    $fichier = "../json/commande.json";
+                    $commande = [];
+                    if (file_exists($fichier)) {
+                        $contenu = file_get_contents($fichier);
+                        $commande = json_decode($contenu, true) ?? [];
+                    }
+                    
+                    while ($trouve) {
+                        $transaction = uniqid();
+                        $trouve = false;
+                        foreach ($commande as $c) {
+                            if (isset($c['id']) && $c['id'] == $transaction) {
+                                $trouve = true;
+                            }                       
                         }
-                        $montant = $total;
-                        $vendeur = 'MI-2_B';
-                        $retour = 'http://localhost:8000/php/retour_paiement.php';
-                        $api_key = getAPIKey($vendeur); 
-                        $control = md5($api_key . "#" . $transaction . "#" . $montant . "#" . $vendeur . "#" . $retour . "#");?>
-                        <input type='hidden' name='transaction' value='<?php echo $transaction; ?>'>
-                        <input type='hidden' name='montant' value='<?php echo $montant; ?>'>
-                        <input type='hidden' name='vendeur' value='<?php echo $vendeur; ?>'>
-                        <input type='hidden' name='retour' value='<?php echo $retour; ?>'>
-                        <input type='hidden' name='control' value='<?php echo $control; ?>'>
-                        <input type='submit' class="btn-edit" value="Valider et payer">
-</form>
+                    }
+                    
+                    $montant = number_format($total, 2, '.', ''); // Sécurité format Cybank
+                    $vendeur = 'MI-2_B';
+                    $retour = 'http://localhost:8000/php/retour_paiement.php';
+                    $api_key = getAPIKey($vendeur); 
+                    $control = md5($api_key . "#" . $transaction . "#" . $montant . "#" . $vendeur . "#" . $retour . "#");
+                    ?>
+                    <input type='hidden' name='transaction' value='<?php echo $transaction; ?>'>
+                    <input type='hidden' name='montant' value='<?php echo $montant; ?>'>
+                    <input type='hidden' name='vendeur' value='<?php echo $vendeur; ?>'>
+                    <input type='hidden' name='retour' value='<?php echo $retour; ?>'>
+                    <input type='hidden' name='control' value='<?php echo $control; ?>'>
+                    <input type='submit' class="btn-edit" value="Valider et payer">
+                </form>
 
-                    <form action="menu.php">
-                        <button type="submit" class="btn-edit">Retour au menu</button>
-                    </form>
-                    <div>
-</div> 
+                <form action="menu.php">
+                    <button type="submit" class="btn-edit" style="margin-top: 10px; background-color: #555;">Retour au menu</button>
+                </form>
             </fieldset>
-        
-        
         </main>
-
 
         <footer class="footer">
             <div class="footer-content">
