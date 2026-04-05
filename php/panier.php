@@ -76,10 +76,10 @@ if (isset($_POST['qte'])) {
 
                     <div class="info-row">
                         <div class="label">Pour :</div>
-                        <div class="value"><?php if ($timing=="Maintenant"){
+                        <div class="value"><?php if (isset($_POST['timing']) && $_POST['timing'] == "Maintenant"){
                             echo "Maintenant";
                         }else{
-                            echo $date_heure;
+                            echo $_SESSION['date_heure'];
                         } ?></div>
                     </div>
 
