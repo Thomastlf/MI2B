@@ -1,10 +1,27 @@
 <?php
 session_start();
 
+$json_path = '../json/commande.json';
 if (!isset($_SESSION['email']) || !isset($_SESSION['role'])) {
     header("Location: connexion.php");
     exit();
 }
+
+if (isset($_POST['action'])&& isset($_POST['id_commande'])) {
+    $id_a_modifier = $_POST['id_commande'];
+    $toutes_commandes = json_decode(file_get_contents($json_path), true);
+    foreach ($toutes_commandes as $index => $cmd) {
+    if ($cmd['id'] == $id_a_modifier) {
+        if ($toutes_commandes[$index]['statut'] == 'a_preparer') {
+            $toutes_commandes[$index]['statut'] = 'sans_livreur';
+        }
+    }
+}
+    file_put_contents($json_path, json_encode($toutes_commandes, JSON_PRETTY_PRINT));
+    header("Location: http://localhost:8000/php/commande.php"); 
+    exit();
+}
+
 
 $role = strtolower($_SESSION['role']);
 
@@ -31,12 +48,16 @@ try {
 }
 
 $a_preparer = [];
+$sans_livreur=[];
 $en_livraison = [];
 $livrees = [];
 
 foreach ($commandes as $c) {
     if ($c['statut'] == 'a_preparer') {
         $a_preparer[] = $c;
+    }
+    elseif ($c['statut'] == 'sans_livreur') {
+        $sans_livreur[] = $c;
     } elseif ($c['statut'] == 'en_livraison') {
         $en_livraison[] = $c;
     } elseif ($c['statut'] == 'livree') {
@@ -104,15 +125,34 @@ foreach ($commandes as $c) {
                                     • <?php echo $article['quantite']; ?>x <?php echo $article['nom']; ?><br>
                                 <?php endforeach; ?>
                             </p>
-                            <button class="btn-action">Prêt pour la livraison ✈️</button>
+                            <form method="POST" action="commande.php" style="flex:1;">
+                                    <input type="hidden" name="id_commande" value="<?php echo $cmd['id']; ?>">
+                                    <input type="hidden" name="action" value="sans_livreur">
+                                    <button class="btn-action">Prêt pour la livraison ✈️</button>
+                            </form>
                         </div>
                     <?php endforeach; ?>
                 </section>
 
                 <section class="order-column delivery-section">
+                    <h3>🚚 En attente d'un livreur</h3>
+                    <?php foreach ($sans_livreur as $cmd): ?>
+                        <div class="order-card in-flight">
+                            <div class="order-header">
+                                <span class="order-id">#<?php echo $cmd['id']; ?></span>
+                                <span class="status-tag">En vol</span>
+                            </div>
+                            <p>Livreur : <strong><?php echo $cmd['livreur']; ?></strong></p>
+                            <p>Escale : <?php echo $cmd['adresse']; ?></p>
+                            <button class="btn-disabled" disabled>Livraison en cours...</button>
+                        </div>
+                    <?php endforeach; ?>
+                </section>
+                
+                <section class="order-column">
                     <h3>🚚 En cours de livraison</h3>
                     <?php foreach ($en_livraison as $cmd): ?>
-                        <div class="order-card in-flight">
+                        <div class="order-card">
                             <div class="order-header">
                                 <span class="order-id">#<?php echo $cmd['id']; ?></span>
                                 <span class="status-tag">En vol</span>
@@ -137,6 +177,8 @@ foreach ($commandes as $c) {
                         </div>
                     <?php endforeach; ?>
                 </section>
+
+               
             </div>
         </main>
 
