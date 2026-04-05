@@ -127,7 +127,7 @@
                         <input type="reset" value="Réinitialiser" class="btn-reset">
                     </div>
                 </form>
-                <p class="form-footer">Déjà un billet ? <a href="connexion.html">Se connecter</a></p>
+                <p class="form-footer">Déjà un billet ? <a href="connexion.php">Se connecter</a></p>
             </div>
         </main>
 
