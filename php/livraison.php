@@ -130,7 +130,15 @@ foreach ($tab as $ligne){
                     </div>
                     <?php endforeach; ?>
                 </div>
-
+                
+                <h2 class="page-title" style="margin-top: 40px; font-size: 1.5rem; color: #00FFFF;">📦 Historique des vols</h2>
+                <div class="orders-grid" style="display: flex; flex-direction: column; gap: 15px;">
+                    <?php foreach ($historique as $c): ?>
+                    <div class="order-card" style="background: rgba(33, 59, 97, 0.8); border: 1px solid #00FFFF; border-radius: 15px; padding: 15px; color: white;">
+                        <p><strong>#<?php echo $c['id']; ?></strong> - <?php echo htmlspecialchars($c['adresse']); ?></p>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
             </div>
         </main>
 
