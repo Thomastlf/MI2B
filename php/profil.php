@@ -10,7 +10,7 @@ if (isset($_GET['email']) && !empty($_GET['email'])) {
     $email_a_afficher = $_SESSION['email'];
 }
 
-$role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'client';
+$role_session = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'client';
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -20,6 +20,30 @@ $role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'client';
     <link rel="stylesheet" href="../css/profil.css">
     <link rel="icon" type="image/png" href="../img/Logo_Tasty_Country.png">
     <title>Profil - Tasty Country</title>
+    <style>
+        /* Style pour le petit bouton carré Noter */
+        .btn-noter-mini {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background-color: #f39c12;
+            color: white;
+            text-decoration: none;
+            font-size: 0.75rem;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+            flex-shrink: 0; /* Empêche le bouton de s'écraser */
+        }
+        .btn-noter-mini:hover {
+            background-color: #e67e22;
+            transform: scale(1.05);
+        }
+    </style>
 </head>
 <body>
     <?php
@@ -39,8 +63,8 @@ $role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'client';
                 $motdepasse = $ligne['motdepasse'];
                 $role = $ligne['role'];
                 $profil_trouve = true;
-                $niveau=$ligne["niveau"];
-                $remise=$ligne["remise"];
+                $niveau = $ligne["niveau"] ?? "Classique";
+                $remise = $ligne["remise"] ?? 0;
             }
         }
 
@@ -64,13 +88,13 @@ $role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'client';
                 </div>
                 <nav class="main-nav">
                     <ol>
-                        <?php if ($role === 'client'): ?>
+                        <?php if ($role_session === 'client'): ?>
                             <li><a href="accueil.php">Accueil</a></li>
                             <li><a href="menu.php">Menu</a></li>
                             <li><a href="profil.php" class="nav-active">Mon Profil</a></li>
                             <li><a href="deconnexion.php">Déconnexion</a></li>
 
-                        <?php elseif ($role === 'admin'): ?>
+                        <?php elseif ($role_session === 'admin'): ?>
                             <li><a href="accueil.php">Accueil</a></li>
                             <li><a href="menu.php">Menu</a></li>
                             <li><a href="commande.php">Commandes</a></li>
@@ -78,12 +102,12 @@ $role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'client';
                             <li><a href="profil.php" class="nav-active">Mon Profil</a></li>
                             <li><a href="deconnexion.php">Déconnexion</a></li>
 
-                        <?php elseif ($role === 'restaurateur'): ?>
+                        <?php elseif ($role_session === 'restaurateur'): ?>
                             <li><a href="commande.php">Commandes en cours</a></li>
                             <li><a href="profil.php" class="nav-active">Mon Profil</a></li>
                             <li><a href="deconnexion.php">Déconnexion</a></li>
 
-                        <?php elseif ($role === 'livreur'): ?>
+                        <?php elseif ($role_session === 'livreur'): ?>
                             <li><a href="livraison.php">Livraisons</a></li>
                             <li><a href="profil.php" class="nav-active">Mon Profil</a></li>
                             <li><a href="deconnexion.php">Déconnexion</a></li>
@@ -134,7 +158,7 @@ $role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'client';
                 <?php endif; ?>
             </fieldset>
             
-            <?php if ($role == 'client'||$role == 'admin'): ?>
+            <?php if (strtolower($role) == 'client' || strtolower($role) == 'admin'): ?>
             <fieldset class="profile-section">
                 <legend>Historique des vols 📦</legend>
                 <ul class="order-list">
@@ -142,17 +166,20 @@ $role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'client';
                         <li>Ce passager n'a pas encore de commandes.</li>
                     <?php else: ?>
                         <?php foreach ($commande as $c): ?>
-                            <li>
-                                <strong>Commande n°<?php echo $c['id']; ?></strong><br>
-                                <span>Date : <?php echo $c['date_heure']; ?></span><br>
-                                <div>
-                                    <?php 
-                                    foreach($c['articles'] as $article){
-                                        echo htmlspecialchars($article['quantite']."x " .$article["nom"]." - ".$article['prix']."€")."<br>";
-                                    } ?>
+                            <li style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #ddd; padding-bottom: 10px; gap: 10px;">
+                                <div style="flex-grow: 1;">
+                                    <strong>Commande n°<?php echo $c['id']; ?></strong><br>
+                                    <span>Date : <?php echo $c['date_heure']; ?></span><br>
+                                    <div style="font-size: 0.85rem; color: #555; margin: 5px 0;">
+                                        <?php 
+                                        foreach($c['articles'] as $article){
+                                            echo htmlspecialchars($article['quantite']."x " .$article["nom"]." - ".$article['prix']."€")."<br>";
+                                        } ?>
+                                    </div>
+                                    <span>Total : <?php echo $c["total"]; ?>€</span> | 
+                                    <span>Statut : <?php echo ucfirst($c['statut']); ?></span>
                                 </div>
-                                <span>Total : <?php echo $c["total"]; ?>€</span> | 
-                                <span>Statut : <?php echo ucfirst($c['statut']); ?></span>
+                                <a href="notation.php?id=<?php echo $c['id']; ?>" class="btn-noter-mini" title="Noter ce vol">Noter</a>
                             </li>
                         <?php endforeach; ?>
                     <?php endif; ?>
@@ -160,16 +187,16 @@ $role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'client';
             </fieldset>
             <?php endif; ?>
 
-            <?php if ($role == 'client'||$role == 'admin'): ?>
+            <?php if (strtolower($role) == 'client' || strtolower($role) == 'admin'): ?>
             <fieldset class="profile-section">
                 <legend>Compte fidélité 🎖️</legend>
                 <div class="info-row">
                     <div class="label">Grade :</div>
-                    <div class="value loyalty-points"><?php echo $niveau?></div>
+                    <div class="value loyalty-points"><?php echo $niveau; ?></div>
                 </div>
                 <div class="promo-section">
                     <div class="label">Remise niveau :</div>
-                    <div class="value loyalty-points"><?php echo $remise?></div>
+                    <div class="value loyalty-points"><?php echo $remise; ?> %</div>
                 </div>
             </fieldset>
             <?php endif; ?>
