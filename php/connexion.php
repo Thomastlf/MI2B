@@ -87,6 +87,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <p class="form-footer">Pas encore de billet ? <a href="inscription.php">Inscrivez-vous ici</a></p>
             </div>
         </main>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Tasty Country 🌍</h3>
+                    <p>Le tour du monde dans votre assiette.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>📍 CyTech, Cergy</p>
+                    <p>📞 01 23 45 67 89</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Tasty Country - Projet Informatique</p>
+                <a href="#top" style="color: #00FFFF; text-decoration: none; display: block; margin-top: 10px;">Revenir en haut ✈️</a>
+            </div>
+        </footer>
     </div>
 </body>
 </html>
