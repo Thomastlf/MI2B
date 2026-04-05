@@ -3,7 +3,6 @@
         "id": "69d14013dcf54",
         "client": "d@gmail.com",
         "date_heure": "2026-04-04T16:45",
-
         "articles": [
             {
                 "nom": "Ramen Croustillant",
@@ -18,10 +17,10 @@
                 "sous_total": 18
             }
         ],
-        "livreur": "caryl",
+        "livreur": "c@gmail.com",
         "adresse": "d",
         "code_interphone": "d",
-        "statut": "en_livraison",
+        "statut": "a_preparer",
         "total": 32.5
     },
     {
@@ -48,10 +47,70 @@
                 "sous_total": 19
             }
         ],
-        "livreur": null,
+        "livreur": "c@gmail.com",
         "adresse": "d",
         "code_interphone": "d",
-        "statut": "a_preparer",
+        "statut": "sans_livreur",
+        "total": 48.5
+    },
+    {
+        "id": "69d14120d7f78",
+        "client": "d.@gmail.com",
+        "date_heure": "2026-04-04T16:45",
+        "articles": [
+            {
+                "nom": "Bo Bun Vietnamien",
+                "quantite": "1",
+                "prix": 14.5,
+                "sous_total": 14.5
+            },
+            {
+                "nom": "Paella Valenciana",
+                "quantite": "1",
+                "prix": 15,
+                "sous_total": 15
+            },
+            {
+                "nom": "Raclette",
+                "quantite": "1",
+                "prix": 19,
+                "sous_total": 19
+            }
+        ],
+        "livreur": "c@gmail.com",
+        "adresse": "d",
+        "code_interphone": "d",
+        "statut": "livree",
+        "total": 48.5
+    },
+    {
+        "id": "69d14320d7f78",
+        "client": "d.@gmail.com",
+        "date_heure": "2026-04-04T16:45",
+        "articles": [
+            {
+                "nom": "Bo Bun Vietnamien",
+                "quantite": "1",
+                "prix": 14.5,
+                "sous_total": 14.5
+            },
+            {
+                "nom": "Paella Valenciana",
+                "quantite": "1",
+                "prix": 15,
+                "sous_total": 15
+            },
+            {
+                "nom": "Raclette",
+                "quantite": "1",
+                "prix": 19,
+                "sous_total": 19
+            }
+        ],
+        "livreur": "c@gmail.com",
+        "adresse": "d",
+        "code_interphone": "d",
+        "statut": "livree",
         "total": 48.5
     }
 ]
