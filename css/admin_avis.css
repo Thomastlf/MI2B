@@ -1,0 +1,67 @@
+/* Amélioration de la lisibilité pour le tableau des avis */
+
+.table-container {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 20px;
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    overflow-x: auto;
+    margin-top: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Forcer la couleur blanche pour tous les textes du tableau */
+.user-table th, 
+.user-table td {
+    color: #FFFFFF !important; /* Blanc pour lisibilité maximale sur fond sombre */
+    padding: 15px;
+    text-align: left;
+}
+
+.user-table th {
+    border-bottom: 2px solid #C71585; /* Rose magenta néon */
+    color: #00FFFF !important; /* Cyan pour les entêtes */
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+.user-table td {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    vertical-align: top;
+}
+
+/* Styles spécifiques aux cellules */
+.stars-display {
+    color: #f39c12; /* Jaune doré pour les étoiles pour qu'elles ressortent */
+    font-size: 1.2rem;
+}
+
+.date-cell { 
+    color: #00FFFF !important; /* Cyan pour que la date soit bien visible */
+    font-size: 0.85rem; 
+    white-space: nowrap;
+}
+
+.author-cell { 
+    font-weight: bold; 
+    color: #FF1493 !important; /* Rose vif pour le nom du passager */
+}
+
+.comment-cell { 
+    font-style: italic; 
+    line-height: 1.4;
+}
+
+/* Correction responsive */
+@media (max-width: 768px) {
+    .user-table th, .user-table td {
+        padding: 10px;
+        font-size: 0.8rem;
+    }
+}
