@@ -7,24 +7,24 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] !== 'livreur') {
     exit();
 }
 
-if (isset($_POST['action'])) {
+if (isset($_POST['action'])&& isset($_POST['id_commande'])) {
     $id_a_modifier = $_POST['id_commande'];
     $toutes_commandes = json_decode(file_get_contents($json_path), true);
-    foreach ($toutes_commandes as &$cmd) {
-        if ($cmd['id'] === $id_a_modifier) {
-            if($_POST['action'] == 'livree'){
-                $cmd['statut'] = 'livree';
-            }
-            else if($_POST['action'] == 'abandonnée'){
-                $cmd['livreur'] = null;
-                $cmd['statut'] = 'a_preparer';
-            }
-            else{
-                $cmd['statut'] = 'en_livraison';
-                $cmd['livreur']=$_SESSION['email'];
-            }
+    foreach ($toutes_commandes as $index => $cmd) {
+    if ($cmd['id'] == $id_a_modifier) {
+        if ($_POST['action'] == 'livree') {
+            $toutes_commandes[$index]['statut'] = 'livree';
+        } 
+        else if ($_POST['action'] == 'abandonnée') {
+            $toutes_commandes[$index]['livreur'] = null;
+            $toutes_commandes[$index]['statut'] = 'sans_livreur';
+        } 
+        else {
+            $toutes_commandes[$index]['statut'] = 'en_livraison';
+            $toutes_commandes[$index]['livreur'] = $_SESSION['email'];
         }
     }
+}
     file_put_contents($json_path, json_encode($toutes_commandes, JSON_PRETTY_PRINT));
     header("Location: livraison.php"); 
     exit();
