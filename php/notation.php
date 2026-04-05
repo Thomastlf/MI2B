@@ -1,38 +1,34 @@
 <?php
-session_start(); // Permet de garder la session active
+session_start();
 
-// Vérifie si le formulaire a été soumis
+
 if (!empty($_POST)) {
-    // Récupération et sécurisation des données
+
     $note = isset($_POST['star']) ? $_POST['star'] : "Non précisée";
     $commentaire = htmlspecialchars($_POST['commentaire']);
     $date = date("Y-m-d H:i:s");
     $auteur = isset($_SESSION['email']) ? $_SESSION['email'] : "Anonyme";
 
-    // Préparation des données pour le stockage JSON
+
     $nouvelAvis = [
         "date" => $date,
-        "auteur" => $auteur, // On ajoute l'auteur pour savoir qui a noté
+        "auteur" => $auteur,
         "note" => $note,
         "commentaire" => $commentaire
     ];
 
-    // Chargement des avis existants ou création d'un tableau vide
     $fichier = '../json/avis_clients.json';
     $avisExistants = [];
     if (file_exists($fichier)) {
         $avisExistants = json_decode(file_get_contents($fichier), true);
     }
 
-    // Ajout du nouvel avis et sauvegarde
     $avisExistants[] = $nouvelAvis;
     file_put_contents($fichier, json_encode($avisExistants, JSON_PRETTY_PRINT));
     
-    // Message de confirmation
     $messageSucces = "Merci ! Votre carnet de bord a été enregistré. ✈️";
 }
 
-// Récupération du rôle pour le header dynamique
 $role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : '';
 ?>
 
