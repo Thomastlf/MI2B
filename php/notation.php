@@ -1,14 +1,18 @@
 <?php
+session_start(); // Permet de garder la session active
+
 // Vérifie si le formulaire a été soumis
 if (!empty($_POST)) {
     // Récupération et sécurisation des données
     $note = isset($_POST['star']) ? $_POST['star'] : "Non précisée";
     $commentaire = htmlspecialchars($_POST['commentaire']);
     $date = date("Y-m-d H:i:s");
+    $auteur = isset($_SESSION['email']) ? $_SESSION['email'] : "Anonyme";
 
     // Préparation des données pour le stockage JSON
     $nouvelAvis = [
         "date" => $date,
+        "auteur" => $auteur, // On ajoute l'auteur pour savoir qui a noté
         "note" => $note,
         "commentaire" => $commentaire
     ];
@@ -24,9 +28,12 @@ if (!empty($_POST)) {
     $avisExistants[] = $nouvelAvis;
     file_put_contents($fichier, json_encode($avisExistants, JSON_PRETTY_PRINT));
     
-    // Optionnel : Message de confirmation
+    // Message de confirmation
     $messageSucces = "Merci ! Votre carnet de bord a été enregistré. ✈️";
 }
+
+// Récupération du rôle pour le header dynamique
+$role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : '';
 ?>
 
 <!DOCTYPE html>
@@ -49,8 +56,14 @@ if (!empty($_POST)) {
                     <ol>
                         <li><a href="accueil.php">Accueil</a></li>
                         <li><a href="menu.php">Menu</a></li>
-                        <li><a href="inscription.php">Nous rejoindre</a></li>
-                        <li><a href="connexion.php">Se connecter</a></li>
+                        
+                        <?php if (isset($_SESSION['email'])): ?>
+                            <li><a href="profil.php">Mon Profil</a></li>
+                            <li><a href="deconnexion.php">Déconnexion</a></li>
+                        <?php else: ?>
+                            <li><a href="inscription.php">Nous rejoindre</a></li>
+                            <li><a href="connexion.php">Se connecter</a></li>
+                        <?php endif; ?>
                     </ol>
                 </nav>
             </div>
@@ -58,10 +71,11 @@ if (!empty($_POST)) {
 
         <main class="content">
             <?php if (isset($messageSucces)): ?>
-    <div style="color: #00FFFF; text-align: center; margin-bottom: 20px; font-weight: bold;">
-        <?php echo $messageSucces; ?>
-    </div>
-<?php endif; ?>
+                <div style="color: #00FFFF; text-align: center; margin-bottom: 20px; font-weight: bold; background: rgba(0,255,255,0.1); padding: 10px; border-radius: 8px;">
+                    <?php echo $messageSucces; ?>
+                </div>
+            <?php endif; ?>
+
             <div class="rating-card">
                 <h2>Votre Avis sur le Vol ✈️</h2>
                 <p>Comment s'est passée votre escale culinaire ?</p>
@@ -77,7 +91,7 @@ if (!empty($_POST)) {
 
                     <div class="input-group">
                         <label>Partagez votre expérience</label>
-                        <textarea name="commentaire" placeholder="Le voyage était magnifique..." rows="4"></textarea>
+                        <textarea name="commentaire" placeholder="Le voyage était magnifique..." rows="4" required></textarea>
                     </div>
 
                     <button type="submit" class="btn-submit">Envoyer mon carnet de bord</button>
