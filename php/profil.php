@@ -4,8 +4,6 @@ if (!isset($_SESSION['email'])) {
     exit();
 }
 
-// MODIFICATION : Sélection de l'email à afficher
-// Si 'email' est dans l'URL (via admin), on prend celui-là, sinon on prend celui de la session
 if (isset($_GET['email']) && !empty($_GET['email'])) {
     $email_a_afficher = $_GET['email'];
 } else {
@@ -29,7 +27,6 @@ $role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'client';
         $profil_trouve = false;
         
         foreach ($data as $ligne){
-            // MODIFICATION : On cherche l'utilisateur correspondant à l'email sélectionné
             if ($email_a_afficher == $ligne['email']){
                 $nom  = $ligne['nom'];
                 $prenom    = $ligne['prenom'];
@@ -42,7 +39,8 @@ $role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'client';
                 $motdepasse = $ligne['motdepasse'];
                 $role = $ligne['role'];
                 $profil_trouve = true;
-                break;
+                $niveau=$ligne["niveau"];
+                $remise=$ligne["remise"];
             }
         }
 
@@ -50,8 +48,6 @@ $role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'client';
             echo "<p style='color:white; text-align:center; margin-top:50px;'>Utilisateur introuvable.</p>";
             exit();
         }
-
-        // Récupération des commandes de l'utilisateur affiché
         $tab = json_decode(file_get_contents("../json/commande.json"), true);
         $commande=[];
         foreach ($tab as $ligne){
@@ -168,15 +164,12 @@ $role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'client';
             <fieldset class="profile-section">
                 <legend>Compte fidélité 🎖️</legend>
                 <div class="info-row">
-                    <div class="label">Points de fidélité :</div>
-                    <div class="value loyalty-points">564 pts</div>
+                    <div class="label">Grade :</div>
+                    <div class="value loyalty-points"><?php echo $niveau?></div>
                 </div>
                 <div class="promo-section">
-                    <div class="label">Remises disponibles :</div>
-                    <ul class="promo-list">
-                        <li>-10% sur la prochaine commande</li>
-                        <li>Une boisson offerte sur la prochaine commande</li>
-                    </ul>
+                    <div class="label">Remise niveau :</div>
+                    <div class="value loyalty-points"><?php echo $remise?></div>
                 </div>
             </fieldset>
             <?php endif; ?>
