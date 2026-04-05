@@ -85,7 +85,21 @@ if (isset($_POST['qte'])) {
 
                     <form action='https://www.plateforme-smc.fr/cybank/index.php' method='POST'>
                         <?php
-                        $transaction = uniqid();
+                        $trouve=True;
+                        $fichier = "../json/commande.json";
+                        if (file_exists($fichier)) {
+                                $contenu = file_get_contents($fichier);
+                                $commande = json_decode($contenu, true) ?? [];
+                                }
+                        while($trouve){
+                            $transaction = uniqid();
+                            $trouve=False;
+                            foreach ($commande as $c) {
+                                if ($c['id'] == $transaction) {
+                                    $trouve=True;
+                                }                       
+                            }
+                        }
                         $montant = $total;
                         $vendeur = 'MI-2_B';
                         $retour = 'http://localhost:8000/php/retour_paiement.php';
