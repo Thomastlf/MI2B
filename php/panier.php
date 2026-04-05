@@ -87,7 +87,7 @@ if (isset($_POST['qte'])) {
                         <?php
                         $transaction = uniqid();
                         $montant = $total;
-                        $vendeur = 'MI-3_B';
+                        $vendeur = 'MI-2_B';
                         $retour = 'http://localhost:8000/php/retour_paiement.php';
                         $api_key = getAPIKey($vendeur); 
                         $control = md5($api_key . "#" . $transaction . "#" . $montant . "#" . $vendeur . "#" . $retour . "#");?>
