@@ -9,8 +9,10 @@
 </head>
 <body>
     <?php
+    $erreur="";
     if (!empty($_POST)) {
         $fichier = '../json/utilisateur.json';
+        $nouveau=$_POST['email'];
         $data = [
             "nom"  => $_POST['nom'],
             "prenom"    => $_POST['prenom'],
@@ -26,14 +28,26 @@
             "niveau" => "Classique",
             "remise" => "0"
         ];
+
         if (file_exists($fichier)) {
             $contenu = file_get_contents($fichier);
             $utilisateurs = json_decode($contenu, true) ?? [];
         } else {
             $utilisateurs = [];
         }
-        $utilisateurs[] = $data;
-        file_put_contents($fichier, json_encode($utilisateurs, JSON_PRETTY_PRINT));
+        $email_existe = false;
+        foreach ($utilisateurs as $utilisateur) {
+            if ($utilisateur['email'] == $nouveau) {
+                $email_existe = true;
+                }
+    }
+        if(!$email_existe){
+            $utilisateurs[] = $data;
+            file_put_contents($fichier, json_encode($utilisateurs, JSON_PRETTY_PRINT));
+        }
+        else{
+            $erreur="Erreur : Un utilisateur avec cette adresse email existe déjà.";
+        }
     }
     ?>
     <div class="site-container">
@@ -56,6 +70,7 @@
         <main class="content">
             <div class="register-card">
                 <h2>Inscription Passager 📋</h2>
+                <?php echo "<p style='color:red; text-align:center;'>$erreur</p>"; ?>
                 <form action="inscription.php" method="POST">
                     
                     <div class="input-group">
