@@ -5,13 +5,6 @@ $transaction = $_GET['transaction'];
 $montant = $_GET['montant'];
 $vendeur = $_GET['vendeur'];
 $status = $_GET['status']; 
-$control_recu = $_GET['control'];<?php
-session_start();
-require('../php/getapikey.php');
-$transaction = $_GET['transaction'];
-$montant = $_GET['montant'];
-$vendeur = $_GET['vendeur'];
-$status = $_GET['status']; 
 $control_recu = $_GET['control'];
 $api_key = getAPIKey($vendeur);
 $control_calcule = md5($api_key . "#" . $transaction . "#" . $montant . "#" . $vendeur . "#" . $status . "#");
