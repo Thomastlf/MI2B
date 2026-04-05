@@ -34,6 +34,16 @@ if (isset($_POST['qte'])) {
         $_SESSION['date_heure'] =date('Y-m-d H:i:s');
     }
     $_SESSION['panier']=$panier;
+    $remise=0;
+    $data = json_decode(file_get_contents("../json/utilisateur.json"), true);
+    foreach ($data as $ligne){
+        if ($_SESSION['email'] == $ligne['email']){
+                $niveau=$ligne["niveau"];
+                $remise=$ligne["remise"];
+            }
+        }
+    $reduction = $total * ($remise * 5) / 100;
+    $total =$total-$reduction;
 }
 ?>
 <!DOCTYPE html>
@@ -75,7 +85,9 @@ if (isset($_POST['qte'])) {
 
                     <div class="info-row">
                         <div class="label">TOTAL :</div>
-                        <div class="value"><?php echo $total; ?> €</div>
+                        <div class="value"><?php echo $total."€ (-".$reduction."€)"; ?></div>
+                        <div class="value"><?php echo "Grade :".$niveau; ?></div>
+                        <div class="value"><?php echo "Niveau remise :".$remise; ?></div>
                     </div>
 
                     <div class="info-row">
