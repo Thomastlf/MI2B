@@ -40,6 +40,7 @@ $role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'client';
                 $date    = $ligne['date'];
                 $genre    = $ligne['genre'];
                 $motdepasse = $ligne['motdepasse'];
+                $role = $ligne['role'];
                 $profil_trouve = true;
                 break;
             }
@@ -98,7 +99,7 @@ $role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'client';
 
         <main class="content">
             <fieldset class="profile-section">
-                <legend>Informations du passager 👤</legend>
+                <legend>Vos informations 👤</legend>
                 <div class="info-row">
                     <div class="label">Nom :</div>
                     <div class="value"><?php echo $nom; ?></div>
@@ -136,7 +137,8 @@ $role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'client';
                     <button class="btn-edit" title="Modifier">Modifier mes informations &#9998;</button>
                 <?php endif; ?>
             </fieldset>
-
+            
+            <?php if ($role == 'client'): ?>
             <fieldset class="profile-section">
                 <legend>Historique des vols 📦</legend>
                 <ul class="order-list">
@@ -160,7 +162,9 @@ $role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'client';
                     <?php endif; ?>
                 </ul>
             </fieldset>
+            <?php endif; ?>
 
+            <?php if ($role == 'client'): ?>
             <fieldset class="profile-section">
                 <legend>Compte fidélité 🎖️</legend>
                 <div class="info-row">
@@ -175,6 +179,7 @@ $role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'client';
                     </ul>
                 </div>
             </fieldset>
+            <?php endif; ?>
         </main>
 
         <footer class="footer">
