@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <title>Connexion - Tasty Country</title>
-    <link rel="stylesheet" href="../css/connexion.css">
+    <link id="css" rel="stylesheet" href="../css/connexion.css"><!-- js -->
 </head>
 <body>
     <div class="site-container">
@@ -66,6 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </ol>
                 </nav>
             </div>
+            <button id="bouton" class="btn-theme">Passer en sombre</button><!-- js -->
         </header>
 
         <main class="content">
@@ -106,5 +107,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </footer>
     </div>
+    <script src="../js/connexion.js"></script><!-- js -->
 </body>
 </html>
