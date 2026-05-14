@@ -68,7 +68,8 @@ if ($control_calcule == $control_recu) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/profil.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/perso.css">
     <link rel="icon" type="image/png" href="../img/Logo_Tasty_Country.png">
     <title>Résultat du paiement - Tasty Country</title>
 </head>
