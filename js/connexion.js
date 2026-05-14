@@ -1,32 +1,22 @@
-const bouton = document.getElementById("bouton");
-const css = document.getElementById("css");
+const envoyer = document.getElementById("envoyer");
+const champEmail = document.getElementById("email");
+const champMdp = document.getElementById("mdp");
 
-function setCookie(cookieName, cookieValue, expiration = null) {// fonction qui créer le cookie
-    if(expiration == null) expiration = new Date(Date.now() + 86400000).toUTCString();
-        document.cookie = cookieName + "=" + cookieValue +"; expires=" + expiration + ";";
-}
-
-function getCookie(cookieName, defaultValue = null) {// fonction qui récupère le cookie
-    const cookies = document.cookie.split(";");
-    let row = cookies.find((row) => row.trim().startsWith(cookieName + "="));
-    if(row == null) return defaultValue;
-        return row.split("=")[1];
-}
-
-function changerStatut() {//fonction qui change le mode (clair/sombre)
-    if (getCookie("modeSombre")=="true") {
-        css.setAttribute("href", "../css/connexion.css");
-        bouton.innerHTML = "Passer en sombre";
-        setCookie("modeSombre", "false");
-    } else {
-        css.setAttribute("href", "../css_sombre/connexion.css");
-        bouton.innerHTML = "Passer en clair";
-        setCookie("modeSombre", "true");
+envoyer.onsubmit = function (e) {//evenement qui se déclenche lorsque le formulaire est envoyé et qui bloque l'envoie du formulaire vers le serveur si les champs sont invalides
+    let email=champEmail.value;
+    let mdp=champMdp.value;
+    let contient_arobase=false;
+    let contient_point=false;
+    for(let i=0;i<email.length;i++){
+        if(email[i]=="@"){
+            contient_arobase=true;
+        }
+        if(email[i]=="."){
+            contient_point=true;
+        }
     }
-}
 
-if (getCookie("modeSombre") == null) {//On créer le cookie s'il n'existe pas déjà
-    setCookie("modeSombre", "false");
-}
-
-bouton.addEventListener("click", changerStatut);
+    if (contient_arobase == false || contient_point == false) {
+        e.preventDefault();//bloque l'envoie du formulaire
+    }
+};
