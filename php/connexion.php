@@ -56,6 +56,7 @@ if(isset($_COOKIE["modeSombre"]) && $_COOKIE["modeSombre"] == "true"){
 <head>
     <meta charset="UTF-8">
     <title>Connexion - Tasty Country</title>
+    <link rel="stylesheet" href="../css/global.css">
     <link id="css" rel="stylesheet" href=<?php echo $css; ?>><!-- js -->
 </head>
 <body>
