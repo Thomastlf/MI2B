@@ -43,6 +43,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
+$css="../css/connexion.css";/*js*/
+$texteBouton="Passer en sombre";
+if(isset($_COOKIE["modeSombre"]) && $_COOKIE["modeSombre"] == "true"){
+    $css="../css_sombre/connexion.css";
+    $texteBouton="Passer en clair";
+}
 ?>
 
 <!DOCTYPE html>
@@ -50,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <title>Connexion - Tasty Country</title>
-    <link id="css" rel="stylesheet" href="../css/connexion.css"><!-- js -->
+    <link id="css" rel="stylesheet" href=<?php echo $css; ?>><!-- js -->
 </head>
 <body>
     <div class="site-container">
@@ -66,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </ol>
                 </nav>
             </div>
-            <button id="bouton" class="btn-theme">Passer en sombre</button><!-- js -->
+            <button id="bouton" class="btn-theme"><?php echo $texteBouton; ?></button><!-- js -->
         </header>
 
         <main class="content">
