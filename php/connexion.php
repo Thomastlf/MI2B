@@ -58,6 +58,9 @@ if(isset($_COOKIE["modeSombre"]) && $_COOKIE["modeSombre"] == "true"){
     <title>Connexion - Tasty Country</title>
     <link rel="stylesheet" href="../css/global.css">
     <link id="css" rel="stylesheet" href=<?php echo $css; ?>><!-- js -->
+    <script src="../js/modeSombre.js" defer></script><!-- js / defer pour n'exécuter le script js qu'une fois que le navigateur aura chargé le html dans le dom -->
+    <script src="../js/mdp.js" defer></script>
+    <script src="../js/connexion.js" defer></script>
 </head>
 <body>
     <div class="site-container">
@@ -74,20 +77,21 @@ if(isset($_COOKIE["modeSombre"]) && $_COOKIE["modeSombre"] == "true"){
                 </nav>
             </div>
             <button id="bouton" class="btn-theme"><?php echo $texteBouton; ?></button><!-- js -->
+            <button id="bouton2" class="btn-theme">👁️</button><!-- js -->
         </header>
 
         <main class="content">
             <div class="login-card">
                 <h2>Connexion Passager</h2>
                 <?php if(isset($error)) echo "<p style='color:red; text-align:center;'>$error</p>"; ?>
-                <form action="connexion.php" method="POST">
+                <form id="envoyer" action="connexion.php" method="POST">
                     <div class="input-group">
                         <label>Email</label>
-                        <input type="email" name="email" placeholder="votre@email.com" required>
+                        <input id="email" type="text" name="email" placeholder="votre@email.com" required>
                     </div>
                     <div class="input-group">
                         <label>Mot de passe</label>
-                        <input type="password" name="motdepasse" placeholder="••••••••" required>
+                        <input id="mdp" type="password" name="motdepasse" placeholder="••••••••" required>
                     </div>
                     <button type="submit" class="btn-login">Embarquement</button>
                 </form>
@@ -114,6 +118,5 @@ if(isset($_COOKIE["modeSombre"]) && $_COOKIE["modeSombre"] == "true"){
             </div>
         </footer>
     </div>
-    <script src="../js/connexion.js"></script><!-- js -->
 </body>
 </html>
