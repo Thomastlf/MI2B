@@ -1,19 +1,8 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/global.css">
-    <link rel="stylesheet" href="../css/inscription.css">
-    <link rel="icon" type="image/png" href="../img/Logo_Tasty_Country.png">
-    <title>Inscription - Tasty Country</title>
-</head>
-<body>
-    <?php
+<?php
+session_start();
     $erreur="";
     if (!empty($_POST)) {
         $fichier = '../json/utilisateur.json';
-        $nouveau=$_POST['email'];
         $data = [
             "nom"  => $_POST['nom'],
             "prenom"    => $_POST['prenom'],
@@ -38,19 +27,42 @@
         }
         $email_existe = false;
         foreach ($utilisateurs as $utilisateur) {
-            if ($utilisateur['email'] == $nouveau) {
+            if ($utilisateur['email'] == $_POST['email']) {
                 $email_existe = true;
                 }
     }
         if(!$email_existe){
             $utilisateurs[] = $data;
             file_put_contents($fichier, json_encode($utilisateurs, JSON_PRETTY_PRINT));
+            $_SESSION['email'] = $_POST['email'];
+            $_SESSION['role'] = "client";
+            header('Location: http://localhost:8000/php/accueil.php'); 
         }
         else{
             $erreur="Erreur : Un utilisateur avec cette adresse email existe déjà.";
         }
     }
-    ?>
+    $css="../css/connexion.css";/*js*/
+    $texteBouton="Passer en sombre";
+    if(isset($_COOKIE["modeSombre"]) && $_COOKIE["modeSombre"] == "true"){
+        $css="../css_sombre/connexion.css";
+        $texteBouton="Passer en clair";
+}
+?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/inscription.css">
+    <link rel="icon" type="image/png" href="../img/Logo_Tasty_Country.png">
+    <title>Inscription - Tasty Country</title>
+    <script src="../js/modeSombre.js" defer></script><!-- js / defer pour n'exécuter le script js qu'une fois que le navigateur aura chargé le html dans le dom -->
+    <script src="../js/mdp.js" defer></script>
+    <script src="../js/inscription.js" defer></script>
+</head>
+<body>
     <div class="site-container">
         <header class="header">
             <div class="header-content">
@@ -66,32 +78,35 @@
                     </ol>
                 </nav>
             </div>
+            <button id="bouton" class="btn-theme"><?php echo $texteBouton; ?></button><!-- js -->
+            <button id="bouton2" class="btn-theme">👁️</button><!-- js -->
         </header>
 
         <main class="content">
             <div class="register-card">
                 <h2>Inscription Passager 📋</h2>
                 <?php echo "<p style='color:red; text-align:center;'>$erreur</p>"; ?>
-                <form action="inscription.php" method="POST">
+                <p id="erreur_js" style="color:red; text-align:center;"></p>
+                <form id="envoyer" action="inscription.php" method="POST">
                     
                     <div class="input-group">
                         <label>Nom</label>
-                        <input type="text" name="nom" maxlength="50" required placeholder="Votre nom">
+                        <input id="nom" type="text" name="nom" maxlength="50" placeholder="Votre nom">
                     </div>
 
                     <div class="input-group">
                         <label>Prénom</label>
-                        <input type="text" name="prenom" maxlength="50" required placeholder="Votre prénom">
+                        <input id="prenom" type="text" name="prenom" maxlength="50" placeholder="Votre prénom">
                     </div>
 
                     <div class="input-group">
                         <label>E-mail</label>
-                        <input type="email" name="email" required placeholder="votre@email.com">
+                        <input id="email"type="text" name="email" placeholder="votre@email.com">
                     </div>
 
                     <div class="input-group">
                         <label>Adresse</label>
-                        <input type="text" name="adresse" required placeholder="Votre adresse complète">
+                        <input id="adresse" type="text" name="adresse" placeholder="Votre adresse complète">
                     </div>
                     
                     <div class="input-group">
@@ -101,12 +116,12 @@
 
                     <div class="input-group">
                         <label>Numéro de téléphone</label>
-                        <input type="tel" name="numero" required placeholder="06 12 34 56 78">
+                        <input id="numero" type="text" name="numero" placeholder="06 12 34 56 78">
                     </div>
 
                     <div class="input-group">
                         <label>Date de naissance</label>
-                        <input type="date" name="date" required>
+                        <input id="date" type="date" name="date">
                     </div>
 
                     <div class="input-group">
@@ -120,7 +135,7 @@
 
                     <div class="input-group">
                         <label>Mot de passe</label>
-                        <input type="password" name="motdepasse" required placeholder="••••••••">
+                        <input id="mdp" id="mdp" type="password" name="motdepasse" placeholder="••••••••">
                     </div>
 
                     <div class="form-actions">
