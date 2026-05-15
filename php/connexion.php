@@ -84,14 +84,15 @@ if(isset($_COOKIE["modeSombre"]) && $_COOKIE["modeSombre"] == "true"){
             <div class="login-card">
                 <h2>Connexion Passager</h2>
                 <?php if(isset($error)) echo "<p style='color:red; text-align:center;'>$error</p>"; ?>
+                <p id="erreur_js" style="color:red; text-align:center;"></p>
                 <form id="envoyer" action="connexion.php" method="POST">
                     <div class="input-group">
                         <label>Email</label>
-                        <input id="email" type="text" name="email" placeholder="votre@email.com" required>
+                        <input id="email" type="text" name="email" placeholder="votre@email.com">
                     </div>
                     <div class="input-group">
                         <label>Mot de passe</label>
-                        <input id="mdp" type="password" name="motdepasse" placeholder="••••••••" required>
+                        <input id="mdp" type="password" name="motdepasse" placeholder="••••••••">
                     </div>
                     <button type="submit" class="btn-login">Embarquement</button>
                 </form>
