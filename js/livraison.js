@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    // 1. Sécuriser le bouton CONFIRMER (Validation de livraison)
     const formsLivraison = document.querySelectorAll('.form-livraison');
     
     for(let form of formsLivraison) {
@@ -15,7 +14,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 2. Sécuriser le bouton ABANDONNER
     const formsAbandon = document.querySelectorAll('.form-abandon');
     
     for(let form of formsAbandon) {
