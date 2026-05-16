@@ -2,18 +2,10 @@
 session_start();
 
 $json_path = '../json/menu.json';
-$plats_complets = [];
 
 try {
     if (!file_exists($json_path)) {
         throw new Exception("Erreur système : Catalogue introuvable.");
-    }
-    
-    $json_content = file_get_contents($json_path);
-    $plats_complets = json_decode($json_content, true);
-    
-    if ($plats_complets === null) {
-        throw new Exception("Erreur de lecture des données.");
     }
 } 
 catch (Exception $e) {
@@ -21,19 +13,6 @@ catch (Exception $e) {
 }
 
 $role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : '';
-
-$cat_choisie = $_GET['categorie'] ?? '';
-$pays_choisi = $_GET['pays'] ?? '';
-
-$plats = [];
-foreach ($plats_complets as $p) {
-    $match_cat = ($cat_choisie == '' || $p['categorie'] == $cat_choisie);
-    $match_pays = ($pays_choisi == '' || $p['pays'] == $pays_choisi);
-
-    if ($match_cat && $match_pays) {
-        $plats[] = $p;
-    }
-}
 ?>
 
 <!DOCTYPE html>
@@ -45,6 +24,8 @@ foreach ($plats_complets as $p) {
     <link rel="stylesheet" href="../css/menu.css">
     <link rel="icon" type="image/png" href="../img/Logo_Tasty_Country.png">
     <title>Menu - Tasty Country</title>
+    
+    <script src="../js/menu.js" defer></script>
 </head>
 <body id="top">
     <div class="site-container">
@@ -86,81 +67,64 @@ foreach ($plats_complets as $p) {
             <?php endif; ?>
 
             <section class="filters">
-                <form method="GET" action="menu.php">
-                    <select name="pays" onchange="this.form.submit()">
-                        <option value="">Tous les Menus 🌍</option>
-                        <option value="France" <?= ($pays_choisi == 'France') ? 'selected' : '' ?>>Menu Français 🇫🇷</option>
-                        <option value="Italie" <?= ($pays_choisi == 'Italie') ? 'selected' : '' ?>>Menu Italien 🇮🇹</option>
-                        <option value="Japon" <?= ($pays_choisi == 'Japon') ? 'selected' : '' ?>>Menu Japonais 🇯🇵</option>
+                <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center;">
+                    
+                    <select id="filtre-pays">
+                        <option value="">Tous les Pays 🌍</option>
+                        <option value="France">France 🇫🇷</option>
+                        <option value="Italie">Italie 🇮🇹</option>
+                        <option value="Japon">Japon 🇯🇵</option>
+                        <option value="Vietnam">Vietnam 🇻🇳</option>
+                        <option value="Espagne">Espagne 🇪🇸</option>
+                        <option value="Maroc">Maroc 🇲🇦</option>
+                        <option value="Suisse">Suisse 🇨🇭</option>
                     </select>
 
-                    <select name="categorie" onchange="this.form.submit()">
+                    <select id="filtre-categorie">
                         <option value="">Toutes les catégories</option>
-                        <option value="entree" <?= ($cat_choisie == 'entree') ? 'selected' : '' ?>>Entrées</option>
-                        <option value="plat" <?= ($cat_choisie == 'plat') ? 'selected' : '' ?>>Plats</option>
-                        <option value="dessert" <?= ($cat_choisie == 'dessert') ? 'selected' : '' ?>>Desserts</option>
+                        <option value="entree">Entrées</option>
+                        <option value="plat">Plats</option>
+                        <option value="dessert">Desserts</option>
                     </select>
-                    <a href="menu.php" class="reset-link">Reset</a>
-                </form> 
+
+                    <select id="filtre-allergene">
+                        <option value="">Régime & Allergènes</option>
+                        <option value="Gluten">Sans Gluten</option>
+                        <option value="Lactose">Sans Lactose</option>
+                        <option value="Oeuf">Sans Oeuf</option>
+                    </select>
+
+                    <select id="tri-prix">
+                        <option value="">Trier par défaut</option>
+                        <option value="prix_asc">Prix : Croissant</option>
+                        <option value="prix_desc">Prix : Décroissant</option>
+                    </select>
+                    
+                    <a href="menu.php" class="reset-link" style="padding: 10px; background:#e74c3c; color:white; border-radius:5px; text-decoration:none;">Réinitialiser</a>
+                </div>
             </section>
 
             <form action="panier.php" method="POST">
                 
-                <?php if ($pays_choisi != ''): ?>
-                    <div class="menu-promo-banner">
-                        <h3>🎁 Pack Destination : <?= htmlspecialchars($pays_choisi) ?></h3>
-                        <p>Commandez le menu complet (Entrée + Plat + Dessert) et profitez de <strong>-10% de remise immédiate !</strong></p>
-                        <button type="submit" name="pack_menu" value="<?= htmlspecialchars($pays_choisi) ?>" class="btn-pack">
-                            Ajouter le Pack Menu (1 pers.)
-                        </button>
-                    </div>
-                <?php endif; ?>
+                <div id="promo-banner-container"></div>
 
-                <section class="product-grid">
-                    <?php foreach ($plats as $p): ?>
-                        <div class="product-card">
-                            <img src="<?= htmlspecialchars($p['img']) ?>" alt="<?= htmlspecialchars($p['nom']) ?>">
-                            <div class="product-info">
-                                <h3>
-                                    <?= htmlspecialchars($p['nom']) ?>
-                                    <div class="info-container">
-                                        <span class="info-icon">i</span>
-                                        <div class="info-tooltip">
-                                            <strong>Ingrédients :</strong><br>
-                                            <?= htmlspecialchars(implode(', ', $p['ingredients'])) ?><br>
-                                            <span class="allergenes-list">⚠️ Allergènes : <?= htmlspecialchars(implode(', ', $p['allergenes'])) ?></span>
-                                        </div>
-                                    </div>
-                                </h3>
-                                <p class="country-label"><?= htmlspecialchars($p['pays']) ?></p>
-                                <span class="price"><?= number_format($p['prix'], 2) ?>€</span>
-                                
-                                <div class="quantity-selector">
-                                    <label>Quantité :</label>
-                                    <input type="number" name="qte[<?= htmlspecialchars($p['nom']) ?>]" value="0" min="0">
-                                </div>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                </section>
+                <section class="product-grid" id="product-grid"></section>
 
                 <section class="order-options">
-    <h3>🕒 Planification de la commande</h3>
-    
-    <div class="timing-choice">
-        <input type="radio" name="timing" value="Maintenant" checked> 
-        <label for="imm">Maintenant 🚀</label>
-        
-        <input type="radio" name="timing" value="plus_tard" id="late"> 
-        <label for="late">Plus tard 📅</label>
-        
-        <div class="date-picker">
-            <input type="datetime-local" name="date_heure" value="<?= date('Y-m-d\TH:i') ?>">
-        </div>
-    </div>
-    
-    <button type="submit" class="add-btn">Valider mon Panier 💳</button>
-</section>
+                    <h3>🕒 Planification de la commande</h3>
+                    <div class="timing-choice">
+                        <input type="radio" name="timing" value="Maintenant" checked> 
+                        <label for="imm">Maintenant 🚀</label>
+                        
+                        <input type="radio" name="timing" value="plus_tard" id="late"> 
+                        <label for="late">Plus tard 📅</label>
+                        
+                        <div class="date-picker">
+                            <input type="datetime-local" name="date_heure" value="<?= date('Y-m-d\TH:i') ?>">
+                        </div>
+                    </div>
+                    <button type="submit" class="add-btn">Valider mon Panier 💳</button>
+                </section>
             </form>
         </main>
 
