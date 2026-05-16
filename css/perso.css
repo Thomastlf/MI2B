@@ -58,3 +58,26 @@
 }
 .promo-list li { padding: 5px 0; color: #00FFFF; }
 .promo-list li::before { content: "✈️ "; }
+
+/* Style pour le petit bouton carré Noter */
+.btn-noter-mini {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    background-color: #f39c12;
+    color: white;
+    text-decoration: none;
+    font-size: 0.75rem;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: 0.3s;
+    border: none;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+.btn-noter-mini:hover {
+    background-color: #e67e22;
+    transform: scale(1.05);
+}
