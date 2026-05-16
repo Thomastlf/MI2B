@@ -45,6 +45,7 @@ $role_session = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'clie
             transform: scale(1.05);
         }
     </style>
+    <script src="../js/profil.js" defer></script>
 </head>
 <body>
     <?php
@@ -123,11 +124,11 @@ $role_session = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'clie
                 <legend>Vos informations 👤</legend>
                 <div class="info-row">
                     <div class="label">Nom :</div>
-                    <div class="value"><?php echo $nom; ?></div>
+                    <div id="nom" class="value"><?php echo $nom; ?></div>
                 </div>
                 <div class="info-row">
                     <div class="label">Prénom :</div>
-                    <div class="value"><?php echo $prenom; ?></div>
+                    <div id="prenom" class="value"><?php echo $prenom; ?></div>
                 </div>
                 <div class="info-row">
                     <div class="label">E-mail :</div>
@@ -135,15 +136,15 @@ $role_session = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'clie
                 </div>
                 <div class="info-row">
                     <div class="label">Adresse :</div>
-                    <div class="value"><?php echo $adresse; ?></div>
+                    <div id="adresse" class="value"><?php echo $adresse; ?></div>
                 </div>
                 <div class="info-row">
                     <div class="label">Code interphone :</div>
-                    <div class="value"><?php echo $code_interphone; ?></div>
+                    <div id="code" class="value"><?php echo $code_interphone; ?></div>
                 </div>
                 <div class="info-row">
                     <div class="label">Téléphone :</div>
-                    <div class="value"><?php echo $numero; ?></div>
+                    <div id="numero" class="value"><?php echo $numero; ?></div>
                 </div>
                 <div class="info-row">
                     <div class="label">Date de naissance :</div>
@@ -154,9 +155,33 @@ $role_session = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'clie
                     <div class="value"><?php echo $genre; ?></div>
                 </div>
                 
-                <?php if ($email_a_afficher === $_SESSION['email']): ?>
-                    <button class="btn-edit" title="Modifier">Modifier mes informations &#9998;</button>
-                <?php endif; ?>
+    <button id="bouton" class="btn-edit" onclick="afficherFormulaire()">
+        Modifier mes informations 🖍️
+                        </button>
+    <div id="formulaire" style="display:none;"><!-- on cache le formulaire si l'on ne veut pas modifier les infos -->
+        <div>
+            <div>Nom :</div>
+            <input type="text" id="nom2" value="<?php echo $nom; ?>">
+        </div>
+        <div>
+            <div>Prénom :</div>
+            <input type="text" id="prenom2" value="<?php echo $prenom; ?>">
+        </div>
+        <div>
+            <div>Adresse :</div>
+            <input type="text" id="adresse2" value="<?php echo $adresse; ?>">
+        </div>
+        <div>
+            <div>Code interphone :</div>
+            <input type="text" id="code2" value="<?php echo $code_interphone; ?>">
+        </div>
+        <div>
+            <div>Téléphone :</div>
+            <input type="text" id="numero2" value="<?php echo $numero; ?>">
+        </div>
+
+        <button class="btn-edit" onclick="validerModif()">Valider</button>
+    </div>
             </fieldset>
             
             <?php if (strtolower($role) == 'client' || strtolower($role) == 'admin'): ?>
