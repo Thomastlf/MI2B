@@ -11,20 +11,20 @@ if (isset($_POST['action'])&& isset($_POST['id_commande'])) {
     $id_a_modifier = $_POST['id_commande'];
     $toutes_commandes = json_decode(file_get_contents($json_path), true);
     foreach ($toutes_commandes as $index => $cmd) {
-    if ($cmd['id'] == $id_a_modifier) {
-        if ($_POST['action'] == 'livree') {
-            $toutes_commandes[$index]['statut'] = 'livree';
-        } 
-        else if ($_POST['action'] == 'abandonnée') {
-            $toutes_commandes[$index]['livreur'] = null;
-            $toutes_commandes[$index]['statut'] = 'sans_livreur';
-        } 
-        else {
-            $toutes_commandes[$index]['statut'] = 'en_livraison';
-            $toutes_commandes[$index]['livreur'] = $_SESSION['email'];
+        if ($cmd['id'] == $id_a_modifier) {
+            if ($_POST['action'] == 'livree') {
+                $toutes_commandes[$index]['statut'] = 'livree';
+            } 
+            else if ($_POST['action'] == 'abandonnée') {
+                $toutes_commandes[$index]['livreur'] = null;
+                $toutes_commandes[$index]['statut'] = 'sans_livreur';
+            } 
+            else {
+                $toutes_commandes[$index]['statut'] = 'en_livraison';
+                $toutes_commandes[$index]['livreur'] = $_SESSION['email'];
+            }
         }
     }
-}
     file_put_contents($json_path, json_encode($toutes_commandes, JSON_PRETTY_PRINT));
     header("Location: livraison.php"); 
     exit();
@@ -61,6 +61,8 @@ foreach ($tab as $ligne){
     <link rel="stylesheet" type="text/css" href="../css/livraison.css">
     <link rel="icon" type="image/png" href="../img/Logo_Tasty_Country.png">
     <title>Espace Livreur - Tasty Country</title>
+    
+    <script src="../js/livraison.js" defer></script>
 </head>
 <body>
     <div class="site-container">
@@ -98,14 +100,14 @@ foreach ($tab as $ligne){
                             </p>
                         </div>
                         <div class="actions">
-                            <a href="https://www.google.com/maps/search/?api=1&query=<?php echo urlencode($c['adresse']); ?>" class="map-btn" target="_blank">Ouvrir l'itinéraire 🗺️</a>
+                            <a href="http://maps.google.com/?q=<?php echo urlencode($c['adresse']); ?>" class="map-btn" target="_blank">Ouvrir l'itinéraire 🗺️</a>
                             <div style="display:flex; gap:10px; width:100%;">
-                                <form method="POST" action="livraison.php" style="flex:1;">
+                                <form method="POST" action="livraison.php" style="flex:1;" class="form-livraison">
                                     <input type="hidden" name="id_commande" value="<?php echo $c['id']; ?>">
                                     <input type="hidden" name="action" value="livree">
                                     <button type="submit" class="finish-btn">CONFIRMER ✅</button>
                                 </form>
-                                <form method="POST" action="livraison.php" style="flex:1;">
+                                <form method="POST" action="livraison.php" style="flex:1;" class="form-abandon">
                                     <input type="hidden" name="id_commande" value="<?php echo $c['id']; ?>">
                                     <input type="hidden" name="action" value="abandonnée">
                                     <button type="submit" class="finish-btn" style="background: #e74c3c;">ABANDONNER ❌</button>
