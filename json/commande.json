@@ -1,7 +1,7 @@
 [
     {
         "id": "69d14013dcf54",
-        "client": "d@gmail.com",
+        "client": "b@gmail.com",
         "date_heure": "2026-04-04T16:45",
         "articles": [
             {
@@ -17,15 +17,20 @@
                 "sous_total": 18
             }
         ],
-        "livreur": "",
-        "adresse": "d",
-        "code_interphone": "d",
-        "statut": "a_preparer",
-        "total": 32.5
+        "livreur": "c@gmail.com",
+        "adresse": "b",
+        "code_interphone": "b",
+        "statut": "livree",
+        "total": 32.5,
+        "avis": {
+            "date": "2026-05-16 15:26:46",
+            "note": 5,
+            "commentaire": "ffzfzf"
+        }
     },
     {
         "id": "69d14020d7f78",
-        "client": "d.@gmail.com",
+        "client": "b@gmail.com",
         "date_heure": "2026-04-04T16:45",
         "articles": [
             {
@@ -47,15 +52,15 @@
                 "sous_total": 19
             }
         ],
-        "livreur": "",
-        "adresse": "d",
-        "code_interphone": "d",
+        "livreur": null,
+        "adresse": "b",
+        "code_interphone": "b",
         "statut": "sans_livreur",
         "total": 48.5
     },
     {
         "id": "69d14120d7f78",
-        "client": "d.@gmail.com",
+        "client": "b@gmail.com",
         "date_heure": "2026-04-04T16:45",
         "articles": [
             {
@@ -78,14 +83,14 @@
             }
         ],
         "livreur": "c@gmail.com",
-        "adresse": "d",
-        "code_interphone": "d",
+        "adresse": "b",
+        "code_interphone": "b",
         "statut": "livree",
         "total": 48.5
     },
     {
         "id": "69d14320d7f78",
-        "client": "d.@gmail.com",
+        "client": "b@gmail.com",
         "date_heure": "2026-04-04T16:45",
         "articles": [
             {
@@ -108,8 +113,8 @@
             }
         ],
         "livreur": "c@gmail.com",
-        "adresse": "d",
-        "code_interphone": "d",
+        "adresse": "b",
+        "code_interphone": "b",
         "statut": "livree",
         "total": 48.5
     }
