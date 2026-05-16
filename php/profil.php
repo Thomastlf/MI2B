@@ -21,30 +21,6 @@ $role_session = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'clie
     <link rel="stylesheet" href="../css/perso.css">
     <link rel="icon" type="image/png" href="../img/Logo_Tasty_Country.png">
     <title>Profil - Tasty Country</title>
-    <style>
-        /* Style pour le petit bouton carré Noter */
-        .btn-noter-mini {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 45px;
-            height: 45px;
-            background-color: #f39c12;
-            color: white;
-            text-decoration: none;
-            font-size: 0.75rem;
-            font-weight: bold;
-            border-radius: 8px;
-            transition: 0.3s;
-            border: none;
-            cursor: pointer;
-            flex-shrink: 0; /* Empêche le bouton de s'écraser */
-        }
-        .btn-noter-mini:hover {
-            background-color: #e67e22;
-            transform: scale(1.05);
-        }
-    </style>
     <script src="../js/profil.js" defer></script>
 </head>
 <body>
@@ -158,8 +134,7 @@ $role_session = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'clie
     <button id="bouton" class="btn-edit" onclick="afficherFormulaire()">
         Modifier mes informations 🖍️
                         </button>
-    <div id="formulaire" style="display:none;"><!-- on cache le formulaire si l'on ne veut pas modifier les infos -->
-        <div>
+    <div id="formulaire" style="display:none;"><div>
             <div>Nom :</div>
             <input type="text" id="nom2" value="<?php echo $nom; ?>">
         </div>
@@ -204,6 +179,13 @@ $role_session = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'clie
                                     </div>
                                     <span>Total : <?php echo $c["total"]; ?>€</span> | 
                                     <span>Statut : <?php echo ucfirst($c['statut']); ?></span>
+                                    
+                                    <?php if ($c['statut'] === 'a_preparer'): ?>
+                                        <br>
+                                        <a href="modifier_commande.php?id=<?php echo $c['id']; ?>" class="btn-edit" style="display:inline-block; text-align:center; text-decoration:none; width:auto; padding: 6px 12px; margin-top: 8px; font-size: 0.85rem; background-color: #00FFFF; color: #1D3557;">
+                                            Modifier ma commande ✏️
+                                        </a>
+                                    <?php endif; ?>
                                 </div>
                                 <a href="notation.php?id=<?php echo $c['id']; ?>" class="btn-noter-mini" title="Noter ce vol">Noter</a>
                             </li>
