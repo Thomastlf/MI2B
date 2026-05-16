@@ -3,11 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="menu.css">
-    <link rel="icon" type="image/png" href="Logo_Tasty_Country.png">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/menu.css">
+    <link rel="icon" type="image/png" href="../img/Logo_Tasty_Country.png">
     <title>Menu - Tasty Country</title>
+    
+    <script src="../js/menu.js" defer></script>
 </head>
-<body>
+<body id="top">
     <div class="site-container">
         <header class="header">
             <div class="header-content">
@@ -29,54 +32,66 @@
             <h2>Nos Destinations Culinaires</h2>
             
             <section class="filters">
-                <input type="text" placeholder="Rechercher un plat..." class="search-bar">
-                <select name="categorie">
-                    <option value="">Toutes les catégories</option>
-                    <option value="entree">Entrées</option>
-                    <option value="plat">Plats</option>
-                    <option value="dessert">Desserts</option>
-                </select>
-                <select name="allergenes">
-                    <option value="">Allergènes</option>
-                    <option value="gluten">Sans Gluten</option>
-                    <option value="lactose">Sans Lactose</option>
-                </select>
+                <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center;">
+                    <select id="filtre-pays">
+                        <option value="">Tous les Pays 🌍</option>
+                        <option value="France">France 🇫🇷</option>
+                        <option value="Italie">Italie 🇮🇹</option>
+                        <option value="Japon">Japon 🇯🇵</option>
+                        <option value="Vietnam">Vietnam 🇻🇳</option>
+                        <option value="Espagne">Espagne 🇪🇸</option>
+                        <option value="Maroc">Maroc 🇲🇦</option>
+                        <option value="Suisse">Suisse 🇨🇭</option>
+                    </select>
+
+                    <select id="filtre-categorie">
+                        <option value="">Toutes les catégories</option>
+                        <option value="entree">Entrées</option>
+                        <option value="plat">Plats</option>
+                        <option value="dessert">Desserts</option>
+                    </select>
+
+                    <select id="filtre-allergene">
+                        <option value="">Régime & Allergènes</option>
+                        <option value="Gluten">Sans Gluten</option>
+                        <option value="Lactose">Sans Lactose</option>
+                        <option value="Oeuf">Sans Oeuf</option>
+                    </select>
+
+                    <select id="tri-prix">
+                        <option value="">Trier par défaut</option>
+                        <option value="prix_asc">Prix : Croissant</option>
+                        <option value="prix_desc">Prix : Décroissant</option>
+                    </select>
+                    
+                    <a href="menu.html" class="reset-link" style="padding: 10px; background:#e74c3c; color:white; border-radius:5px; text-decoration:none;">Réinitialiser</a>
+                </div>
             </section>
 
-            <section class="product-grid">
-                <div class="product-card">
-                    <img src="japon.png" alt="Ramen">
-                    <div class="product-info">
-                        <h3>Ramen Croustillant</h3>
-                        <span class="price">14.50€</span>
-                        <button class="add-btn">Ajouter au panier</button>
+            <form action="../php/panier.php" method="POST">
+
+                <div id="promo-banner-container"></div>
+
+                <section class="product-grid" id="product-grid">
+                    </section>
+
+                <section class="order-options">
+                    <h3>🕒 Planification de la commande</h3>
+                    <div class="timing-choice">
+                        <input type="radio" name="timing" value="Maintenant" checked> 
+                        <label for="imm">Maintenant 🚀</label>
+                        
+                        <input type="radio" name="timing" value="plus_tard" id="late"> 
+                        <label for="late">Plus tard 📅</label>
+                        
+                        <div class="date-picker">
+                            <input type="datetime-local" name="date_heure">
+                        </div>
                     </div>
-                </div>
-                <div class="product-card">
-                    <img src="italie.jpg" alt="Pasta">
-                    <div class="product-info">
-                        <h3>Parmesan</h3>
-                        <span class="price">13.90€</span>
-                        <button class="add-btn">Ajouter au panier</button>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <img src="espagne.png" alt="Paella">
-                    <div class="product-info">
-                        <h3>Paella</h3>
-                        <span class="price">15.00€</span>
-                        <button class="add-btn">Ajouter au panier</button>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <img src="vietnam.png" alt="Bo Bun">
-                    <div class="product-info">
-                        <h3>Bo Bun Croustillant</h3>
-                        <span class="price">14.50€</span>
-                        <button class="add-btn">Ajouter au panier</button>
-                    </div>
-                </div>
-            </section>
+                    
+                    <button type="submit" class="add-btn" style="margin-top: 15px; width: 100%; font-size: 1.2rem;">Valider mon Panier 💳</button>
+                </section>
+            </form>
         </main>
 
         <footer class="footer">
@@ -100,5 +115,3 @@
     </div>
 </body>
 </html>
-
-
