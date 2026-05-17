@@ -154,10 +154,7 @@ if(isset($_COOKIE["theme"]) && $_COOKIE["theme"] == "true"){
                         <input id="prenom2" type="text" name="prenom" maxlength="50" placeholder="Votre prénom">
                     </div>
 
-                    <div class="input-group">
-                        <label>E-mail</label>
-                        <input id="email2"type="text" name="email" placeholder="votre@email.com">
-                    </div>
+                    
 
                     <div class="input-group">
                         <label>Adresse</label>
