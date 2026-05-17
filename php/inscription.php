@@ -78,8 +78,7 @@ session_start();
                     </ol>
                 </nav>
             </div>
-            <button id="bouton" class="btn-theme"><?php echo $texteBouton; ?></button><!-- js -->
-            <button id="bouton2" class="btn-theme">👁️</button><!-- js -->
+            <button id="bouton" class="btn_sombre"><?php echo $texteBouton; ?></button><!-- js -->
         </header>
 
         <main class="content">
@@ -135,7 +134,9 @@ session_start();
 
                     <div class="input-group">
                         <label>Mot de passe</label>
-                        <input id="mdp" id="mdp" type="password" name="motdepasse" placeholder="••••••••">
+                        <input id="mdp" type="password" name="motdepasse" placeholder="••••••••">
+                        
+                        <button type="button" id="bouton2" class="btn_oeil">👁️</button><!-- js on mets bien type="button" sinon il envoie le formulaire-->
                     </div>
 
                     <div class="form-actions">
