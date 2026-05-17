@@ -1,7 +1,7 @@
 [
     {
         "id": "69d14013dcf54",
-        "client": "b@gmail.com",
+        "client": "bastien@gmail.com",
         "date_heure": "2026-04-04T16:45",
         "articles": [
             {
@@ -17,7 +17,7 @@
                 "sous_total": 18
             }
         ],
-        "livreur": "c@gmail.com",
+        "livreur": "celia@gmail.com",
         "adresse": "b",
         "code_interphone": "b",
         "statut": "livree",
@@ -30,7 +30,7 @@
     },
     {
         "id": "69d14020d7f78",
-        "client": "b@gmail.com",
+        "client": "bastien@gmail.com",
         "date_heure": "2026-04-04T16:45",
         "articles": [
             {
@@ -60,7 +60,7 @@
     },
     {
         "id": "69d14120d7f78",
-        "client": "b@gmail.com",
+        "client": "bastien@gmail.com",
         "date_heure": "2026-04-04T16:45",
         "articles": [
             {
@@ -82,7 +82,7 @@
                 "sous_total": 19
             }
         ],
-        "livreur": "c@gmail.com",
+        "livreur": "celia@gmail.com",
         "adresse": "b",
         "code_interphone": "b",
         "statut": "livree",
@@ -90,7 +90,7 @@
     },
     {
         "id": "69d14320d7f78",
-        "client": "b@gmail.com",
+        "client": "bastien@gmail.com",
         "date_heure": "2026-04-04T16:45",
         "articles": [
             {
@@ -112,7 +112,7 @@
                 "sous_total": 19
             }
         ],
-        "livreur": "c@gmail.com",
+        "livreur": "celia@gmail.com",
         "adresse": "b",
         "code_interphone": "b",
         "statut": "livree",
