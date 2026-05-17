@@ -102,7 +102,7 @@ if(isset($_COOKIE["theme"]) && $_COOKIE["theme"] == "true"){
                     </ol>
                 </nav>
             </div>
-            <button id="bouton" class="btn_theme"><?php echo $texteBouton; ?></button><!-- js -->
+            <button type="button" id="bouton" class="btn_theme"><?php echo $texteBouton; ?></button><!-- js -->
         </header>
 
         <main class="content">
@@ -140,7 +140,7 @@ if(isset($_COOKIE["theme"]) && $_COOKIE["theme"] == "true"){
                     <div class="label">Genre :</div>
                     <div id="genre" class="value"><?php echo $genre; ?></div>
                 </div>
-    <button id="bouton" class="btn-edit" onclick="afficherFormulaire()">
+    <button type="button" id="bouton" class="btn-edit" onclick="afficherFormulaire()">
         Modifier mes informations 🖍️
                         </button>
     <div id="formulaire" style="display:none;"><div><!-- on cache le formulaire si l'on ne veut pas modifier les infos -->
@@ -189,7 +189,7 @@ if(isset($_COOKIE["theme"]) && $_COOKIE["theme"] == "true"){
                     </div>
 
         <p id="erreur_js" style="color:red; text-align:center;"></p>
-        <button class="btn-edit" onclick="validerModif()">Valider</button>
+        <button type="button" class="btn-edit" onclick="validerModif()">Valider</button>
     </div>
             </fieldset>
             
