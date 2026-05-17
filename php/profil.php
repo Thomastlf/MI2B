@@ -134,7 +134,7 @@ $role_session = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'clie
     <button id="bouton" class="btn-edit" onclick="afficherFormulaire()">
         Modifier mes informations 🖍️
                         </button>
-    <div id="formulaire" style="display:none;"><div>
+    <div id="formulaire" style="display:none;"><div><!-- on cache le formulaire si l'on ne veut pas modifier les infos -->
             <div>Nom :</div>
             <input type="text" id="nom2" value="<?php echo $nom; ?>">
         </div>
