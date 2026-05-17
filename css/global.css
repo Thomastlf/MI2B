@@ -74,7 +74,7 @@ html, body {
     box-shadow: 0 0 10px #FF1493;
 }
 
-.btn_sombre {
+.btn_theme {
     position: absolute;
     top: 25px;
     right: 25px;
@@ -89,7 +89,7 @@ html, body {
     z-index: 10;
 }
 
-.btn_sombre:hover {
+.btn_theme:hover {
     background-color: #FF1493;
     border-color: #FF1493;
     box-shadow: 0 0 10px #FF1493;
