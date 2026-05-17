@@ -64,7 +64,7 @@ if(isset($_COOKIE["theme"]) && $_COOKIE["theme"] == "true"){
                     </ol>
                 </nav>
             </div>
-            <button id="bouton" class="btn_theme"><?php echo $texteBouton; ?></button><!-- js -->
+            <button type="button" id="bouton" class="btn_theme"><?php echo $texteBouton; ?></button><!-- js -->
         </header>
 
         <main class="content">
