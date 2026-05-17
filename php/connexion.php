@@ -43,11 +43,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
-$css="../css/connexion.css";/*js*/
-$texteBouton="Passer en sombre";
-if(isset($_COOKIE["modeSombre"]) && $_COOKIE["modeSombre"] == "true"){
-    $css="../css_sombre/connexion.css";
-    $texteBouton="Passer en clair";
+$css="";
+$texteBouton="Passer en mode malvoyant";
+if(isset($_COOKIE["theme"]) && $_COOKIE["theme"] == "true"){
+    $css="../css/theme.css";
+    $texteBouton="Passer en mode par défaut";
 }
 ?>
 
@@ -57,8 +57,9 @@ if(isset($_COOKIE["modeSombre"]) && $_COOKIE["modeSombre"] == "true"){
     <meta charset="UTF-8">
     <title>Connexion - Tasty Country</title>
     <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/connexion.css"><!-- js -->
     <link id="css" rel="stylesheet" href=<?php echo $css; ?>><!-- js -->
-    <script src="../js/modeSombre.js" defer></script><!-- js / defer pour n'exécuter le script js qu'une fois que le navigateur aura chargé le html dans le dom -->
+    <script src="../js/theme.js" defer></script><!-- js / defer pour n'exécuter le script js qu'une fois que le navigateur aura chargé le html dans le dom -->
     <script src="../js/mdp.js" defer></script>
     <script src="../js/connexion.js" defer></script>
 </head>
@@ -76,7 +77,7 @@ if(isset($_COOKIE["modeSombre"]) && $_COOKIE["modeSombre"] == "true"){
                     </ol>
                 </nav>
             </div>
-            <button id="bouton" class="btn_sombre"><?php echo $texteBouton; ?></button><!-- js -->
+            <button id="bouton" class="btn_theme"><?php echo $texteBouton; ?></button><!-- js -->
         </header>
 
         <main class="content">
