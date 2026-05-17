@@ -14,19 +14,19 @@ function getCookie(cookieName, defaultValue = null) {// fonction qui récupère 
 }
 
 function changerStatut() {//fonction qui change le mode (clair/sombre)
-    if (getCookie("modeSombre")=="true") {
-        css.setAttribute("href", "../css/connexion.css");
-        bouton.innerHTML = "Passer en sombre";
-        setCookie("modeSombre", "false");
+    if (getCookie("theme")=="true") {
+        css.removeAttribute("href");
+        bouton.innerHTML = "Passer en mode malvoyant";
+        setCookie("theme", "false");
     } else {
-        css.setAttribute("href", "../css_sombre/connexion.css");
-        bouton.innerHTML = "Passer en clair";
-        setCookie("modeSombre", "true");
+        css.setAttribute("href", "../css/theme.css");
+        bouton.innerHTML = "Passer en mode par défaut";
+        setCookie("theme", "true");
     }
 }
 
-if (getCookie("modeSombre") == null) {//On créer le cookie s'il n'existe pas déjà
-    setCookie("modeSombre", "false");
+if (getCookie("theme") == null) {//On créer le cookie s'il n'existe pas déjà
+    setCookie("theme", "false");
 }
 
 bouton.addEventListener("click", changerStatut);
