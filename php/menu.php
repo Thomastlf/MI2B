@@ -13,6 +13,13 @@ catch (Exception $e) {
 }
 
 $role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : '';
+
+$css="";
+$texteBouton="Passer en mode malvoyant";
+if(isset($_COOKIE["theme"]) && $_COOKIE["theme"] == "true"){
+    $css="../css/theme.css";
+    $texteBouton="Passer en mode par défaut";
+}
 ?>
 
 <!DOCTYPE html>
@@ -23,9 +30,11 @@ $role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : '';
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/menu.css">
     <link rel="icon" type="image/png" href="../img/Logo_Tasty_Country.png">
+    <link id="css" rel="stylesheet" href=<?php echo $css; ?>><!-- js -->
     <title>Menu - Tasty Country</title>
     
     <script src="../js/menu.js" defer></script>
+    <script src="../js/theme.js" defer></script><!-- js / defer pour n'exécuter le script js qu'une fois que le navigateur aura chargé le html dans le dom -->
 </head>
 <body id="top">
     <div class="site-container">
@@ -57,6 +66,7 @@ $role = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : '';
                     </ol>
                 </nav>
             </div>
+            <button id="bouton" class="btn_theme"><?php echo $texteBouton; ?></button><!-- js -->
         </header>
 
         <main class="menu-container">
