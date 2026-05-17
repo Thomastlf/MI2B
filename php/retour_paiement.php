@@ -61,6 +61,13 @@ if ($control_calcule == $control_recu) {
     $titre_message = "Erreur de sécurité ⚠️";
     $texte_message = "Les données de la transaction sont corrompues ou invalides.";
 }
+
+$css="";
+$texteBouton="Passer en mode malvoyant";
+if(isset($_COOKIE["theme"]) && $_COOKIE["theme"] == "true"){
+    $css="../css/theme.css";
+    $texteBouton="Passer en mode par défaut";
+}
 ?>
 
 <!DOCTYPE html>
@@ -71,7 +78,9 @@ if ($control_calcule == $control_recu) {
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/perso.css">
     <link rel="icon" type="image/png" href="../img/Logo_Tasty_Country.png">
+    <link id="css" rel="stylesheet" href=<?php echo $css; ?>><!-- js -->
     <title>Résultat du paiement - Tasty Country</title>
+    <script src="../js/theme.js" defer></script><!-- js / defer pour n'exécuter le script js qu'une fois que le navigateur aura chargé le html dans le dom -->
 </head>
 <body>
     <div class="site-container">
@@ -89,6 +98,7 @@ if ($control_calcule == $control_recu) {
                     </ol>
                 </nav>
             </div>
+            <button id="bouton" class="btn_theme"><?php echo $texteBouton; ?></button><!-- js -->
         </header>
 
         <main class="content">
@@ -124,63 +134,6 @@ if ($control_calcule == $control_recu) {
     </div>
 </body>
 </html>
-
-$api_key = getAPIKey($vendeur);
-$control_calcule = md5($api_key . "#" . $transaction . "#" . $montant . "#" . $vendeur . "#" . $status . "#");
-$titre_message = "";
-$texte_message = "";
-
-
-
-if ($control_calcule == $control_recu) {
-    if ($status == 'accepted') {
-        $titre_message = "Merci pour votre commande ! 🎉";
-        $texte_message = "Votre paiement de " .$montant. " € a bien été accepté. Votre commande part en préparation !";  
-        $email_recupere = $_SESSION['email'];
-        $data = json_decode(file_get_contents("../json/utilisateur.json"), true);
-        foreach ($data as $ligne){
-            if ($email_recupere==$ligne['email']){
-                $nom  = $ligne['nom'];
-                $prenom    = $ligne['prenom'];
-                $email    = $ligne['email'];
-                $adresse = $ligne['adresse'];
-                $code_interphone = $ligne['code_interphone'];
-            }
-        }
-        $fichier = '../json/commande.json';
-        $tab = [
-            "id"  => $transaction,
-            "client"    => $email,
-            "date_heure"    => $_SESSION["date_heure"],
-            "articles" => $_SESSION["panier"],
-            "livreur" => null,
-            "adresse" => $adresse,
-            "code_interphone" => $code_interphone,
-            "statut" => "a_preparer",
-            "total" => $montant
-        ];
-        if (file_exists($fichier)) {
-            $contenu = file_get_contents($fichier);
-            $utilisateurs = json_decode($contenu, true) ?? [];
-        } else {
-            $utilisateurs = [];
-        }
-        $utilisateurs[] = $tab;
-        file_put_contents($fichier, json_encode($utilisateurs, JSON_PRETTY_PRINT));
-
-
-
-
-
-    } else {
-        $titre_message = "Paiement refusé ❌";
-        $texte_message = "La transaction a échoué ou a été annulée. Veuillez réessayer.";
-    }
-} else {
-    $titre_message = "Erreur de sécurité ⚠️";
-    $texte_message = "Les données de la transaction sont corrompues ou invalides.";
-}
-?>
 
 <!DOCTYPE html>
 <html lang="fr">
