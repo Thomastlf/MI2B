@@ -51,6 +51,13 @@ if ($control_calcule == $control_recu) {
     $titre_message = "Erreur de sécurité ⚠️";
     $texte_message = "Les données de la transaction sont corrompues ou invalides.";
 }
+
+$css="";
+$texteBouton="Passer en mode malvoyant";
+if(isset($_COOKIE["theme"]) && $_COOKIE["theme"] == "true"){
+    $css="../css/theme.css";
+    $texteBouton="Passer en mode par défaut";
+}
 ?>
 
 <!DOCTYPE html>
@@ -61,7 +68,9 @@ if ($control_calcule == $control_recu) {
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/perso.css">
     <link rel="icon" type="image/png" href="../img/Logo_Tasty_Country.png">
+    <link id="css" rel="stylesheet" href=<?php echo $css; ?>><!-- js -->
     <title>Résultat de la modification - Tasty Country</title>
+    <script src="../js/theme.js" defer></script><!-- js / defer pour n'exécuter le script js qu'une fois que le navigateur aura chargé le html dans le dom -->
 </head>
 <body>
     <div class="site-container">
@@ -79,6 +88,7 @@ if ($control_calcule == $control_recu) {
                     </ol>
                 </nav>
             </div>
+            <button id="bouton" class="btn_theme"><?php echo $texteBouton; ?></button><!-- js -->
         </header>
 
         <main class="content">
