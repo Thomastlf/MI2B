@@ -61,3 +61,23 @@
 
 .btn-submit:hover { opacity: 0.9; transform: translateY(-2px); }
 .btn-reset:hover { background: #ddd; }
+
+.btn_oeil {
+    position: absolute;
+    right: 12px;
+    bottom: 10px;
+    background: transparent;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    outline: none;
+}
+
+.btn_oeil:hover {
+    transform: scale(1.1);
+}
+
+.input-group {
+    margin-bottom: 15px;
+    position: relative; /* Indispensable pour garder l'oeil dans la div ! */
+}
