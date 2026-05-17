@@ -99,6 +99,7 @@ async function validerModif() {
 
                     // Cacher le formulaire
                     document.getElementById("formulaire").style.display = "none";
+                    cache=true;
                 //}
             }
             else{
