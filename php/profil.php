@@ -11,21 +11,9 @@ if (isset($_GET['email']) && !empty($_GET['email'])) {
 }
 
 $role_session = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'client';
-?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/global.css">
-    <link rel="stylesheet" href="../css/perso.css">
-    <link rel="icon" type="image/png" href="../img/Logo_Tasty_Country.png">
-    <title>Profil - Tasty Country</title>
-    <script src="../js/profil.js" defer></script>
-</head>
-<body>
-    <?php
-        $data = json_decode(file_get_contents("../json/utilisateur.json"), true);
+
+
+$data = json_decode(file_get_contents("../json/utilisateur.json"), true);
         $profil_trouve = false;
         
         foreach ($data as $ligne){
@@ -57,7 +45,28 @@ $role_session = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'clie
                 $commande[] = $ligne;
             }
         }
-    ?>
+
+$css="";
+$texteBouton="Passer en mode malvoyant";
+if(isset($_COOKIE["theme"]) && $_COOKIE["theme"] == "true"){
+    $css="../css/theme.css";
+    $texteBouton="Passer en mode par défaut";
+}
+?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/perso.css">
+    <link rel="icon" type="image/png" href="../img/Logo_Tasty_Country.png">
+    <link id="css" rel="stylesheet" href=<?php echo $css; ?>><!-- js -->
+    <title>Profil - Tasty Country</title>
+    <script src="../js/profil.js" defer></script>
+    <script src="../js/theme.js" defer></script><!-- js / defer pour n'exécuter le script js qu'une fois que le navigateur aura chargé le html dans le dom -->
+</head>
+<body>
     <div class="site-container">
         <header class="header">
             <div class="header-content">
@@ -93,6 +102,7 @@ $role_session = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'clie
                     </ol>
                 </nav>
             </div>
+            <button id="bouton" class="btn_theme"><?php echo $texteBouton; ?></button><!-- js -->
         </header>
 
         <main class="content">
