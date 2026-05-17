@@ -51,6 +51,12 @@ foreach ($tab as $ligne){
         $historique[] = $ligne;
     }
 }
+$css="";
+$texteBouton="Passer en mode malvoyant";
+if(isset($_COOKIE["theme"]) && $_COOKIE["theme"] == "true"){
+    $css="../css/theme.css";
+    $texteBouton="Passer en mode par défaut";
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -60,9 +66,11 @@ foreach ($tab as $ligne){
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" type="text/css" href="../css/livraison.css">
     <link rel="icon" type="image/png" href="../img/Logo_Tasty_Country.png">
+    <link id="css" rel="stylesheet" href=<?php echo $css; ?>><!-- js -->
     <title>Espace Livreur - Tasty Country</title>
     
     <script src="../js/livraison.js" defer></script>
+    <script src="../js/theme.js" defer></script><!-- js / defer pour n'exécuter le script js qu'une fois que le navigateur aura chargé le html dans le dom -->
 </head>
 <body>
     <div class="site-container">
@@ -80,6 +88,7 @@ foreach ($tab as $ligne){
                     </ol>
                 </nav>
             </div>
+            <button id="bouton" class="btn_theme"><?php echo $texteBouton; ?></button><!-- js -->
         </header>
 
         <main class="delivery-container">
