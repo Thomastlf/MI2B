@@ -2,6 +2,21 @@
 session_start();
 
 $utilisateurs = json_decode(file_get_contents("../json/utilisateur.json"), true);
+$email_existe = false;
+
+if ($_GET['email'] != "") {
+    foreach ($utilisateurs as $u) {
+        if (($u['email'] == $_GET['email']) && ($u['email'] != $_SESSION['email'])) {
+            $email_existe = true;
+        }
+    }
+}
+
+if ($email_existe) {
+    echo "utilise";
+    exit();/* pour arreter l'éxecution du fichier*/
+}
+
 
 foreach ($utilisateurs as $index => $ligne) {/*on prend l'index car sinon le tableau que l'on modifie n'est qu'une copie*/
     if ($ligne['email'] == $_SESSION['email']) {
