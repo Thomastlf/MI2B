@@ -2,6 +2,4 @@
     font-size: 1.5rem;/* augmente la police selon la taille par défaut du navigateur. */
     line-height: 1.8;
     font-weight: bolder;
-    background:black!important;/* important pour être sûr d'écraser les backgrounds existants*/
-    color: yellow !important;
 }
