@@ -48,6 +48,12 @@ session_start();
         $css="../css_sombre/connexion.css";
         $texteBouton="Passer en clair";
 }
+$css="";
+$texteBouton="Passer en mode malvoyant";
+if(isset($_COOKIE["theme"]) && $_COOKIE["theme"] == "true"){
+    $css="../css/theme.css";
+    $texteBouton="Passer en mode par défaut";
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -58,7 +64,8 @@ session_start();
     <link rel="stylesheet" href="../css/inscription.css">
     <link rel="icon" type="image/png" href="../img/Logo_Tasty_Country.png">
     <title>Inscription - Tasty Country</title>
-    <script src="../js/modeSombre.js" defer></script><!-- js / defer pour n'exécuter le script js qu'une fois que le navigateur aura chargé le html dans le dom -->
+    <link id="css" rel="stylesheet" href=<?php echo $css; ?>><!-- js -->
+    <script src="../js/theme.js" defer></script><!-- js / defer pour n'exécuter le script js qu'une fois que le navigateur aura chargé le html dans le dom -->
     <script src="../js/mdp.js" defer></script>
     <script src="../js/inscription.js" defer></script>
 </head>
@@ -78,7 +85,7 @@ session_start();
                     </ol>
                 </nav>
             </div>
-            <button id="bouton" class="btn_sombre"><?php echo $texteBouton; ?></button><!-- js -->
+            <button id="bouton" class="btn_theme"><?php echo $texteBouton; ?></button><!-- js -->
         </header>
 
         <main class="content">
