@@ -108,7 +108,7 @@ $role_session = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'clie
                 </div>
                 <div class="info-row">
                     <div class="label">E-mail :</div>
-                    <div class="value"><?php echo $email; ?></div>
+                    <div id="email" class="value"><?php echo $email; ?></div>
                 </div>
                 <div class="info-row">
                     <div class="label">Adresse :</div>
@@ -124,37 +124,61 @@ $role_session = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : 'clie
                 </div>
                 <div class="info-row">
                     <div class="label">Date de naissance :</div>
-                    <div class="value"><?php echo $date; ?></div>
+                    <div id="date" class="value"><?php echo $date; ?></div>
                 </div>
                 <div class="info-row">
                     <div class="label">Genre :</div>
-                    <div class="value"><?php echo $genre; ?></div>
+                    <div id="genre" class="value"><?php echo $genre; ?></div>
                 </div>
-                
     <button id="bouton" class="btn-edit" onclick="afficherFormulaire()">
         Modifier mes informations 🖍️
                         </button>
     <div id="formulaire" style="display:none;"><div><!-- on cache le formulaire si l'on ne veut pas modifier les infos -->
-            <div>Nom :</div>
-            <input type="text" id="nom2" value="<?php echo $nom; ?>">
-        </div>
-        <div>
-            <div>Prénom :</div>
-            <input type="text" id="prenom2" value="<?php echo $prenom; ?>">
-        </div>
-        <div>
-            <div>Adresse :</div>
-            <input type="text" id="adresse2" value="<?php echo $adresse; ?>">
-        </div>
-        <div>
-            <div>Code interphone :</div>
-            <input type="text" id="code2" value="<?php echo $code_interphone; ?>">
-        </div>
-        <div>
-            <div>Téléphone :</div>
-            <input type="text" id="numero2" value="<?php echo $numero; ?>">
-        </div>
+        <div class="input-group">
+                        <label>Nom</label>
+                        <input id="nom2" type="text" name="nom" maxlength="50" placeholder="Votre nom">
+                    </div>
 
+                    <div class="input-group">
+                        <label>Prénom</label>
+                        <input id="prenom2" type="text" name="prenom" maxlength="50" placeholder="Votre prénom">
+                    </div>
+
+                    <div class="input-group">
+                        <label>E-mail</label>
+                        <input id="email2"type="text" name="email" placeholder="votre@email.com">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Adresse</label>
+                        <input id="adresse2" type="text" name="adresse" placeholder="Votre adresse complète">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Code d'interphone (facultatif)</label>
+                        <input id="code2" type="text" name="code_interphone" placeholder="Votre code interphone">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Numéro de téléphone</label>
+                        <input id="numero2" type="text" name="numero" placeholder="06 12 34 56 78">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Date de naissance</label>
+                        <input id="date2" type="date" name="date">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Genre</label>
+                        <select id="genre2" name="genre">
+                            <option value="Homme">Homme</option>
+                            <option value="Femme">Femme</option>
+                            <option value="Je ne veux pas me positionner">Je ne veux pas me positionner</option>
+                        </select>
+                    </div>
+
+        <p id="erreur_js" style="color:red; text-align:center;"></p>
         <button class="btn-edit" onclick="validerModif()">Valider</button>
     </div>
             </fieldset>
