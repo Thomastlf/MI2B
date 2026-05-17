@@ -25,6 +25,12 @@ $quantites_actuelles = [];
 foreach ($ma_commande['articles'] as $art) {
     $quantites_actuelles[$art['nom']] = $art['quantite'];
 }
+$css="";
+$texteBouton="Passer en mode malvoyant";
+if(isset($_COOKIE["theme"]) && $_COOKIE["theme"] == "true"){
+    $css="../css/theme.css";
+    $texteBouton="Passer en mode par défaut";
+}
 ?>
 
 <!DOCTYPE html>
@@ -34,7 +40,9 @@ foreach ($ma_commande['articles'] as $art) {
     <title>Modifier la Commande - Tasty Country</title>
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/perso.css">
+    <link id="css" rel="stylesheet" href=<?php echo $css; ?>><!-- js -->
     <script src="../js/modifier_commande.js" defer></script>
+    <script src="../js/theme.js" defer></script><!-- js / defer pour n'exécuter le script js qu'une fois que le navigateur aura chargé le html dans le dom -->
 </head>
 <body>
     <div class="site-container">
