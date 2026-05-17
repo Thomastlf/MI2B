@@ -76,8 +76,7 @@ if(isset($_COOKIE["modeSombre"]) && $_COOKIE["modeSombre"] == "true"){
                     </ol>
                 </nav>
             </div>
-            <button id="bouton" class="btn-theme"><?php echo $texteBouton; ?></button><!-- js -->
-            <button id="bouton2" class="btn-theme">👁️</button><!-- js -->
+            <button id="bouton" class="btn_sombre"><?php echo $texteBouton; ?></button><!-- js -->
         </header>
 
         <main class="content">
@@ -93,6 +92,7 @@ if(isset($_COOKIE["modeSombre"]) && $_COOKIE["modeSombre"] == "true"){
                     <div class="input-group">
                         <label>Mot de passe</label>
                         <input id="mdp" type="password" name="motdepasse" placeholder="••••••••">
+                        <button type="button" id="bouton2" class="btn_oeil">👁️</button><!-- js on mets bien type="button" sinon il envoie le formulaire-->
                     </div>
                     <button type="submit" class="btn-login">Embarquement</button>
                 </form>
