@@ -15,15 +15,15 @@ async function validerModif() {
     //formulaire 
     const nom2=document.getElementById("nom2").value;
     const prenom2=document.getElementById("prenom2").value;
-    const email2=document.getElementById("email2").value;
+    //const email2=document.getElementById("email2").value;
     const adresse2=document.getElementById("adresse2").value;
     const code2=document.getElementById("code2").value;
     const numero2=document.getElementById("numero2").value;
     const date2=document.getElementById("date2").value;
     const genre2=document.getElementById("genre2").value;
 
-    let contient_arobase=false;
-    let contient_point=false;
+    /*let contient_arobase=false;
+    let contient_point=false;*/
     let contient_nombre_prenom=false;
     let contient_nombre_nom=false;
     let que_des_nombres=true;
@@ -46,14 +46,14 @@ async function validerModif() {
         }
     }
 
-    for(let i=0;i<email2.length;i++){
+    /*for(let i=0;i<email2.length;i++){
         if(email2[i]=="@"){
             contient_arobase=true;
         }
         if(email2[i]=="."){
             contient_point=true;
         }
-    }
+    }*/
     
     const erreur_js = document.getElementById("erreur_js");
     if(contient_nombre_nom){//nom
@@ -64,10 +64,10 @@ async function validerModif() {
         correct=false;
         erreur_js.innerHTML = "Format invalide : le prénom ne peut pas contenir de chiffres.";
     }
-    else if ((contient_arobase == false || contient_point == false)&&email2.length!=0) {//email
+    /*else if ((contient_arobase == false || contient_point == false)&&email2.length!=0) {//email
         correct=false;
         erreur_js.innerHTML = "Format invalide : l'email doit contenir un '@' et un '.'.";
-    }
+    }*/
     else if ((!que_des_nombres || numero2.length!=10)&&numero2.length!=0){//numéro de tel
         correct=false;
         erreur_js.innerHTML = "Format invalide : le numéro de téléphone doit contenir 10 chiffres.";
@@ -77,20 +77,20 @@ async function validerModif() {
         erreur_js.innerHTML = "La date de naissance ne peut pas être dans le futur.";
     }
     if (correct){
-        const params="nom="+nom2+"&prenom="+prenom2+"&email="+email2+"&adresse="+adresse2+"&code="+code2+"&numero="+numero2+"&date="+date2+"&genre="+genre2;//préparation des paramètres pour l'envoyer en get
+        const params="nom="+nom2+"&prenom="+prenom2+"&adresse="+adresse2+"&code="+code2+"&numero="+numero2+"&date="+date2+"&genre="+genre2;//préparation des paramètres pour l'envoyer en get
         try{
             const response=await fetch(serv + "php/maj_profil.php?" + params);
             if(response.ok){
-                if(await response.text()=="utilise"){
+                /*if(await response.text()=="utilise"){
                     erreur_js.innerHTML = "Cet email est déjà utilisé par un autre compte.";
                 }
-                else{
+                else{*/
                     erreur_js.innerHTML = "";
                     if(nom2){
                     document.getElementById("nom").innerHTML=nom2;
                     }
                     if(prenom2){document.getElementById("prenom").innerHTML=prenom2;}
-                    if(email2){document.getElementById("email").innerHTML=email2;}
+                    /*if(email2){document.getElementById("email").innerHTML=email2;}*/
                     if(adresse2){document.getElementById("adresse").innerHTML=adresse2;}
                     if(code2){document.getElementById("code").innerHTML=code2;}
                     if(numero2){document.getElementById("numero").innerHTML=numero2;}
@@ -99,7 +99,7 @@ async function validerModif() {
 
                     // Cacher le formulaire
                     document.getElementById("formulaire").style.display = "none";
-                }
+                //}
             }
             else{
                 console.error("La requête n'a pas abouti : " + response.status + " " + response.statusText);
