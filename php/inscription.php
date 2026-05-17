@@ -42,12 +42,6 @@ session_start();
             $erreur="Erreur : Un utilisateur avec cette adresse email existe déjà.";
         }
     }
-    $css="../css/connexion.css";/*js*/
-    $texteBouton="Passer en sombre";
-    if(isset($_COOKIE["modeSombre"]) && $_COOKIE["modeSombre"] == "true"){
-        $css="../css_sombre/connexion.css";
-        $texteBouton="Passer en clair";
-}
 $css="";
 $texteBouton="Passer en mode malvoyant";
 if(isset($_COOKIE["theme"]) && $_COOKIE["theme"] == "true"){
@@ -85,7 +79,7 @@ if(isset($_COOKIE["theme"]) && $_COOKIE["theme"] == "true"){
                     </ol>
                 </nav>
             </div>
-            <button id="bouton" class="btn_theme"><?php echo $texteBouton; ?></button><!-- js -->
+            <button type="button" id="bouton" class="btn_theme"><?php echo $texteBouton; ?></button><!-- js -->
         </header>
 
         <main class="content">
