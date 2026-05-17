@@ -74,6 +74,27 @@ html, body {
     box-shadow: 0 0 10px #FF1493;
 }
 
+.btn_sombre {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    background: rgba(0, 255, 255, 0.1);
+    color: white;
+    border: 1px solid #00FFFF;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.btn_sombre:hover {
+    background-color: #FF1493;
+    border-color: #FF1493;
+    box-shadow: 0 0 10px #FF1493;
+}
+
 .nav-active {
     background-color: #FF1493 !important;
     border-color: #FF1493 !important;
