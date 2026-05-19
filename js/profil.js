@@ -19,8 +19,6 @@ async function validerModif() {
     const adresse2=document.getElementById("adresse2").value;
     const code2=document.getElementById("code2").value;
     const numero2=document.getElementById("numero2").value;
-    const date2=document.getElementById("date2").value;
-    const genre2=document.getElementById("genre2").value;
 
     /*let contient_arobase=false;
     let contient_point=false;*/
@@ -72,12 +70,8 @@ async function validerModif() {
         correct=false;
         erreur_js.innerHTML = "Format invalide : le numéro de téléphone doit contenir 10 chiffres.";
     }
-    else if(new Date(date2)>new Date(Date.now())){//date
-        correct=false;
-        erreur_js.innerHTML = "La date de naissance ne peut pas être dans le futur.";
-    }
     if (correct){
-        const params="nom="+nom2+"&prenom="+prenom2+"&adresse="+adresse2+"&code="+code2+"&numero="+numero2+"&date="+date2+"&genre="+genre2;//préparation des paramètres pour l'envoyer en get
+        const params="nom="+nom2+"&prenom="+prenom2+"&adresse="+adresse2+"&code="+code2+"&numero="+numero2;//préparation des paramètres pour l'envoyer en get
         try{
             const response=await fetch(serv + "php/maj_profil.php?" + params);
             if(response.ok){
@@ -94,8 +88,6 @@ async function validerModif() {
                     if(adresse2){document.getElementById("adresse").innerHTML=adresse2;}
                     if(code2){document.getElementById("code").innerHTML=code2;}
                     if(numero2){document.getElementById("numero").innerHTML=numero2;}
-                    if(date2){document.getElementById("date").innerHTML=date2;}
-                    if(genre2){document.getElementById("genre").innerHTML=genre2;}
 
                     // Cacher le formulaire
                     document.getElementById("formulaire").style.display = "none";
