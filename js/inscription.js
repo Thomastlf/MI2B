@@ -4,7 +4,6 @@ const chamPrenom = document.getElementById("prenom");
 const champEmail = document.getElementById("email");
 const champAdresse = document.getElementById("adresse");
 const champNumero = document.getElementById("numero");
-const champDate = document.getElementById("date");
 const champMdp = document.getElementById("mdp");
 const erreur_js = document.getElementById("erreur_js");
 
@@ -14,7 +13,6 @@ envoyer.onsubmit = function (e) {//evenement qui se déclenche lorsque le formul
     let email=champEmail.value;
     let adresse=champAdresse.value;
     let numero=champNumero.value;
-    let date=champDate.value;
     let mdp=champMdp.value;
 
     let contient_arobase=false;
@@ -67,10 +65,6 @@ envoyer.onsubmit = function (e) {//evenement qui se déclenche lorsque le formul
     else if (!que_des_nombres || numero.length!=10){//numéro de tel
         e.preventDefault();
         erreur_js.innerHTML = "Format invalide : le numéro de téléphone doit contenir 10 chiffres.";
-    }
-    else if(new Date(date)>new Date(Date.now())){//date
-        e.preventDefault();
-        erreur_js.innerHTML = "La date de naissance ne peut pas être dans le futur.";
     }
     else if (mdp.length<8){//mdp
         e.preventDefault();
