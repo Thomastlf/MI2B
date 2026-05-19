@@ -3,23 +3,6 @@ session_start();
 
 $utilisateurs = json_decode(file_get_contents("../json/utilisateur.json"), true);
 
-/*si on voulait pouvoir modifier le mail
-$email_existe = false;
-
-if ($_GET['email'] != "") {
-    foreach ($utilisateurs as $u) {
-        if (($u['email'] == $_GET['email']) && ($u['email'] != $_SESSION['email'])) {
-            $email_existe = true;
-        }
-    }
-}
-
-if ($email_existe) {
-    echo "utilise";
-    exit(); pour arreter l'éxecution du fichier
-}*/
-
-
 foreach ($utilisateurs as $index => $ligne) {/*on prend l'index car sinon le tableau que l'on modifie n'est qu'une copie*/
     if ($ligne['email'] == $_SESSION['email']) {
         if ($_GET['nom']!="") {
@@ -27,11 +10,7 @@ foreach ($utilisateurs as $index => $ligne) {/*on prend l'index car sinon le tab
         }
         if ($_GET['prenom']!="") {
             $utilisateurs[$index]['prenom']=$_GET['prenom'];
-        }/*
-        if ($_GET['email']!="") {
-            $utilisateurs[$index]['email']=$_GET['email'];
-            $_SESSION['email'] = $_GET['email'];
-        }*/
+        }
         if ($_GET['adresse']!="") {
             $utilisateurs[$index]['adresse']=$_GET['adresse'];
         }
@@ -40,12 +19,6 @@ foreach ($utilisateurs as $index => $ligne) {/*on prend l'index car sinon le tab
         }
         if ($_GET['numero']!="") {
             $utilisateurs[$index]['numero']=$_GET['numero'];
-        }
-        if ($_GET['date']!="") {
-            $utilisateurs[$index]['date']=$_GET['date'];
-        }
-        if ($_GET['genre']!="") {
-            $utilisateurs[$index]['genre']=$_GET['genre'];
         }
     }
 }
