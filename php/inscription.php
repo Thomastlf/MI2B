@@ -10,8 +10,6 @@ session_start();
             "adresse" => $_POST['adresse'],
             "code_interphone" => $_POST['code_interphone'],
             "numero" => $_POST['numero'],
-            "date"  => $_POST['date'],
-            "genre"    => $_POST['genre'],
             "motdepasse"    => $_POST['motdepasse'],
             "role" => "client",
             "statut" => "actif",
@@ -117,20 +115,6 @@ if(isset($_COOKIE["theme"]) && $_COOKIE["theme"] == "true"){
                     <div class="input-group">
                         <label>Numéro de téléphone</label>
                         <input id="numero" type="text" name="numero" placeholder="06 12 34 56 78">
-                    </div>
-
-                    <div class="input-group">
-                        <label>Date de naissance</label>
-                        <input id="date" type="date" name="date">
-                    </div>
-
-                    <div class="input-group">
-                        <label>Genre</label>
-                        <select name="genre" required>
-                            <option value="Homme">Homme</option>
-                            <option value="Femme">Femme</option>
-                            <option value="Je ne veux pas me positionner">Je ne veux pas me positionner</option>
-                        </select>
                     </div>
 
                     <div class="input-group">
