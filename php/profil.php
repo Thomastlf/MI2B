@@ -24,8 +24,6 @@ $data = json_decode(file_get_contents("../json/utilisateur.json"), true);
                 $adresse = $ligne['adresse'];
                 $code_interphone = $ligne['code_interphone'];
                 $numero  = $ligne['numero'];
-                $date    = $ligne['date'];
-                $genre    = $ligne['genre'];
                 $motdepasse = $ligne['motdepasse'];
                 $role = $ligne['role'];
                 $profil_trouve = true;
@@ -132,14 +130,6 @@ if(isset($_COOKIE["theme"]) && $_COOKIE["theme"] == "true"){
                     <div class="label">Téléphone :</div>
                     <div id="numero" class="value"><?php echo $numero; ?></div>
                 </div>
-                <div class="info-row">
-                    <div class="label">Date de naissance :</div>
-                    <div id="date" class="value"><?php echo $date; ?></div>
-                </div>
-                <div class="info-row">
-                    <div class="label">Genre :</div>
-                    <div id="genre" class="value"><?php echo $genre; ?></div>
-                </div>
     <button type="button" id="bouton" class="btn-edit" onclick="afficherFormulaire()">
         Modifier mes informations 🖍️
                         </button>
@@ -171,18 +161,6 @@ if(isset($_COOKIE["theme"]) && $_COOKIE["theme"] == "true"){
                         <input id="numero2" type="text" name="numero" placeholder="06 12 34 56 78">
                     </div>
 
-                    <div class="input-group">
-                        <label>Date de naissance</label>
-                        <input id="date2" type="date" name="date">
-                    </div>
-
-                    <div class="input-group">
-                        <label>Genre</label>
-                        <select id="genre2" name="genre">
-                            <option value="Homme">Homme</option>
-                            <option value="Femme">Femme</option>
-                            <option value="Je ne veux pas me positionner">Je ne veux pas me positionner</option>
-                        </select>
                     </div>
 
         <p id="erreur_js" style="color:red; text-align:center;"></p>
