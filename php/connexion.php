@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         foreach ($data as $utilisateur) {
             if ($email_connexion == $utilisateur['email'] && $motdepasse_connexion == $utilisateur['motdepasse']) {
 
-                if (isset($utilisateur['statut']) && strtolower($utilisateur['statut']) === 'bloqué') {
+                if (isset($utilisateur['statut']) && strtolower($utilisateur['statut']) === 'Bloque') {
                     $error = "Votre compte est suspendu. Veuillez contacter l'administration.";
                     break; 
                 }
