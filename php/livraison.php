@@ -111,6 +111,19 @@ if(isset($_COOKIE["theme"]) && $_COOKIE["theme"] == "true"){
                         <div class="info-block">
                             <p><strong>Commande :</strong> #<?php echo $c['id']; ?></p>
                             <p><strong>Passager :</strong> <?php echo htmlspecialchars($c['client']); ?></p>
+                            
+                            <?php 
+                            #bloc de code permettant d'afficher le numéro de téléphone du client côté livreur
+                            $numero_client = "Non renseigné";
+                            foreach ($data as $utilisateur) {
+                                if ($utilisateur['email'] == $c['client']) {
+                                    $numero_client = $utilisateur['numero'];
+                                    break;
+                                }
+                            }
+                            ?>
+                            <p><strong>Téléphone :</strong> 📞 <?php echo htmlspecialchars($numero_client); ?></p>
+                            
                             <p><strong>Adresse :</strong> <?php echo htmlspecialchars($c['adresse']); ?></p>
                             <p><strong>Contenu :</strong><br>
                                 <?php foreach($c['articles'] as $art): ?>
