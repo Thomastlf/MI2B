@@ -10,7 +10,7 @@ session_start();
             "adresse" => $_POST['adresse'],
             "code_interphone" => $_POST['code_interphone'],
             "numero" => $_POST['numero'],
-            "motdepasse"    => $_POST['motdepasse'],
+            "motdepasse"    => password_hash($_POST['motdepasse'], PASSWORD_DEFAULT),
             "role" => "client",
             "statut" => "actif",
             "niveau" => "Classique",
