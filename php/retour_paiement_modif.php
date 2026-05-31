@@ -1,5 +1,15 @@
 <?php
 session_start();
+if (isset($_SESSION['email'])) {
+    $data = json_decode(file_get_contents("../json/utilisateur.json"), true);
+    foreach ($data as $ligne) {
+        if ($_SESSION['email'] == $ligne['email'] && $ligne['statut'] == 'Bloqué') {
+            session_destroy();
+            header("Location: accueil.php");
+            exit();
+        }
+    }
+}
 require('../php/getapikey.php');
 
 $transaction = $_GET['transaction'] ?? '';
