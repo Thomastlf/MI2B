@@ -5,7 +5,7 @@ async function bloquer(email, bouton) {
         const response = await fetch(serv + "php/maj_admin.php?" + "email="+email);
         if (response.ok) {
             const nouveauStatut = await response.text();
-            if (nouveauStatut == 'Bloqué') {
+            if (nouveauStatut == 'Bloque') {
                 bouton.innerHTML = '🚫';
             } else if (nouveauStatut == 'Actif') {
                 bouton.innerHTML = '✅';
