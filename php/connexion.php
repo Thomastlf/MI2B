@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data = json_decode(file_get_contents($json_path), true);
         
         foreach ($data as $utilisateur) {
-            if ($email_connexion == $utilisateur['email'] && $motdepasse_connexion == $utilisateur['motdepasse']) {
+            if ($email_connexion == $utilisateur['email'] && password_verify($motdepasse_connexion, $utilisateur['motdepasse'])) {
 
                 if (isset($utilisateur['statut']) && strtolower($utilisateur['statut']) === 'Bloque') {
                     $error = "Votre compte est suspendu. Veuillez contacter l'administration.";
