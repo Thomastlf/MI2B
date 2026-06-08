@@ -35,7 +35,7 @@ if (isset($_POST['action'])&& isset($_POST['id_commande'])) {
             }
         }
     }
-    file_put_contents($json_path, json_encode($toutes_commandes, JSON_PRETTY_PRINT));
+    file_put_contents($json_path, json_encode($toutes_commandes, JSON_PRETTY_PRINT)); //système de sauvegarde
     header("Location: livraison.php"); 
     exit();
 }
