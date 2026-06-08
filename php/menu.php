@@ -12,6 +12,7 @@ if (isset($_SESSION['email'])) {
 }
 $json_path = '../json/menu.json';
 
+//vérification et sécurité
 try {
     if (!file_exists($json_path)) {
         throw new Exception("Erreur système : Catalogue introuvable.");
