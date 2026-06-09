@@ -146,29 +146,29 @@ if(isset($_COOKIE["theme"]) && $_COOKIE["theme"] == "true"){
     <div id="formulaire" style="display:none;"><div><!-- on cache le formulaire si l'on ne veut pas modifier les infos -->
         <div class="input-group">
                         <label>Nom</label>
-                        <input id="nom2" type="text" name="nom" maxlength="50" placeholder="Votre nom">
+                        <input id="nom2" type="text" name="nom" maxlength="50" placeholder="Votre nom" value="<?php echo $nom;?>">
                     </div>
 
                     <div class="input-group">
                         <label>Prénom</label>
-                        <input id="prenom2" type="text" name="prenom" maxlength="50" placeholder="Votre prénom">
+                        <input id="prenom2" type="text" name="prenom" maxlength="50" placeholder="Votre prénom" value="<?php echo $prenom;?>">
                     </div>
 
                     
 
                     <div class="input-group">
                         <label>Adresse</label>
-                        <input id="adresse2" type="text" name="adresse" placeholder="Votre adresse complète">
+                        <input id="adresse2" type="text" name="adresse" placeholder="Votre adresse complète" value="<?php echo $adresse;?>">
                     </div>
                     
                     <div class="input-group">
                         <label>Code d'interphone (facultatif)</label>
-                        <input id="code2" type="text" name="code_interphone" placeholder="Votre code interphone">
+                        <input id="code2" type="text" name="code_interphone" placeholder="Votre code interphone" value="<?php echo $code_interphone;?>">
                     </div>
 
                     <div class="input-group">
                         <label>Numéro de téléphone</label>
-                        <input id="numero2" type="text" name="numero" placeholder="06 12 34 56 78">
+                        <input id="numero2" type="text" name="numero" placeholder="06 12 34 56 78"value="<?php echo $numero;?>">
                     </div>
 
                     </div>
