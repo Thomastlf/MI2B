@@ -2,7 +2,7 @@ const mdp = document.getElementById("mdp");
 const bouton2 = document.getElementById("bouton2");
 let cache = true;
 
-function changerStatut() {//fonction qui change le mode (clair/sombre)
+function changerStatut() {//fonction qui change le mode (affiché/caché)
     if (cache) {
         mdp.setAttribute("type", "text");
         cache=false;
