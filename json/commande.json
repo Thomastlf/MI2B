@@ -1,7 +1,7 @@
 [
     {
         "id": "69d14013dcf54",
-        "client": "bastien@gmail.com",
+        "client": "bastien.bernard@gmail.com",
         "date_heure": "2026-04-04T16:45",
         "articles": [
             {
@@ -17,9 +17,9 @@
                 "sous_total": 18
             }
         ],
-        "livreur": "celia@gmail.com",
-        "adresse": "b",
-        "code_interphone": "b",
+        "livreur": "celia.thomas@gmail.com",
+        "adresse": "45 Avenue de la République, 69003 Lyon",
+        "code_interphone": "",
         "statut": "livree",
         "total": 32.5,
         "avis": {
@@ -30,7 +30,7 @@
     },
     {
         "id": "69d14020d7f78",
-        "client": "bastien@gmail.com",
+        "client": "bastien.bernard@gmail.com",
         "date_heure": "2026-04-04T16:45",
         "articles": [
             {
@@ -53,14 +53,14 @@
             }
         ],
         "livreur": null,
-        "adresse": "b",
-        "code_interphone": "b",
+        "adresse": "45 Avenue de la République, 69003 Lyon",
+        "code_interphone": "",
         "statut": "sans_livreur",
         "total": 48.5
     },
     {
         "id": "69d14120d7f78",
-        "client": "bastien@gmail.com",
+        "client": "bastien.bernard@gmail.com",
         "date_heure": "2026-04-04T16:45",
         "articles": [
             {
@@ -82,15 +82,15 @@
                 "sous_total": 19
             }
         ],
-        "livreur": "celia@gmail.com",
-        "adresse": "b",
-        "code_interphone": "b",
+        "livreur": "celia.thomas@gmail.com",
+        "adresse": "45 Avenue de la République, 69003 Lyon",
+        "code_interphone": "",
         "statut": "livree",
         "total": 48.5
     },
     {
         "id": "69d14320d7f78",
-        "client": "bastien@gmail.com",
+        "client": "bastien.bernard@gmail.com",
         "date_heure": "2026-04-04T16:45",
         "articles": [
             {
@@ -112,9 +112,9 @@
                 "sous_total": 19
             }
         ],
-        "livreur": "celia@gmail.com",
-        "adresse": "b",
-        "code_interphone": "b",
+        "livreur": "celia.thomas@gmail.com",
+        "adresse": "45 Avenue de la République, 69003 Lyon",
+        "code_interphone": "",
         "statut": "livree",
         "total": 48.5
     }
