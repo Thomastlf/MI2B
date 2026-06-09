@@ -94,4 +94,37 @@ document.addEventListener("DOMContentLoaded", () => {
     triPrix.addEventListener("change", actualiserMenu);
 
     actualiserMenu();
+
+    // --- CODE BONUS : ESCALE SURPRISE AJOUTÉ ICI ---
+    const btnSurprise = document.getElementById("btn-escale-surprise");
+    if (btnSurprise) {
+        btnSurprise.addEventListener("click", () => {
+            let urlApi = "api_menu.php" + window.location.search;
+            
+            window.fetch(new Request(urlApi))
+            .then((response) => {
+                if (response) return response.json();
+            })
+            .then((data) => {
+                if (data && data.length > 0) {
+                    const randomIndex = Math.floor(Math.random() * data.length);
+                    const platAleatoire = data[randomIndex];
+                    const inputQte = document.querySelector(`input[name="qte[${platAleatoire.nom}]"]`);
+
+                    if (inputQte) {
+                        inputQte.value = 1;
+                        alert(`✈️ Destination sélectionnée : ${platAleatoire.pays} ! \nLe plat "${platAleatoire.nom}" a été ajouté à votre panier. 💳`);
+                        inputQte.closest("form").submit();
+                    } else {
+                        alert("Erreur : Impossible d'ajouter ce plat automatiquement.");
+                    }
+                } else {
+                    alert("Aucun plat disponible pour le moment !");
+                }
+            })
+            .catch((error) => {
+                console.error("Erreur Escale Surprise :", error);
+            });
+        });
+    }
 });
