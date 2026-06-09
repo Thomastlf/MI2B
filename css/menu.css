@@ -246,3 +246,10 @@ select {
 #late:checked ~ .date-picker {
     display: block;
 }
+
+/* STYLE BONUS DE SURVOL POUR LE BOUTON SURPRISE */
+#btn-escale-surprise:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px #FF1493, 0 0 10px #00FFFF;
+    filter: brightness(1.2);
+}
