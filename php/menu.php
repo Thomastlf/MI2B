@@ -40,12 +40,10 @@ if(isset($_COOKIE["theme"]) && $_COOKIE["theme"] == "true"){
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/menu.css">
     <link rel="icon" type="image/png" href="../img/Logo_Tasty_Country.png">
-    <link id="css" rel="stylesheet" href=<?php echo $css; ?>><!-- js -->
-    <title>Menu - Tasty Country</title>
+    <link id="css" rel="stylesheet" href=<?php echo $css; ?>><title>Menu - Tasty Country</title>
     
     <script src="../js/menu.js" defer></script>
-    <script src="../js/theme.js" defer></script><!-- js / defer pour n'exécuter le script js qu'une fois que le navigateur aura chargé le html dans le dom -->
-</head>
+    <script src="../js/theme.js" defer></script></head>
 <body id="top">
     <div class="site-container">
         <header class="header">
@@ -76,8 +74,7 @@ if(isset($_COOKIE["theme"]) && $_COOKIE["theme"] == "true"){
                     </ol>
                 </nav>
             </div>
-            <button type="button" id="bouton" class="btn_theme"><?php echo $texteBouton; ?></button><!-- js -->
-        </header>
+            <button type="button" id="bouton" class="btn_theme"><?php echo $texteBouton; ?></button></header>
 
         <main class="menu-container">
             <h2 class="section-title">Nos Destinations Culinaires</h2>
@@ -127,6 +124,12 @@ if(isset($_COOKIE["theme"]) && $_COOKIE["theme"] == "true"){
             <form action="panier.php" method="POST">
                 
                 <div id="promo-banner-container"></div>
+                
+                <div style="text-align: center; margin: 20px 0;">
+                    <button type="button" id="btn-escale-surprise" style="padding: 12px 25px; background: linear-gradient(135deg, #FF1493 0%, #C71585 100%); color: white; border: 2px solid #00FFFF; border-radius: 25px; font-weight: bold; cursor: pointer; font-size: 1.1rem; box-shadow: 0 0 15px rgba(0, 255, 255, 0.4); transition: 0.3s;">
+                        🎲 Tenter l'Escale Surprise ! ✈️
+                    </button>
+                </div>
 
                 <section class="product-grid" id="product-grid"></section>
 
