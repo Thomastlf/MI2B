@@ -141,7 +141,7 @@ if(isset($_COOKIE["theme"]) && $_COOKIE["theme"] == "true"){
                             <p><strong>Passager :</strong> <?php echo $cmd['client']; ?></p>
                             <p>
                                 <?php foreach ($cmd['articles'] as $article): ?>
-                                    • <?php echo $article['quantite']; ?>x <?php echo $article['nom']; ?><br>
+                                <?php echo $article['quantite']; ?>x <?php echo $article['nom']; ?><br>
                                 <?php endforeach; ?>
                             </p>
                             <form method="POST" action="commande.php" style="flex:1;">
